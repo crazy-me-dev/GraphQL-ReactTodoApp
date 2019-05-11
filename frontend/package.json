@@ -1,0 +1,51 @@
+{
+  "name": "next-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "test": "NODE_ENV=test jest --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/core": "^10.0.10",
+    "@emotion/styled": "^10.0.10",
+    "@types/node": "^11.13.7",
+    "@zeit/next-typescript": "^1.1.1",
+    "apollo-boost": "^0.3.1",
+    "cross-fetch": "^3.0.2",
+    "dotenv": "^7.0.0",
+    "emotion": "^10.0.9",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "graphql": "^14.2.1",
+    "graphql-tag": "^2.10.1",
+    "jest": "^24.7.1",
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.5",
+    "react-dom": "^16.8.6",
+    "react-google-login": "^5.0.4"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/.next/",
+      "<rootDir>/node_modules/"
+    ],
+    "transform": {
+      "\\.(gql|graphql)$": "jest-transform-graphql",
+      ".*": "babel-jest"
+    }
+  },
+  "devDependencies": {
+    "jest-transform-graphql": "^2.1.0",
+    "waait": "^1.0.4"
+  }
+}
