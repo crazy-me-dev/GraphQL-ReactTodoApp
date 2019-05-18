@@ -1,19 +1,7 @@
-import { gql } from "apollo-boost";
 import seedDatabase from "../test-utils/seedDatabase";
 import db from "../utils/db";
-import getClient from "../test-utils/getClient";
 
 import { Mutation, Query } from "../users/users.resolvers";
-
-const client = getClient(null);
-
-const loginWithGoogle = gql`
-  mutation($id_token: String!) {
-    loginWithGoogle(id_token: $id_token) {
-      name
-    }
-  }
-`;
 
 describe("User", () => {
   beforeEach(seedDatabase);

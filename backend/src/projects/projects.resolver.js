@@ -1,5 +1,3 @@
-const db = require("../utils/db");
-
 const Mutation = {
   createProject: async (parent, args, ctx, info) => {
     const name = args.name;
@@ -19,8 +17,8 @@ const Mutation = {
 
     const [project] = await ctx.db.projects({
       where: {
-        id: args.id,
-        user: { id: ctx.request.userId }
+        id,
+        user: { id: userId }
       }
     });
 

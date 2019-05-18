@@ -1,7 +1,7 @@
 type User {
   id: ID! @unique
   name: String!
-  email: String @unique
+  email: String! @unique
   projects: [Project!]! @relation(name: "UserOnProject", onDelete: CASCADE )
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -10,7 +10,7 @@ type User {
 type Project {
   id: ID! @unique
   name: String!
-  user: [User!]! @relation(name: "UserOnProject", onDelete: SET_NULL)
+  user: User! @relation(name: "UserOnProject", onDelete: SET_NULL)
   tasks: [Task!]! @relation(name: "ProjectOnTask", onDelete: CASCADE)
   updatedAt: DateTime!
   createdAt: DateTime!

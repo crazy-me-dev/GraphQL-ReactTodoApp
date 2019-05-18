@@ -19,6 +19,8 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
 scalar Long
 
 type Mutation {
@@ -62,8 +64,10 @@ type PageInfo {
 type Project {
   id: ID!
   name: String!
-  user(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  user: User!
   tasks(where: TaskWhereInput, orderBy: TaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Task!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 type ProjectConnection {
@@ -74,7 +78,7 @@ type ProjectConnection {
 
 input ProjectCreateInput {
   name: String!
-  user: UserCreateManyWithoutProjectsInput
+  user: UserCreateOneWithoutProjectsInput!
   tasks: TaskCreateManyWithoutProjectInput
 }
 
@@ -90,7 +94,7 @@ input ProjectCreateOneWithoutTasksInput {
 
 input ProjectCreateWithoutTasksInput {
   name: String!
-  user: UserCreateManyWithoutProjectsInput
+  user: UserCreateOneWithoutProjectsInput!
 }
 
 input ProjectCreateWithoutUserInput {
@@ -108,11 +112,17 @@ enum ProjectOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type ProjectPreviousValues {
   id: ID!
   name: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 input ProjectScalarWhereInput {
@@ -144,6 +154,22 @@ input ProjectScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [ProjectScalarWhereInput!]
   OR: [ProjectScalarWhereInput!]
   NOT: [ProjectScalarWhereInput!]
@@ -169,7 +195,7 @@ input ProjectSubscriptionWhereInput {
 
 input ProjectUpdateInput {
   name: String
-  user: UserUpdateManyWithoutProjectsInput
+  user: UserUpdateOneRequiredWithoutProjectsInput
   tasks: TaskUpdateManyWithoutProjectInput
 }
 
@@ -207,7 +233,7 @@ input ProjectUpdateOneRequiredWithoutTasksInput {
 
 input ProjectUpdateWithoutTasksDataInput {
   name: String
-  user: UserUpdateManyWithoutProjectsInput
+  user: UserUpdateOneRequiredWithoutProjectsInput
 }
 
 input ProjectUpdateWithoutUserDataInput {
@@ -260,12 +286,26 @@ input ProjectWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  user_every: UserWhereInput
-  user_some: UserWhereInput
-  user_none: UserWhereInput
+  user: UserWhereInput
   tasks_every: TaskWhereInput
   tasks_some: TaskWhereInput
   tasks_none: TaskWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [ProjectWhereInput!]
   OR: [ProjectWhereInput!]
   NOT: [ProjectWhereInput!]
@@ -299,6 +339,8 @@ type Task {
   project: Project!
   done: Boolean!
   description: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 type TaskConnection {
@@ -335,12 +377,18 @@ enum TaskOrderByInput {
   done_DESC
   description_ASC
   description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type TaskPreviousValues {
   id: ID!
   done: Boolean!
   description: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 input TaskScalarWhereInput {
@@ -374,6 +422,22 @@ input TaskScalarWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [TaskScalarWhereInput!]
   OR: [TaskScalarWhereInput!]
   NOT: [TaskScalarWhereInput!]
@@ -478,6 +542,22 @@ input TaskWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [TaskWhereInput!]
   OR: [TaskWhereInput!]
   NOT: [TaskWhereInput!]
@@ -490,8 +570,10 @@ input TaskWhereUniqueInput {
 type User {
   id: ID!
   name: String!
-  email: String
+  email: String!
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 type UserConnection {
@@ -502,18 +584,18 @@ type UserConnection {
 
 input UserCreateInput {
   name: String!
-  email: String
+  email: String!
   projects: ProjectCreateManyWithoutUserInput
 }
 
-input UserCreateManyWithoutProjectsInput {
-  create: [UserCreateWithoutProjectsInput!]
-  connect: [UserWhereUniqueInput!]
+input UserCreateOneWithoutProjectsInput {
+  create: UserCreateWithoutProjectsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateWithoutProjectsInput {
   name: String!
-  email: String
+  email: String!
 }
 
 type UserEdge {
@@ -528,60 +610,18 @@ enum UserOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
-  email: String
-}
-
-input UserScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
-  AND: [UserScalarWhereInput!]
-  OR: [UserScalarWhereInput!]
-  NOT: [UserScalarWhereInput!]
+  email: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -608,31 +648,16 @@ input UserUpdateInput {
   projects: ProjectUpdateManyWithoutUserInput
 }
 
-input UserUpdateManyDataInput {
-  name: String
-  email: String
-}
-
 input UserUpdateManyMutationInput {
   name: String
   email: String
 }
 
-input UserUpdateManyWithoutProjectsInput {
-  create: [UserCreateWithoutProjectsInput!]
-  delete: [UserWhereUniqueInput!]
-  connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
-  disconnect: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutProjectsInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutProjectsInput!]
-  deleteMany: [UserScalarWhereInput!]
-  updateMany: [UserUpdateManyWithWhereNestedInput!]
-}
-
-input UserUpdateManyWithWhereNestedInput {
-  where: UserScalarWhereInput!
-  data: UserUpdateManyDataInput!
+input UserUpdateOneRequiredWithoutProjectsInput {
+  create: UserCreateWithoutProjectsInput
+  update: UserUpdateWithoutProjectsDataInput
+  upsert: UserUpsertWithoutProjectsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateWithoutProjectsDataInput {
@@ -640,13 +665,7 @@ input UserUpdateWithoutProjectsDataInput {
   email: String
 }
 
-input UserUpdateWithWhereUniqueWithoutProjectsInput {
-  where: UserWhereUniqueInput!
-  data: UserUpdateWithoutProjectsDataInput!
-}
-
-input UserUpsertWithWhereUniqueWithoutProjectsInput {
-  where: UserWhereUniqueInput!
+input UserUpsertWithoutProjectsInput {
   update: UserUpdateWithoutProjectsDataInput!
   create: UserCreateWithoutProjectsInput!
 }
@@ -697,6 +716,22 @@ input UserWhereInput {
   projects_every: ProjectWhereInput
   projects_some: ProjectWhereInput
   projects_none: ProjectWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

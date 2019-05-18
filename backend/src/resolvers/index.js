@@ -3,5 +3,7 @@ const userMutation = require("../users/users.resolvers.js").Mutation;
 
 const projectMutation = require("../projects/projects.resolver.js").Mutation;
 
-exports.Query = { ...userQuery };
-exports.Mutation = { ...userMutation, ...projectMutation };
+const taskMutation = require("../tasks/tasks.resolver").Mutation;
+
+exports.Query = {};
+exports.Mutation = {};

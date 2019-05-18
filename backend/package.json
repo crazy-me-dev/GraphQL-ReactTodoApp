@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test jest --watch",
+    "test": "NODE_ENV=test jest --watch --runInBand",
     "test:coverage": "NODE_ENV=test jest --coverage",
-    "test:deploy": "prisma deploy --env-file .env.test",
+    "test:deploy": "prisma deploy --env-file .env.test --force",
     "test:start": "nodemon --watch '**/*.js' --exec 'node' index.js",
     "start": "nodemon -e js,graphql src/index.js",
     "prisma:deploy": "prisma deploy --env-file .env",
-    "prisma:generate": "prisma generate --env-file .env"
+    "prisma:generate": "prisma generate --env-file .env",
+    "prisma:token": "prisma token --env-file .env"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +30,7 @@
     "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^1.18.11",
+    "prisma-binding": "^2.3.10",
     "prisma-client-lib": "^1.30.4"
   },
   "devDependencies": {

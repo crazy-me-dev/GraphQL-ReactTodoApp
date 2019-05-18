@@ -12,7 +12,7 @@ const resolvers = {
 const createServer = () => {
   return new GraphQLServer({
     typeDefs: "./src/schema.graphql",
-    resolvers,
+    resolvers: {},
     resolverValidationOptions: {
       requireResolversForResolveType: false
     },

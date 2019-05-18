@@ -1,4 +1,3 @@
-// const db = require("../utils/db");
 import db from "../utils/db";
 
 export const userOne = {
@@ -21,7 +20,7 @@ export const userTwo = {
 
 export const projectOne = {
   input: {
-    name: "Project 1"
+    name: "Inbox"
   },
   project: undefined
 };
@@ -33,8 +32,8 @@ const seedDatabase = async () => {
   await db.deleteManyUsers();
 
   // Add users
-  userOne.user = await db.createUser(userOne.input);
-  userTwo.user = await db.createUser(userTwo.input);
+  userOne.user = await db.createUser({ ...userOne.input });
+  userTwo.user = await db.createUser({ ...userTwo.input });
 
   // Add projects
   projectOne.project = await db.createProject({
@@ -44,7 +43,3 @@ const seedDatabase = async () => {
 };
 
 export default seedDatabase;
-// module.exports = seedDatabase;
-// exports.userOne = userOne;
-// exports.userTwo = userTwo;
-// exports.projectOne = projectOne;

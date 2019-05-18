@@ -26,7 +26,7 @@ describe("Project", () => {
     );
   });
 
-  it("should give error when creating project without a name", async () => {
+  it("should give an error when creating a project without a name", async () => {
     const args = { name: "" };
     const ctx = { db, request: {} };
 
@@ -57,7 +57,7 @@ describe("Project", () => {
     };
     const ctx = { db, request: { userId: userTwo.user.id } };
 
-    expect(Mutation.updateProject(null, args, ctx, null)).rejects.toEqual(
+    await expect(Mutation.updateProject(null, args, ctx, null)).rejects.toEqual(
       new Error("Project not found.")
     );
   });
