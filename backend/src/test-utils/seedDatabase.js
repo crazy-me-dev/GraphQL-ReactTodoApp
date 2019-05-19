@@ -1,4 +1,5 @@
 import db from "../utils/db";
+import jwt from "jsonwebtoken";
 
 export const userOne = {
   input: {
@@ -33,7 +34,10 @@ const seedDatabase = async () => {
 
   // Add users
   userOne.user = await db.createUser({ ...userOne.input });
+  userOne.jwt = jwt.sign({ userId: userOne.user.id }, process.env.APP_SECRET);
+
   userTwo.user = await db.createUser({ ...userTwo.input });
+  userTwo.jwt = jwt.sign({ userId: userTwo.user.id }, process.env.APP_SECRET);
 
   // Add projects
   projectOne.project = await db.createProject({

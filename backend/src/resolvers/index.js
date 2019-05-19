@@ -5,5 +5,5 @@ const projectMutation = require("../projects/projects.resolver.js").Mutation;
 
 const taskMutation = require("../tasks/tasks.resolver").Mutation;
 
-exports.Query = {};
-exports.Mutation = {};
+exports.Query = { ...userQuery };
+exports.Mutation = { ...taskMutation, ...projectMutation, ...userMutation };

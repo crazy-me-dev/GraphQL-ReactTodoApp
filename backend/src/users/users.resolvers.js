@@ -4,7 +4,7 @@ const verifyGoogleToken = require("../utils/verifyGoogle");
 const Query = {
   async me(parent, args, ctx, info) {
     const { userId } = ctx.request;
-    if (!userId) throw new Error("User ID not provided.");
+    if (!userId) throw new Error("You are not logged in.");
     const [user] = await ctx.db.users({ where: { id: userId } });
     return user;
   }
@@ -25,7 +25,7 @@ const Mutation = {
         email: googleUser.email
       });
 
-      // Create first project automatically for user
+      // Create the first project automatically for a new user
       await ctx.db.createProject({
         name: "Inbox",
         user: { connect: { id: user.id } }
