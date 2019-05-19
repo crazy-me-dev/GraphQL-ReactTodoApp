@@ -26,6 +26,29 @@ export const projectOne = {
   project: undefined
 };
 
+export const projectTwo = {
+  input: {
+    name: "Inbox"
+  },
+  project: undefined
+};
+
+export const taskOne = {
+  input: {
+    description: "Buy a car",
+    done: false
+  },
+  task: undefined
+};
+
+export const taskTwo = {
+  input: {
+    description: "Buy a house",
+    done: false
+  },
+  task: undefined
+};
+
 const seedDatabase = async () => {
   // Delete the old data
   await db.deleteManyTasks();
@@ -43,6 +66,20 @@ const seedDatabase = async () => {
   projectOne.project = await db.createProject({
     ...projectOne.input,
     user: { connect: { id: userOne.user.id } }
+  });
+  projectTwo.project = await db.createProject({
+    ...projectTwo.input,
+    user: { connect: { id: userTwo.user.id } }
+  });
+
+  // Add tasks
+  taskOne.task = await db.createTask({
+    ...taskOne.input,
+    project: { connect: { id: projectOne.project.id } }
+  });
+  taskTwo.task = await db.createTask({
+    ...taskTwo.input,
+    project: { connect: { id: projectTwo.project.id } }
   });
 };
 

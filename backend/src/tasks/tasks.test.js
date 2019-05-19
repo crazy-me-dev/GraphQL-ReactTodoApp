@@ -2,7 +2,13 @@ import { gql } from "apollo-boost";
 
 import db from "../utils/db";
 import getClient from "../test-utils/getClient";
-import seedDatabase, { userOne } from "../test-utils/seedDatabase";
+import seedDatabase, {
+  userOne,
+  userTwo,
+  projectOne,
+  projectTwo,
+  taskOne
+} from "../test-utils/seedDatabase";
 import {
   startTestServer,
   closeTestServer
@@ -14,6 +20,24 @@ const createTask = gql`
       id
       description
       done
+    }
+  }
+`;
+
+const updateTaskMutation = gql`
+  mutation($id: ID!, $data: TaskUpdateInput!) {
+    updateTask(id: $id, data: $data) {
+      id
+      description
+    }
+  }
+`;
+
+const deleteTaskMutation = gql`
+  mutation($id: ID!) {
+    deleteTask(id: $id) {
+      id
+      description
     }
   }
 `;
@@ -73,5 +97,83 @@ describe("Task", () => {
 
     expect(dbTask.description).toBe("Clean the house");
     expect(dbTask.id).toBe(task.id);
+  });
+
+  it("should update user's own task", async () => {
+    const client = getClient(userOne.jwt);
+    const variables = {
+      id: taskOne.task.id,
+      data: { description: "Changed description" }
+    };
+
+    await client.mutate({ mutation: updateTaskMutation, variables });
+
+    const [task] = await db.tasks({ where: { id: taskOne.task.id } });
+
+    expect(task.description).toBe("Changed description");
+  });
+
+  it("should not update other user's task", async () => {
+    const client = getClient(userTwo.jwt);
+    const variables = {
+      id: taskOne.task.id,
+      data: { description: "Changed description" }
+    };
+
+    await expect(
+      client.mutate({ mutation: updateTaskMutation, variables })
+    ).rejects.toEqual(new Error("GraphQL error: Task not found"));
+
+    const [task] = await db.tasks({ where: { id: taskOne.task.id } });
+
+    expect(task.description).toBe(taskOne.task.description);
+  });
+
+  it("should not be able to move task to other user's project", async () => {
+    const client = getClient(userOne.jwt);
+    const variables = {
+      id: taskOne.task.id,
+      data: {
+        project: {
+          connect: {
+            id: projectTwo.project.id
+          }
+        }
+      }
+    };
+
+    await expect(
+      client.mutate({ mutation: updateTaskMutation, variables })
+    ).rejects.toEqual(
+      new Error("GraphQL error: Cannot move task to project you don't own")
+    );
+
+    const [taskThatShouldNotExists] = await db.tasks({
+      where: { id: taskOne.task.id, project: { id: projectTwo.project.id } }
+    });
+
+    expect(taskThatShouldNotExists).toBe(undefined);
+  });
+
+  it("should delete user's own task", async () => {
+    const client = getClient(userOne.jwt);
+    const variables = { id: taskOne.task.id };
+
+    await client.mutate({ mutation: deleteTaskMutation, variables });
+
+    const [task] = await db.tasks({ where: { id: taskOne.task.id } });
+    expect(task).toBe(undefined);
+  });
+
+  it("should not delete other user's task", async () => {
+    const client = getClient(userTwo.jwt);
+    const variables = { id: taskOne.task.id };
+
+    await expect(
+      client.mutate({ mutation: deleteTaskMutation, variables })
+    ).rejects.toEqual(new Error("GraphQL error: Task not found"));
+
+    const [task] = await db.tasks({ where: { id: taskOne.task.id } });
+    expect(task).toEqual(taskOne.task);
   });
 });
