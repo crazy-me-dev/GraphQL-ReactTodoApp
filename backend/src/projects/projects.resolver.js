@@ -21,8 +21,10 @@ const Mutation = {
         user: { id: userId }
       }
     });
-
     if (!project) throw new Error("Project not found.");
+
+    if (args.data.user && args.data.user.connect.id !== userId)
+      throw new Error("Cannot move the project to other user");
 
     const updatedProject = await ctx.db.updateProject({
       data,

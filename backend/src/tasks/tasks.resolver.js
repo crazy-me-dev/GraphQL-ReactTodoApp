@@ -22,7 +22,7 @@ const Mutation = {
       args.data.project &&
       args.data.project.connect.id !== ctx.request.userId
     )
-      throw new Error("Cannot move task to project you don't own");
+      throw new Error("Cannot move the task to a project you don't own");
     const [task] = await ctx.db.tasks({
       where: {
         id: args.id,

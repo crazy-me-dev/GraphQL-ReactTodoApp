@@ -145,7 +145,9 @@ describe("Task", () => {
     await expect(
       client.mutate({ mutation: updateTaskMutation, variables })
     ).rejects.toEqual(
-      new Error("GraphQL error: Cannot move task to project you don't own")
+      new Error(
+        "GraphQL error: Cannot move the task to a project you don't own"
+      )
     );
 
     const [taskThatShouldNotExists] = await db.tasks({

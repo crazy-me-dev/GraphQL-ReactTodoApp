@@ -115,6 +115,30 @@ describe("Project", () => {
     ).rejects.toEqual(new Error("GraphQL error: Project not found."));
   });
 
+  it("should give an error, if trying to change project's users", async () => {
+    const client = getClient(userOne.jwt);
+    const variables = {
+      id: projectOne.project.id,
+      data: {
+        name: "Other's Updated Project Name",
+        user: {
+          connect: {
+            id: userTwo.user.id
+          }
+        }
+      }
+    };
+
+    await expect(
+      client.mutate({
+        mutation: updateProjectMutation,
+        variables
+      })
+    ).rejects.toEqual(
+      new Error("GraphQL error: Cannot move the project to other user")
+    );
+  });
+
   it("should delete user's own project", async () => {
     const userProjectBefore = await db.projects({
       where: { user: { id: userOne.user.id } }
