@@ -1,4 +1,7 @@
 import ApolloBoost from "apollo-boost";
+import fetch from "node-fetch";
+
+global.fetch = fetch;
 
 const getClient = jwt => {
   return new ApolloBoost({

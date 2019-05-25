@@ -51,36 +51,48 @@ export const taskTwo = {
 
 const seedDatabase = async () => {
   // Delete the old data
-  await db.deleteManyTasks();
-  await db.deleteManyProjects();
-  await db.deleteManyUsers();
+  await db("task").delete();
+  await db("project").delete();
+  await db("user").delete();
 
   // Add users
-  userOne.user = await db.createUser({ ...userOne.input });
+  [userOne.user] = await db("user")
+    .returning("*")
+    .insert({ ...userOne.input });
   userOne.jwt = jwt.sign({ userId: userOne.user.id }, process.env.APP_SECRET);
 
-  userTwo.user = await db.createUser({ ...userTwo.input });
+  [userTwo.user] = await db("user")
+    .returning("*")
+    .insert({ ...userTwo.input });
   userTwo.jwt = jwt.sign({ userId: userTwo.user.id }, process.env.APP_SECRET);
 
   // Add projects
-  projectOne.project = await db.createProject({
-    ...projectOne.input,
-    user: { connect: { id: userOne.user.id } }
-  });
-  projectTwo.project = await db.createProject({
-    ...projectTwo.input,
-    user: { connect: { id: userTwo.user.id } }
-  });
+  [projectOne.project] = await db("project")
+    .returning("*")
+    .insert({
+      ...projectOne.input,
+      user_id: userOne.user.id
+    });
+  [projectTwo.project] = await db("project")
+    .returning("*")
+    .insert({
+      ...projectTwo.input,
+      user_id: userTwo.user.id
+    });
 
   // Add tasks
-  taskOne.task = await db.createTask({
-    ...taskOne.input,
-    project: { connect: { id: projectOne.project.id } }
-  });
-  taskTwo.task = await db.createTask({
-    ...taskTwo.input,
-    project: { connect: { id: projectTwo.project.id } }
-  });
+  [taskOne.task] = await db("task")
+    .returning("*")
+    .insert({
+      ...taskOne.input,
+      project_id: projectOne.project.id
+    });
+  [taskTwo.task] = await db("task")
+    .returning("*")
+    .insert({
+      ...taskTwo.input,
+      project_id: projectTwo.project.id
+    });
 };
 
 export default seedDatabase;

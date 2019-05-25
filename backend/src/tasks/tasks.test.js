@@ -50,7 +50,7 @@ describe("Task", () => {
   afterAll(closeTestServer);
 
   it("should create a task for logged in user", async () => {
-    const [user] = await db.users({ where: { name: "John Doe" } });
+    await db("user").where({ name: "John Doe" });
 
     const client = getClient(userOne.jwt);
     const variables = { data: { description: "Buy milk", done: false } };
@@ -61,7 +61,9 @@ describe("Task", () => {
       variables
     });
 
-    const [dbTask] = await db.tasks({ where: { id: task.id } });
+    const dbTask = await db("task")
+      .where({ id: task.id })
+      .first();
     expect(dbTask.description).toBe("Buy milk");
     expect(dbTask.done).toBe(false);
   });
@@ -74,11 +76,12 @@ describe("Task", () => {
   });
 
   it("should go to inbox project, if project not set", async () => {
-    const [user] = await db.users({ where: { name: "John Doe" } });
-
-    const inbox = await db.projects({
-      where: { name: "Inbox", user: { id: user.id } }
-    });
+    const user = await db("user")
+      .where({ name: "John Doe" })
+      .first();
+    const inbox = await db("project")
+      .where({ name: "Inbox", user_id: user.id })
+      .first();
 
     const client = getClient(userOne.jwt);
     const variables = {
@@ -91,12 +94,11 @@ describe("Task", () => {
       variables
     });
 
-    const [dbTask] = await db.tasks({
-      where: { id: task.id, project: { id: inbox.id } }
-    });
-
+    const dbTask = await db("task")
+      .where({ id: task.id, project_id: inbox.id })
+      .first();
     expect(dbTask.description).toBe("Clean the house");
-    expect(dbTask.id).toBe(task.id);
+    expect(dbTask.id).toBe(parseInt(task.id));
   });
 
   it("should update user's own task", async () => {
@@ -108,7 +110,7 @@ describe("Task", () => {
 
     await client.mutate({ mutation: updateTaskMutation, variables });
 
-    const [task] = await db.tasks({ where: { id: taskOne.task.id } });
+    const [task] = await db("task").where({ id: taskOne.task.id });
 
     expect(task.description).toBe("Changed description");
   });
@@ -124,7 +126,9 @@ describe("Task", () => {
       client.mutate({ mutation: updateTaskMutation, variables })
     ).rejects.toEqual(new Error("GraphQL error: Task not found"));
 
-    const [task] = await db.tasks({ where: { id: taskOne.task.id } });
+    const task = await db("task")
+      .where({ id: taskOne.task.id })
+      .first();
 
     expect(task.description).toBe(taskOne.task.description);
   });
@@ -150,8 +154,9 @@ describe("Task", () => {
       )
     );
 
-    const [taskThatShouldNotExists] = await db.tasks({
-      where: { id: taskOne.task.id, project: { id: projectTwo.project.id } }
+    const [taskThatShouldNotExists] = await db("task").where({
+      id: taskOne.task.id,
+      project_id: projectTwo.project.id
     });
 
     expect(taskThatShouldNotExists).toBe(undefined);
@@ -163,7 +168,9 @@ describe("Task", () => {
 
     await client.mutate({ mutation: deleteTaskMutation, variables });
 
-    const [task] = await db.tasks({ where: { id: taskOne.task.id } });
+    const task = await db("task")
+      .where({ id: taskOne.task.id })
+      .first();
     expect(task).toBe(undefined);
   });
 
@@ -175,7 +182,7 @@ describe("Task", () => {
       client.mutate({ mutation: deleteTaskMutation, variables })
     ).rejects.toEqual(new Error("GraphQL error: Task not found"));
 
-    const [task] = await db.tasks({ where: { id: taskOne.task.id } });
+    const [task] = await db("task").where({ id: taskOne.task.id });
     expect(task).toEqual(taskOne.task);
   });
 });

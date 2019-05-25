@@ -79,7 +79,7 @@ describe("User", () => {
   });
 
   it("should register if user not existing yet", async () => {
-    const usersBeforeRegistration = await db.users();
+    const usersBeforeRegistration = await db("user");
     expect(usersBeforeRegistration.length).toBe(2);
 
     const id_token = "123456789-new-user-id-token";
@@ -92,7 +92,7 @@ describe("User", () => {
 
     expect(user.name).toBe("New Google User");
 
-    const usersAfterRegistration = await db.users();
+    const usersAfterRegistration = await db("user");
     expect(usersAfterRegistration.length).toBe(3);
   });
 
@@ -106,9 +106,10 @@ describe("User", () => {
       variables: { id_token }
     });
 
-    const projects = await db.projects({
-      where: { user: { id: user.id } }
+    const projects = await db("project").where({
+      user_id: user.id
     });
+
     expect(projects.length).toBe(1);
     expect(projects[0].name).toBe("Inbox");
   });

@@ -1,3 +1,4 @@
-const { prisma } = require("../../prisma/generated/prisma-client");
+// const { prisma } = require("../../prisma/generated/prisma-client");
+const db = require("../../database/index");
 
-module.exports = prisma;
+module.exports = db;

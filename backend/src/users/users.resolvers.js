@@ -5,7 +5,10 @@ const Query = {
   async me(parent, args, ctx, info) {
     const { userId } = ctx.request;
     if (!userId) throw new Error("You are not logged in.");
-    const [user] = await ctx.db.users({ where: { id: userId } });
+    const user = await ctx
+      .db("user")
+      .where("id", userId)
+      .first();
     return user;
   }
 };
@@ -15,20 +18,23 @@ const Mutation = {
     const { id_token } = args;
     const googleUser = await verifyGoogleToken(id_token);
 
-    let [user] = await ctx.db.users({
-      where: { email: googleUser.email }
-    });
+    let user = await ctx
+      .db("user")
+      .where("email", googleUser.email)
+      .first();
 
     if (!user) {
-      user = await ctx.db.createUser({
-        name: googleUser.name,
-        email: googleUser.email
-      });
+      [user] = await ctx
+        .db("user")
+        .returning("*")
+        .insert({
+          name: googleUser.name,
+          email: googleUser.email
+        });
 
-      // Create the first project automatically for a new user
-      await ctx.db.createProject({
+      await ctx.db("project").insert({
         name: "Inbox",
-        user: { connect: { id: user.id } }
+        user_id: user.id
       });
     }
 

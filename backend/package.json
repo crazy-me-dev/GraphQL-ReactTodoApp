@@ -8,6 +8,8 @@
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:deploy": "prisma deploy --env-file .env.test --force",
     "test:start": "nodemon --watch '**/*.js' --exec 'node' index.js",
+    "test:migrate": "knex migrate:latest --env test --knexfile ./database",
+    "test:migrate:rest": "knex migrate:latest --env test",
     "start": "nodemon -e js,graphql src/index.js",
     "prisma:deploy": "prisma deploy --env-file .env",
     "prisma:generate": "prisma generate --env-file .env",
@@ -29,7 +31,9 @@
     "graphql": "^14.0.2",
     "graphql-yoga": "^1.17.4",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^0.16.5",
     "nodemon": "^1.18.11",
+    "pg": "^7.11.0",
     "prisma-binding": "^2.3.10",
     "prisma-client-lib": "^1.30.4"
   },
@@ -48,6 +52,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "jest": "^24.7.1",
+    "node-fetch": "^2.6.0",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.0.3",
     "typescript": "^3.4.1"
