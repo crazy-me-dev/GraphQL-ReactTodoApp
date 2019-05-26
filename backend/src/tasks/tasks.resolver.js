@@ -1,10 +1,10 @@
 const Mutation = {
   createTask: async (parent, args, ctx, info) => {
-    if (!ctx.request.userId) throw new Error("You must be logged in");
+    if (!ctx.req.userId) throw new Error("You must be logged in");
     if (!args.data.project) {
       const project = await ctx
         .db("project")
-        .where({ name: "Inbox", user_id: ctx.request.userId })
+        .where({ name: "Inbox", user_id: ctx.req.userId })
         .first();
       if (!project) throw new Error("Project not found");
       args.data.project = project.id;
@@ -21,22 +21,16 @@ const Mutation = {
     return task;
   },
   updateTask: async (parent, args, ctx, info) => {
-    if (!ctx.request.userId) throw new Error("You must be logged in");
-    if (
-      args.data.project &&
-      args.data.project.connect.id !== ctx.request.userId
-    )
+    if (!ctx.req.userId) throw new Error("You must be logged in");
+    if (args.data.project && args.data.project !== ctx.req.userId)
       throw new Error("Cannot move the task to a project you don't own");
 
-    // just experiment joins
     const task = await ctx
       .db("user")
       .innerJoin("project", "user.id", "project.user_id")
       .innerJoin("task", "project.id", "task.project_id")
-      .where({ "task.id": args.id, user_id: ctx.request.userId })
+      .where({ "task.id": args.id, user_id: ctx.req.userId })
       .first();
-
-    // const task = await ctx.db('task').where({ id: args.id, user_id: ctx.request.userId }).first();
 
     if (!task) throw new Error("Task not found");
 
@@ -50,12 +44,12 @@ const Mutation = {
     return updatedTask;
   },
   deleteTask: async (parent, args, ctx, info) => {
-    if (!ctx.request.userId) throw new Error("You must be logged in");
+    if (!ctx.req.userId) throw new Error("You must be logged in");
     const task = await ctx
       .db("user")
       .innerJoin("project", "user.id", "project.user_id")
       .innerJoin("task", "project.id", "task.project_id")
-      .where({ "task.id": args.id, user_id: ctx.request.userId })
+      .where({ "task.id": args.id, user_id: ctx.req.userId })
       .first();
     if (!task) throw new Error("Task not found");
 

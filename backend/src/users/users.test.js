@@ -116,12 +116,12 @@ describe("User", () => {
 
   it("should log out correctly", async () => {
     const {
-      data: { logOut: response }
+      data: { logOut: res }
     } = await client.mutate({
       mutation: logOutMutation,
       variables: {}
     });
 
-    expect(response.message).toEqual("Goodbye!");
+    expect(res.message).toEqual("Goodbye!");
   });
 });

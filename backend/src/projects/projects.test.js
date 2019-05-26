@@ -92,7 +92,9 @@ describe("Project", () => {
       variables
     });
 
-    const project = await db('project').where({ id: projectOne.project.id }).first();
+    const project = await db("project")
+      .where({ id: projectOne.project.id })
+      .first();
 
     expect(project.name).toBe("Updated Project Name");
   });
@@ -119,11 +121,7 @@ describe("Project", () => {
       id: projectOne.project.id,
       data: {
         name: "Other's Updated Project Name",
-        user: {
-          connect: {
-            id: userTwo.user.id
-          }
-        }
+        user: userTwo.user.id
       }
     };
 
@@ -138,7 +136,9 @@ describe("Project", () => {
   });
 
   it("should delete user's own project", async () => {
-    const userProjectBefore = await db('project').where({ user_id: userOne.user.id });
+    const userProjectBefore = await db("project").where({
+      user_id: userOne.user.id
+    });
     expect(userProjectBefore.length).toBe(1);
 
     const variables = { id: projectOne.project.id };
@@ -146,12 +146,16 @@ describe("Project", () => {
     const client = getClient(userOne.jwt);
     await client.mutate({ mutation: deleteProjectMutation, variables });
 
-    const userProjectAfter = await db('project').where({ user_id: userOne.user.id });
+    const userProjectAfter = await db("project").where({
+      user_id: userOne.user.id
+    });
     expect(userProjectAfter.length).toBe(0);
   });
 
   it("should not delete other user's project", async () => {
-    const userProjectBefore = await db('project').where({ user_id: userOne.user.id });
+    const userProjectBefore = await db("project").where({
+      user_id: userOne.user.id
+    });
     expect(userProjectBefore.length).toBe(1);
 
     const variables = { id: projectOne.project.id };
@@ -162,7 +166,9 @@ describe("Project", () => {
       variables
     });
 
-    const userProjectAfter = await db('project').where({ user_id: userOne.user.id });
+    const userProjectAfter = await db("project").where({
+      user_id: userOne.user.id
+    });
     expect(userProjectAfter.length).toBe(1);
   });
 });

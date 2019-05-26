@@ -3,7 +3,8 @@ const verifyGoogleToken = require("../utils/verifyGoogle");
 
 const Query = {
   async me(parent, args, ctx, info) {
-    const { userId } = ctx.request;
+    const { userId } = ctx.req;
+
     if (!userId) throw new Error("You are not logged in.");
     const user = await ctx
       .db("user")
@@ -18,10 +19,7 @@ const Mutation = {
     const { id_token } = args;
     const googleUser = await verifyGoogleToken(id_token);
 
-    let user = await ctx
-      .db("user")
-      .where("email", googleUser.email)
-      .first();
+    let [user] = await ctx.db("user").where("email", googleUser.email);
 
     if (!user) {
       [user] = await ctx
@@ -40,7 +38,7 @@ const Mutation = {
 
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
 
-    ctx.response.cookie("token", token, {
+    ctx.res.cookie("token", token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
@@ -48,7 +46,7 @@ const Mutation = {
     return user;
   },
   logOut(parent, args, ctx, info) {
-    ctx.response.clearCookie("token");
+    ctx.res.clearCookie("token");
     return { message: "Goodbye!" };
   }
 };

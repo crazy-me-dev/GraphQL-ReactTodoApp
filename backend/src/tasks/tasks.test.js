@@ -138,11 +138,7 @@ describe("Task", () => {
     const variables = {
       id: taskOne.task.id,
       data: {
-        project: {
-          connect: {
-            id: projectTwo.project.id
-          }
-        }
+        project: projectTwo.project.id
       }
     };
 

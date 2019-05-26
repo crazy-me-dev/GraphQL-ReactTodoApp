@@ -3,14 +3,10 @@ dotenv.config();
 const server = require("./utils/server");
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
-server.start(
+server.listen(
   {
     port: 4000,
-    endpoint: "/graphql",
-    cors: {
-      credentials: true,
-      origin: FRONTEND_URL
-    }
+    endpoint: "/graphql"
   },
   () => console.log("Server is running on http://localhost:4000")
 );

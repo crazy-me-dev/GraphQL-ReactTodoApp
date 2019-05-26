@@ -5,7 +5,7 @@ global.fetch = fetch;
 
 const getClient = jwt => {
   return new ApolloBoost({
-    uri: "http://localhost:4004",
+    uri: "http://localhost:4004/graphql",
     credentials: "include",
     request(operation) {
       if (jwt) {

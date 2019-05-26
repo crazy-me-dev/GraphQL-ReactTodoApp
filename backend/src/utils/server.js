@@ -1,14 +1,16 @@
+const express = require("express");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
 const createServer = require("./createServer");
 
+const app = express();
 const server = createServer();
 
-server.express.use(cookieParser());
+app.use(cookieParser());
 
 // decode jwt
-server.express.use(async (req, res, next) => {
+app.use(async (req, res, next) => {
   let { token } = req.cookies;
 
   if (!token && req.headers.authorization) {
@@ -26,4 +28,12 @@ server.express.use(async (req, res, next) => {
   next();
 });
 
-module.exports = server;
+server.applyMiddleware({
+  app,
+  cors: {
+    credentials: true,
+    origin: process.env.FRONTEND_URL
+  }
+});
+
+module.exports = app;
