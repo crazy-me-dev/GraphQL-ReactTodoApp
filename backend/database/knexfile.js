@@ -3,12 +3,12 @@ module.exports = {
     client: "pg",
     connection: {
       host: "127.0.0.1",
-      port: "5332",
-      user: "prisma",
-      password: "prisma",
-      database: "prisma"
+      port: "3332",
+      user: "postgres",
+      password: "secret",
+      database: "postgres"
     },
-    searchPath: ["default$default"],
+    searchPath: ["public"],
     migrations: {
       tableName: "migrations"
     }
@@ -17,12 +17,12 @@ module.exports = {
     client: "pg",
     connection: {
       host: "127.0.0.1",
-      port: "5332",
-      user: "prisma",
-      password: "prisma",
-      database: "prisma"
+      port: "3332",
+      user: "postgres",
+      password: "secret",
+      database: "test"
     },
-    searchPath: ["test$default"],
+    searchPath: ["public"],
     migrations: {
       tableName: "migrations"
     }

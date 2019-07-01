@@ -1,5 +1,5 @@
 {
-  "name": "prisma",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,9 @@
     "test": "NODE_ENV=test jest --watch --runInBand",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:start": "nodemon --watch '**/*.js' --exec 'node' index.js",
-    "test:migrate": "knex migrate:latest --env test --knexfile ./database",
+    "test:migrate": "knex migrate:latest --env test --knexfile ./database/knexfile.js",
     "test:migrate:rest": "knex migrate:latest --env test",
+    "app:migrate": "knex migrate:latest --knexfile ./database/knexfile.js",
     "start": "nodemon -e js,graphql src/index.js"
   },
   "keywords": [],
@@ -31,9 +32,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.16.5",
     "nodemon": "^1.18.11",
-    "pg": "^7.11.0",
-    "prisma-binding": "^2.3.10",
-    "prisma-client-lib": "^1.30.4"
+    "pg": "^7.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",

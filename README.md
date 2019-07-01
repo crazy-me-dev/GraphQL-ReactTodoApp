@@ -1,14 +1,12 @@
 # The Project
 
-# Usage
+# Setup project first time
 
 `docker-compose up`
+// TODO: create database test
+`npm run app:migrate`
+`npm run test:migrate`
 
-# Deploy prisma data model changes
+# Run tests
 
-`prisma deploy`
-`prisma generate`
-
-# Setup backend tests
-
-`npm run test:deploy`
+`npm test`
