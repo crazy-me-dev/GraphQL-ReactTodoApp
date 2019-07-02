@@ -9,6 +9,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
     volumes:
+      - ./docker-config/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres:/var/lib/postgresql/data
+
 volumes:
   postgres:

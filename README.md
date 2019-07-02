@@ -1,12 +1,14 @@
-# The Project
+# Task List
 
 # Setup project first time
 
-`docker-compose up`
-// TODO: create database test
-`npm run app:migrate`
-`npm run test:migrate`
+```
+docker-compose up
+npm run setup --prefix backend
+```
 
 # Run tests
 
-`npm test`
+```
+npm run test --prefix backend
+```

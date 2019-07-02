@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "setup": "npm run app:migrate && npm run test:migrate",
     "test": "NODE_ENV=test jest --watch --runInBand",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:start": "nodemon --watch '**/*.js' --exec 'node' index.js",
