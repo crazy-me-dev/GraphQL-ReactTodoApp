@@ -1,9 +1,8 @@
 import Router from "next/router";
-import Me from "./Me";
+import Me, { IMeQueryResult } from "./Me";
 
 interface Props {
-  to: String;
-  router: Object;
+  to: string;
   children: any;
 }
 
@@ -16,8 +15,7 @@ const RedictAfterAuth = (props: Props) => {
 
   return (
     <Me>
-      {({ data, error }) => {
-        console.log(data);
+      {({ data, error }: IMeQueryResult) => {
         if (!error && data && data.me) {
           redirect();
         }

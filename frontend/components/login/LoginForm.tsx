@@ -2,8 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import Login from "./Login";
-import Logout from "./Logout";
-import Me, { ME_QUERY } from "./Me";
+import Me, { ME_QUERY, IMeQueryResult } from "./Me";
 import { Box } from "../common";
 import RedirectAfterAuth from "./RedirectAfterAuth";
 
@@ -15,16 +14,6 @@ const FormWrapper = styled.div`
   align-items: center;
 `;
 
-type User = {
-  id: String;
-  name: String;
-  email: String;
-};
-
-interface MeData {
-  me: User;
-}
-
 const LoginForm = () => {
   const responseGoogle = (e: any, login: Function) => {
     login({ variables: { token: e.tokenId } });
@@ -35,9 +24,7 @@ const LoginForm = () => {
       <FormWrapper>
         <Box centered>
           <Me>
-            {({ data, error, loading, refetch }) => {
-              const me = data ? data.me : null;
-
+            {({ error, loading }: IMeQueryResult) => {
               if (loading) return <p>...</p>;
               if (error) {
                 return (
