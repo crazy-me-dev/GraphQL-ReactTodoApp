@@ -3,7 +3,6 @@ import Me, { IMeQueryResult } from "./Me";
 
 interface Props {
   to: string;
-  router: Object;
   children: any;
 }
 

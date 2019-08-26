@@ -1,30 +1,38 @@
 import RedirectAfterUnauth from "../components/login/RedirectAfterUnauth";
 import Logout from "../components/login/Logout";
-import Me, { IMe } from "../components/login/Me";
+import Me, { IMeQueryResult } from "../components/login/Me";
 import { ME_QUERY } from "../components/login/Me";
-import { Box } from "../components/common";
+import { Box, Container } from "../components/common";
+import { TopPanel } from "../components/menu";
 
 function App() {
   return (
     <RedirectAfterUnauth to="/login">
-      <Box>
-        <Me>
-          {({ data, loading, error }) => {
-            const me: IMe = data.me;
-            if (loading) return "...";
-            if (!me) return "...";
-            if (error) return "Error";
-            return (
-              <div>
-                <p>
-                  <Logout refetchQueries={[{ query: ME_QUERY }]} />
-                </p>
-                <p>Heya, {me.name}!</p>
-              </div>
-            );
-          }}
-        </Me>
-      </Box>
+      <Me>
+        {({ data, loading, error }: IMeQueryResult) => {
+          if (loading) return "...";
+          if (!data || !data.me) return "...";
+          if (error) return "Error";
+          return (
+            <>
+              <TopPanel align="right">
+                <Logout refetchQueries={[{ query: ME_QUERY }]}>
+                  {(logout: Function) => (
+                    <a onClick={() => logout()}>Kirjaudu ulos</a>
+                  )}
+                </Logout>
+              </TopPanel>
+              <Container>
+                <Box>
+                  <div>
+                    <p>Heya, {data.me.name}!</p>
+                  </div>
+                </Box>
+              </Container>
+            </>
+          );
+        }}
+      </Me>
     </RedirectAfterUnauth>
   );
 }

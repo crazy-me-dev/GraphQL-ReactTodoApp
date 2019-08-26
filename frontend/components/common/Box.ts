@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 interface Props {
-  centered: Boolean;
+  centered?: Boolean;
 }
 
 const Box = styled.div<Props>`
@@ -11,8 +11,8 @@ const Box = styled.div<Props>`
   border-radius: 0.25rem;
   background: white;
   width: 100%;
-  max-width: 600px;
-  ${props => props.centered && `text-align: center;`}
+  max-width: ${props => props.theme.wideWidth};
+  ${props => props.centered && `text-align: center;`};
 `;
 
 export default Box;
