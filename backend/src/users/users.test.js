@@ -14,6 +14,9 @@ const MeQuery = gql`
       id
       name
       email
+      projects {
+        id
+      }
     }
   }
 `;
@@ -50,6 +53,16 @@ describe("User", () => {
     } = await client.query({ query: MeQuery });
 
     expect(me.email).toBe("john.doe@example.com");
+  });
+
+  it("should have correct amount of projects", async () => {
+    const client = getClient(userOne.jwt);
+
+    const {
+      data: { me }
+    } = await client.query({ query: MeQuery });
+
+    expect(me.projects.length).toBe(1);
   });
 
   it("should not return me data when not logged in", async () => {

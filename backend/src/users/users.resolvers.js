@@ -11,6 +11,15 @@ const Query = {
       .where("id", userId)
       .first();
     return user;
+  },
+  async projects(parent, args, ctx, info) {
+    return [];
+  }
+};
+
+const User = {
+  projects: async (user, args, ctx, info) => {
+    return await ctx.db("project").where("user_id", user.id);
   }
 };
 
@@ -51,5 +60,6 @@ const Mutation = {
   }
 };
 
+exports.User = User;
 exports.Query = Query;
 exports.Mutation = Mutation;

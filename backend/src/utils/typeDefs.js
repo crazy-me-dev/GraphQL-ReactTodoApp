@@ -4,6 +4,7 @@ module.exports = gql`
   type Query {
     users: [User!]!
     me: User
+    projects: [Project!]!
   }
 
   type Mutation {
