@@ -11,9 +11,6 @@ const Query = {
       .where("id", userId)
       .first();
     return user;
-  },
-  async projects(parent, args, ctx, info) {
-    return [];
   }
 };
 

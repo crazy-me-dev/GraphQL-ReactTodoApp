@@ -55,4 +55,11 @@ const Mutation = {
   }
 };
 
+const Project = {
+  tasks: async (project, args, ctx, info) => {
+    return await ctx.db("task").where("project_id", project.id);
+  }
+};
+
 exports.Mutation = Mutation;
+exports.Project = Project;
