@@ -11,7 +11,6 @@ import {
   startTestServer,
   closeTestServer
 } from "../test-utils/setupTestServer";
-import { loginWithGoogleMutation } from "../users/users.test";
 
 const createProjectMutation = gql`
   mutation($name: String!) {
@@ -186,7 +185,7 @@ describe("Project", () => {
     expect(userProjectAfter.length).toBe(1);
   });
 
-  it.only("should query logged in user's projects", async () => {
+  it("should query logged in user's projects", async () => {
     const client = getClient(userOne.jwt);
 
     const response = await client.query({

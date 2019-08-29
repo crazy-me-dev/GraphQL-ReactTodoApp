@@ -8,6 +8,9 @@ const Project = require("../projects/projects.resolvers.js").Project;
 
 const taskMutation = require("../tasks/tasks.resolvers").Mutation;
 
-exports.Query = { ...userQuery, ...projectQuery };
-exports.Mutation = { ...taskMutation, ...projectMutation, ...userMutation };
-exports.Relations = { ...User, ...Project };
+module.exports = {
+  Query: { ...userQuery, ...projectQuery },
+  Mutation: { ...taskMutation, ...projectMutation, ...userMutation },
+  User,
+  Project
+};
