@@ -26,7 +26,7 @@ const MeQuery = gql`
   }
 `;
 
-const loginWithGoogleMutation = gql`
+export const loginWithGoogleMutation = gql`
   mutation($id_token: String!) {
     loginWithGoogle(id_token: $id_token) {
       id
@@ -35,7 +35,7 @@ const loginWithGoogleMutation = gql`
   }
 `;
 
-const logOutMutation = gql`
+export const logOutMutation = gql`
   mutation {
     logOut {
       message

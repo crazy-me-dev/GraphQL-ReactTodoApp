@@ -1,3 +1,12 @@
+const Query = {
+  projects: async (parent, args, ctx, info) => {
+    const userId = ctx.req.userId;
+    if (!userId) throw [];
+
+    return await ctx.db("project").where({ user_id: userId });
+  }
+};
+
 const Mutation = {
   createProject: async (parent, args, ctx, info) => {
     const name = args.name;
@@ -61,5 +70,6 @@ const Project = {
   }
 };
 
+exports.Query = Query;
 exports.Mutation = Mutation;
 exports.Project = Project;

@@ -11,12 +11,26 @@ import {
   startTestServer,
   closeTestServer
 } from "../test-utils/setupTestServer";
+import { loginWithGoogleMutation } from "../users/users.test";
 
 const createProjectMutation = gql`
   mutation($name: String!) {
     createProject(name: $name) {
       id
       name
+    }
+  }
+`;
+
+const projectsQuery = gql`
+  query {
+    projects {
+      id
+      name
+      tasks {
+        id
+        description
+      }
     }
   }
 `;
@@ -170,5 +184,17 @@ describe("Project", () => {
       user_id: userOne.user.id
     });
     expect(userProjectAfter.length).toBe(1);
+  });
+
+  it.only("should query logged in user's projects", async () => {
+    const client = getClient(userOne.jwt);
+
+    const response = await client.query({
+      query: projectsQuery
+    });
+
+    expect(response.data.projects.length).toBe(1);
+    expect(response.data.projects[0].name).toBe("Inbox");
+    expect(response.data.projects[0].tasks[0].description).toBe("Buy a car");
   });
 });
