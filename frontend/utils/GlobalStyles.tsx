@@ -8,7 +8,7 @@ const styles = css`
   body {
     margin: 0;
     padding: 0;
-    background: whitesmoke;
+    background: white;
   }
   html,
   button,
@@ -19,7 +19,7 @@ const styles = css`
       sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
     font-size: 100%;
     line-height: 1.5;
-    color: #444;
+    color: #666;
   }
   h1,
   h2,
@@ -31,6 +31,17 @@ const styles = css`
 
   h2 {
     letter-spacing: 0.03em;
+  }
+  .text-small {
+    font-size: 0.8em;
+    margin-left: 0.5rem;
+  }
+  .text-light {
+    opacity: 0.5;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
 `;
 

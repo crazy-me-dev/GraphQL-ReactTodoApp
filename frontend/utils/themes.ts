@@ -1,8 +1,14 @@
 const defaultTheme = {
   colors: {
-    primary: "tomato"
+    panelTop: "#eee",
+    primary: "tomato",
+    text: "#333"
   },
-  wideWidth: "800px"
+  padding: "1",
+  wideWidth: "920px",
+  border: "1px solid rgba(0,0,0,0.05)",
+  topPanelHeight: "56px",
+  sidebarWidth: "240px"
 };
 
 const darkTheme = {

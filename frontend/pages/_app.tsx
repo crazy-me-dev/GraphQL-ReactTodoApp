@@ -1,5 +1,6 @@
 import "cross-fetch/polyfill";
 import { ApolloProvider } from "react-apollo";
+import { ApolloProvider as ApolloHooksProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import { Container } from "next/app";
 import { ThemeProvider } from "emotion-theming";
@@ -8,7 +9,7 @@ import GlobalStyles from "../utils/GlobalStyles";
 import { defaultTheme } from "../utils/themes";
 import { AppContainer } from "../components/common";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   request: async operation => {
     operation.setContext({
@@ -29,12 +30,14 @@ const MyApp = (props: Props) => {
   return (
     <Container>
       <ApolloProvider client={client}>
-        <ThemeProvider theme={defaultTheme}>
-          <GlobalStyles />
-          <AppContainer>
-            <Component {...pageProps} />
-          </AppContainer>
-        </ThemeProvider>
+        <ApolloHooksProvider client={client}>
+          <ThemeProvider theme={defaultTheme}>
+            <GlobalStyles />
+            <AppContainer>
+              <Component {...pageProps} />
+            </AppContainer>
+          </ThemeProvider>
+        </ApolloHooksProvider>
       </ApolloProvider>
     </Container>
   );
