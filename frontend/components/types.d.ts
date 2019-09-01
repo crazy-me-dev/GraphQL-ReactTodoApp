@@ -7,7 +7,7 @@ interface RefetchQuery {
 interface Project {
   id?: string;
   name?: string;
-  tasks?: Task[];
+  tasks: Task[];
 }
 
 interface Task {

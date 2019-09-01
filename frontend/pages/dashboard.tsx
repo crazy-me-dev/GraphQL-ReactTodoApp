@@ -6,12 +6,17 @@ import Logout from "../components/login/Logout";
 import Me, { IMeQueryResult } from "../components/login/Me";
 import { ME_QUERY } from "../components/login/Me";
 import { MainContainer, Sidebar, Main } from "../components/common";
-import { ProjectList, ProjectListItem } from "../components/project";
+import {
+  ProjectOverview,
+  ProjectList,
+  ProjectListItem
+} from "../components/project";
 import { TopPanel } from "../components/menu";
 import { ADD_PROJECT_MUTATION } from "../components/project/AddProject";
 import { DELETE_PROJECT_MUTATION } from "../components/project/DeleteProject";
 
 function App() {
+  const [selectedProject, setSelectedProject] = useState(null);
   const [addProject] = useMutation(ADD_PROJECT_MUTATION);
   const [deleteProject] = useMutation(DELETE_PROJECT_MUTATION);
   const [projectName, setProjectName] = useState("");
@@ -32,6 +37,7 @@ function App() {
                   )}
                 </Logout>
               </TopPanel>
+
               <MainContainer flex>
                 <Sidebar>
                   <div>
@@ -40,7 +46,9 @@ function App() {
                         p =>
                           p.tasks && (
                             <ProjectListItem key={p.id}>
-                              {p.name}{" "}
+                              <span onClick={() => setSelectedProject(p.id)}>
+                                {p.name}
+                              </span>{" "}
                               <span className="text-small text-light">
                                 {p.tasks.length}
                               </span>
@@ -81,7 +89,13 @@ function App() {
                   </div>
                 </Sidebar>
                 <Main>
-                  <p>Heya, {data.me.name}!</p>
+                  {selectedProject && (
+                    <ProjectOverview
+                      project={data.me.projects.find(
+                        p => p.id === selectedProject
+                      )}
+                    />
+                  )}
                 </Main>
               </MainContainer>
             </>
