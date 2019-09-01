@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import Router from "next/router";
 
 import Login from "./Login";
 import Me, { ME_QUERY, IMeQueryResult } from "./Me";
@@ -15,8 +16,13 @@ const FormWrapper = styled.div`
 `;
 
 const LoginForm = () => {
-  const responseGoogle = (e: any, login: Function) => {
-    login({ variables: { token: e.tokenId } });
+  const responseGoogle = async (e: any, login: Function) => {
+    try {
+      await login({ variables: { token: e.tokenId } });
+      Router.push("/dashboard");
+    } catch (e) {
+      // TODO: Tell user that login failed
+    }
   };
 
   return (
@@ -26,17 +32,6 @@ const LoginForm = () => {
           <Me>
             {({ error, loading }: IMeQueryResult) => {
               if (loading) return <p>...</p>;
-              if (error) {
-                return (
-                  <div>
-                    <p>{error.message}</p>
-                    <Login
-                      onComplete={responseGoogle}
-                      refetchQueries={[{ query: ME_QUERY }]}
-                    />
-                  </div>
-                );
-              }
               return (
                 <Login
                   onComplete={responseGoogle}
