@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import Router from "next/router";
 
 import Login from "./Login";
-import Me, { ME_QUERY, IMeQueryResult } from "./Me";
+import { ME_QUERY } from "./Me";
+import useMeQuery from "./useMeQuery";
 import { Box } from "../common";
-import RedirectAfterAuth from "./RedirectAfterAuth";
 
 const FormWrapper = styled.div`
   height: 100vh;
@@ -25,24 +25,19 @@ const LoginForm = () => {
     }
   };
 
+  const { data, error, loading } = useMeQuery();
+
+  if (loading) return <p>...</p>;
+
   return (
-    <RedirectAfterAuth to="/dashboard">
-      <FormWrapper>
-        <Box centered>
-          <Me>
-            {({ error, loading }: IMeQueryResult) => {
-              if (loading) return <p>...</p>;
-              return (
-                <Login
-                  onComplete={responseGoogle}
-                  refetchQueries={[{ query: ME_QUERY }]}
-                />
-              );
-            }}
-          </Me>
-        </Box>
-      </FormWrapper>
-    </RedirectAfterAuth>
+    <FormWrapper>
+      <Box centered>
+        <Login
+          onComplete={responseGoogle}
+          refetchQueries={[{ query: ME_QUERY }]}
+        />
+      </Box>
+    </FormWrapper>
   );
 };
 
