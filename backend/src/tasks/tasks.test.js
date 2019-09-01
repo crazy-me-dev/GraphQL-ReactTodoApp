@@ -7,6 +7,7 @@ import seedDatabase, {
   userTwo,
   projectOne,
   projectTwo,
+  projectThree,
   taskOne
 } from "../test-utils/seedDatabase";
 import {
@@ -50,8 +51,6 @@ describe("Task", () => {
   afterAll(closeTestServer);
 
   it("should create a task for logged in user", async () => {
-    await db("user").where({ name: "John Doe" });
-
     const client = getClient(userOne.jwt);
     const variables = { data: { description: "Buy milk", done: false } };
     const {
@@ -65,6 +64,30 @@ describe("Task", () => {
       .where({ id: task.id })
       .first();
     expect(dbTask.description).toBe("Buy milk");
+    expect(dbTask.done).toBe(false);
+  });
+
+  it("should create a task for selected project", async () => {
+    const client = getClient(userOne.jwt);
+    const variables = {
+      data: {
+        description: "Create a todo app",
+        done: false,
+        project: projectThree.project.id
+      }
+    };
+    const {
+      data: { createTask: task }
+    } = await client.mutate({
+      mutation: createTask,
+      variables
+    });
+
+    const dbTask = await db("task")
+      .where({ id: task.id })
+      .first();
+    expect(dbTask.description).toBe("Create a todo app");
+    expect(dbTask.project_id).toBe(projectThree.project.id);
     expect(dbTask.done).toBe(false);
   });
 

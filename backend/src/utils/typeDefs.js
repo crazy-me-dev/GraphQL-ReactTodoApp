@@ -35,6 +35,7 @@ module.exports = gql`
   input TaskInput {
     description: String!
     done: Boolean!
+    project: ID
   }
 
   type User {

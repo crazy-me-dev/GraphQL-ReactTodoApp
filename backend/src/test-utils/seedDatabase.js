@@ -33,6 +33,13 @@ export const projectTwo = {
   project: undefined
 };
 
+export const projectThree = {
+  input: {
+    name: "Projects"
+  },
+  project: undefined
+};
+
 export const taskOne = {
   input: {
     description: "Buy a car",
@@ -77,6 +84,12 @@ const seedDatabase = async () => {
     .returning("*")
     .insert({
       ...projectTwo.input,
+      user_id: userTwo.user.id
+    });
+  [projectThree.project] = await db("project")
+    .returning("*")
+    .insert({
+      ...projectThree.input,
       user_id: userTwo.user.id
     });
 
