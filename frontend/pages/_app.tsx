@@ -10,7 +10,7 @@ import { defaultTheme } from "../utils/themes";
 import { AppContainer } from "../components/common";
 
 export const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.API_URL,
   request: async operation => {
     operation.setContext({
       fetchOptions: {

@@ -1,17 +1,20 @@
 {
   "name": "backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "setup": "npm run app:migrate && npm run test:migrate",
-    "test": "NODE_ENV=test jest --watch --runInBand",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles",
+    "test:watch": "NODE_ENV=test jest --watch --runInBand",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:start": "nodemon --watch '**/*.js' --exec 'node' index.js",
     "test:migrate": "knex migrate:latest --env test --knexfile ./database/knexfile.js",
     "test:migrate:rest": "knex migrate:latest --env test",
+    "test:travis": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "app:migrate": "knex migrate:latest --knexfile ./database/knexfile.js",
-    "start": "nodemon -e js,graphql src/index.js"
+    "start": "nodemon -e js,graphql src/index.js",
+    "heroku-prebuild": "npm run app:migrate"
   },
   "keywords": [],
   "author": "",

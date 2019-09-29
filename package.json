@@ -1,0 +1,23 @@
+{
+  "name": "task-list",
+  "version": "1.0.0",
+  "description": "# Setup project first time",
+  "main": "index.js",
+  "scripts": {
+    "test": "lerna run test",
+    "new-version": "lerna version --conventional-commits --yes"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janneleppanen/task-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janneleppanen/task-list/issues"
+  },
+  "homepage": "https://github.com/janneleppanen/task-list#readme",
+  "devDependencies": {
+    "lerna": "^3.16.4"
+  }
+}
