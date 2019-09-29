@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_TASK_MUTATION } from "../task/AddTask";
+import { DELETE_TASK_MUTATION } from "../task/DeleteTask";
 import { ME_QUERY } from "../login/Me";
+import TaskItem from "../task/TaskItem";
 
 interface Props {
   project: Project;
@@ -11,13 +13,24 @@ interface Props {
 const ProjectOverview = ({ project }: Props) => {
   const [newTask, setNewTask] = useState("");
   const [addTask] = useMutation(ADD_TASK_MUTATION);
+  const [deleteTask] = useMutation(DELETE_TASK_MUTATION);
 
   return (
     <div>
       <h2>{project.name}</h2>
       <ul>
-        {project.tasks.map(t => (
-          <li key={t.id}>{t.description}</li>
+        {project.tasks.map(task => (
+          <TaskItem
+            task={task}
+            onDelete={() => {
+              deleteTask({
+                variables: {
+                  id: task.id
+                },
+                refetchQueries: [{ query: ME_QUERY }]
+              });
+            }}
+          />
         ))}
       </ul>
 
