@@ -24,7 +24,7 @@ const LoginForm = () => {
       // TODO: Tell user that login failed
     }
   };
-
+  console.log(this);
   const { data, error, loading } = useMeQuery();
 
   if (loading) return <p>...</p>;
