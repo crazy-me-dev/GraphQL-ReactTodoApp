@@ -41,7 +41,6 @@ const LoginRoute: React.FC<RouteComponentProps> = props => {
       });
     }
   };
-
   return (
     <AuthContext.Consumer>
       {({ user }) => {

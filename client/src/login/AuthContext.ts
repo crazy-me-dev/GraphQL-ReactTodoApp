@@ -1,13 +1,17 @@
 import React from "react";
 
-interface AuthContexOptions {
-  user: Object | null;
+export type User = {
+  id: string;
+  name: string;
+} | null;
+export interface AuthContexOptions {
+  user: User;
   loading: boolean;
   refetchUser: Function;
 }
 
 const AuthContext = React.createContext<AuthContexOptions>({
-  user: {},
+  user: null,
   loading: false,
   refetchUser: () => {}
 });

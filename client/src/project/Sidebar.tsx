@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "@reach/router";
 
-import {
-  useProjectsQuery,
-  useCreateProjectMutation,
-  useDeleteProjectMutation
-} from "./projectRequests";
+import DeleteProjectButton from "./DeleteProjectButton";
+import { useProjectsQuery, useCreateProjectMutation } from "./projectRequests";
 
 type Project = {
   id: string;
@@ -15,10 +12,9 @@ type Project = {
 const Sidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();
   const createProjectMutation = useCreateProjectMutation();
-  const deleteProjectMutation = useDeleteProjectMutation();
 
   const [newProjectName, updateNewProjectName] = useState("");
-
+  // console.log(loading, error, data);
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error!</div>;
 
@@ -28,17 +24,13 @@ const Sidebar: React.FC = () => {
     updateNewProjectName("");
   };
 
-  const deleteProject = (id: string) => {
-    deleteProjectMutation(id);
-  };
-
   return (
     <div>
       <ul>
         {data.projects.map((project: Project) => (
-          <li key={project.id}>
+          <li key={project.id} data-testid={`project-${project.id}`}>
             <Link to={`/project/${project.id}`}>{project.name}</Link>
-            <button onClick={() => deleteProject(project.id)}>&times;</button>
+            <DeleteProjectButton projectId={project.id} />
           </li>
         ))}
       </ul>
@@ -47,12 +39,15 @@ const Sidebar: React.FC = () => {
         <label>
           <div>Add new project</div>
           <input
+            data-testid="new-project-input"
             type="text"
             value={newProjectName}
             onChange={e => updateNewProjectName(e.target.value)}
           />
         </label>
-        <button type="submit">Add</button>
+        <button data-testid="new-project-submit" type="submit">
+          Add
+        </button>
       </form>
     </div>
   );
