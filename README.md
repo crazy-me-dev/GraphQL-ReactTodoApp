@@ -4,11 +4,11 @@
 
 ```
 docker-compose up
-npm run setup --prefix backend
+npm run setup --prefix server
 ```
 
 # Run tests
 
 ```
-npm run test --prefix backend
+npm run test --prefix server
 ```
