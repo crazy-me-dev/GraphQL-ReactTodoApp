@@ -1,8 +1,5 @@
 {
-  "packages": [
-    "backend",
-    "frontend"
-  ],
+  "packages": ["server", "client"],
   "npmClient": "npm",
   "version": "0.0.0"
 }

@@ -7,12 +7,17 @@ cache:
   directories:
     - node_modules
 script:
-  - npm run test:travis --prefix backend
+  - npm run test:travis --prefix server
 before_install:
   - psql -c 'create database test;' -U postgres
-  - npm install --prefix backend
-  - npm run test:migrate --prefix backend
+  - npm install --prefix server
+  - npm run test:migrate --prefix server
 env:
   global:
     - POSTGRES_PORT="5432"
     - POSTGRES_PASSWORD=""
+deploy:
+  provider: heroku
+  api_key:
+    secure: "YOUR ENCRYPTED API KEY"
+  app: janneleppanen-task-list-server
