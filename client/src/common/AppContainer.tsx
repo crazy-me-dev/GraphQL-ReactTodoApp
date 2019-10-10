@@ -1,6 +1,7 @@
 import React from "react";
 
 import AppHeader from "./AppHeader";
+import Container from "./Container";
 
 interface AppContainerProps {
   children: React.ReactNode;
@@ -8,14 +9,9 @@ interface AppContainerProps {
 
 const AppContainer: React.FC<AppContainerProps> = props => {
   return (
-    <div
-      style={{
-        background: "whitesmoke",
-        border: "1px solid #333"
-      }}
-    >
+    <div>
       <AppHeader />
-      <div style={{ padding: "1rem" }}>{props.children}</div>
+      <Container style={{ marginTop: "2rem" }}>{props.children}</Container>
     </div>
   );
 };

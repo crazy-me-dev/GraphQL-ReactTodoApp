@@ -1,12 +1,45 @@
 import React, { useState } from "react";
 import { Link } from "@reach/router";
+import styled from "@emotion/styled";
 
 import DeleteProjectButton from "./DeleteProjectButton";
 import { useProjectsQuery, useCreateProjectMutation } from "./projectRequests";
 
+const ProjectList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const ProjectNumber = styled.small`
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.6;
+`;
+
+const ProjectListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  a {
+    text-decoration: none;
+  }
+`;
+
+const Wrapper = styled.div`
+  margin-right: 2rem;
+`;
+
+const Input = styled.input`
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+`;
+
 type Project = {
   id: string;
   name: string;
+  tasks: [];
 };
 
 const Sidebar: React.FC = () => {
@@ -14,7 +47,6 @@ const Sidebar: React.FC = () => {
   const createProjectMutation = useCreateProjectMutation();
 
   const [newProjectName, updateNewProjectName] = useState("");
-  // console.log(loading, error, data);
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error!</div>;
 
@@ -25,20 +57,26 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div>
-      <ul>
+    <Wrapper>
+      <ProjectList>
         {data.projects.map((project: Project) => (
-          <li key={project.id} data-testid={`project-${project.id}`}>
-            <Link to={`/project/${project.id}`}>{project.name}</Link>
+          <ProjectListItem
+            key={project.id}
+            data-testid={`project-${project.id}`}
+          >
+            <Link to={`/project/${project.id}`}>
+              {project.name}
+              <ProjectNumber>{project.tasks.length}</ProjectNumber>
+            </Link>
             <DeleteProjectButton projectId={project.id} />
-          </li>
+          </ProjectListItem>
         ))}
-      </ul>
+      </ProjectList>
       <hr />
       <form onSubmit={createNewProject}>
         <label>
-          <div>Add new project</div>
-          <input
+          <div>Add a new project</div>
+          <Input
             data-testid="new-project-input"
             type="text"
             value={newProjectName}
@@ -49,7 +87,7 @@ const Sidebar: React.FC = () => {
           Add
         </button>
       </form>
-    </div>
+    </Wrapper>
   );
 };
 

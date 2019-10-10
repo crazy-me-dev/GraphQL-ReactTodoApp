@@ -2,7 +2,9 @@ import React from "react";
 import { Router, Redirect } from "@reach/router";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import { ThemeProvider } from "emotion-theming";
 
+import { theme } from "./config/globalStyles";
 import { SettingsRoute } from "./settings";
 import { ProjectRoute } from "./project";
 import { LoginRoute, AuthRoute, AuthContext } from "./login";
@@ -27,16 +29,18 @@ const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={{ user, loading, refetchUser: refetch }}>
-        <main>
-          <Router>
-            <HomeRoute path="/" />
-            <LoginRoute path="login" />
-            <AuthRoute path="project/:id" component={ProjectRoute} />
-            <AuthRoute path="settings" component={SettingsRoute} />
-            <Redirect from="project" to="/" noThrow />
-            <PageNotFoundRoute default />
-          </Router>
-        </main>
+        <ThemeProvider theme={theme}>
+          <main>
+            <Router>
+              <HomeRoute path="/" />
+              <LoginRoute path="login" />
+              <AuthRoute path="project/:id" component={ProjectRoute} />
+              <AuthRoute path="settings" component={SettingsRoute} />
+              <Redirect from="project" to="/" noThrow />
+              <PageNotFoundRoute default />
+            </Router>
+          </main>
+        </ThemeProvider>
       </AuthContext.Provider>
     </ApolloProvider>
   );
