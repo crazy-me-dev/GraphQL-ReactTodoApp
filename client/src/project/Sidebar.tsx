@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "@reach/router";
+import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import DeleteProjectButton from "./DeleteProjectButton";
@@ -45,8 +45,8 @@ type Project = {
 const Sidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();
   const createProjectMutation = useCreateProjectMutation();
-
   const [newProjectName, updateNewProjectName] = useState("");
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error!</div>;
 

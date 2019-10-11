@@ -1,5 +1,10 @@
 import React from "react";
-import { Router, Redirect } from "@reach/router";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ThemeProvider } from "emotion-theming";
@@ -32,12 +37,24 @@ const App: React.FC = () => {
         <ThemeProvider theme={theme}>
           <main>
             <Router>
-              <HomeRoute path="/" />
-              <LoginRoute path="login" />
-              <AuthRoute path="project/:id" component={ProjectRoute} />
-              <AuthRoute path="settings" component={SettingsRoute} />
-              <Redirect from="project" to="/" noThrow />
-              <PageNotFoundRoute default />
+              <Switch>
+                <Route exact path="/">
+                  <HomeRoute />
+                </Route>
+                <Route exact path="/login">
+                  <LoginRoute />
+                </Route>
+                <AuthRoute path="/project/:id">
+                  <ProjectRoute />
+                </AuthRoute>
+                <AuthRoute path="/settings">
+                  <SettingsRoute />
+                </AuthRoute>
+                <Redirect from="/project" to="/" />
+                <Route path="*">
+                  <PageNotFoundRoute />
+                </Route>
+              </Switch>
             </Router>
           </main>
         </ThemeProvider>

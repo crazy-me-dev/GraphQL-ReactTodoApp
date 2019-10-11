@@ -1,14 +1,14 @@
 import React from "react";
-import { RouteComponentProps, Redirect } from "@reach/router";
+import { Redirect } from "react-router-dom";
 
 import { AuthContext } from "../login";
 
-const HomeRoute: React.FC<RouteComponentProps> = props => {
+const HomeRoute: React.FC = props => {
   return (
     <AuthContext.Consumer>
       {({ user }) => {
         const to = user ? "project/1" : "login";
-        return <Redirect to={to} noThrow={true} />;
+        return <Redirect to={to} />;
       }}
     </AuthContext.Consumer>
   );

@@ -1,17 +1,13 @@
 import React from "react";
-import {
-  Router,
-  Redirect,
-  createHistory,
-  createMemorySource,
-  LocationProvider
-} from "@reach/router";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
+import { createMemoryHistory, MemoryHistory } from "history";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import { render } from "@testing-library/react";
+import { ThemeProvider } from "emotion-theming";
 
+import { theme } from "../config/globalStyles";
 import AuthContext, { AuthContexOptions, User } from "../login/AuthContext";
-
 import HomeRoute from "../utils/HomeRoute";
 import LoginRoute from "../login/LoginRoute";
 import AuthRoute from "../login/AuthRoute";
@@ -20,14 +16,24 @@ import ProjectRoute from "../project/ProjectRoute";
 import SettingsRoute from "../settings/SettingsRoute";
 
 export const App: React.FC = props => (
-  <Router>
-    <HomeRoute path="/" />
-    <LoginRoute path="login" />
-    <AuthRoute path="project/:id" component={ProjectRoute} />
-    <AuthRoute path="settings" component={SettingsRoute} />
-    <Redirect from="project" to="/" noThrow />
-    <PageNotFoundRoute default />
-  </Router>
+  <Switch>
+    <Route exact path="/">
+      <HomeRoute />
+    </Route>
+    <Route exact path="/login">
+      <LoginRoute />
+    </Route>
+    <AuthRoute path="/project/:id">
+      <ProjectRoute />
+    </AuthRoute>
+    <AuthRoute path="/settings">
+      <SettingsRoute />
+    </AuthRoute>
+    <Redirect from="/project" to="/" />
+    <Route path="*">
+      <PageNotFoundRoute />
+    </Route>
+  </Switch>
 );
 
 export const fakeUser = {
@@ -52,22 +58,29 @@ const authContextValue: AuthContexOptions = {
   refetchUser: () => {}
 };
 
+interface RouterOptions {
+  route?: string;
+  history?: MemoryHistory;
+}
+
 export function renderWithProviders(
   ui: React.ReactNode,
-  user: User,
-  { route = "/login", history = createHistory(createMemorySource(route)) } = {}
+  user: User = null,
+  {
+    route = "/",
+    history = createMemoryHistory({ initialEntries: [route] })
+  }: RouterOptions = {}
 ) {
   authContextValue.user = user;
-
   return {
     ...render(
-      <LocationProvider history={history}>
-        <ApolloProvider client={client}>
-          <AuthContext.Provider value={authContextValue}>
-            {ui}
-          </AuthContext.Provider>
-        </ApolloProvider>
-      </LocationProvider>
+      <ApolloProvider client={client}>
+        <AuthContext.Provider value={authContextValue}>
+          <ThemeProvider theme={theme}>
+            <Router history={history}>{ui}</Router>
+          </ThemeProvider>
+        </AuthContext.Provider>
+      </ApolloProvider>
     ),
     history
   };

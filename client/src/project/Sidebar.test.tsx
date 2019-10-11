@@ -62,10 +62,11 @@ const mocks = [
 describe("<Sidebar />", () => {
   test("should render project list", async () => {
     await act(async () => {
-      const { getByTestId, queryByTestId } = render(
+      const { getByTestId, queryByTestId } = renderWithProviders(
         <MockedProvider mocks={mocks} addTypename={false}>
           <Sidebar />
-        </MockedProvider>
+        </MockedProvider>,
+        null
       );
       await wait(0);
 
@@ -78,10 +79,11 @@ describe("<Sidebar />", () => {
 
   test("should create a new project", async () => {
     await act(async () => {
-      const { getByTestId, container } = render(
+      const { getByTestId, container } = renderWithProviders(
         <MockedProvider mocks={mocks} addTypename={false}>
           <Sidebar />
-        </MockedProvider>
+        </MockedProvider>,
+        null
       );
       await wait(0);
 

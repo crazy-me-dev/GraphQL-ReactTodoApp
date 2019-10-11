@@ -1,12 +1,12 @@
 import React from "react";
-import { RouteComponentProps } from "@reach/router";
+import { useParams } from "react-router-dom";
 
 import AppContainer from "../common/AppContainer";
 import Sidebar from "./Sidebar";
 import TaskList from "./TaskList";
 import { useProjectsQuery } from "./projectRequests";
 
-interface ProjectProps extends RouteComponentProps {
+interface ProjectProps {
   id?: string;
 }
 
@@ -17,10 +17,9 @@ type Project = {
 
 const ProjectRoute: React.FC<ProjectProps> = props => {
   const { data } = useProjectsQuery();
+  const { id } = useParams();
 
-  const project = data
-    ? data.projects.find((p: Project) => p.id === props.id)
-    : null;
+  const project = data ? data.projects.find((p: Project) => p.id === id) : null;
 
   return (
     <AppContainer>

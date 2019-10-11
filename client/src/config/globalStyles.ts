@@ -27,8 +27,6 @@ export const theme: Theme = {
   },
   maxWidth: 900
 };
-const maxWidth = "900px";
-const mainColor = "#123456";
 
 injectGlobal`
   *, ::after, ::before {

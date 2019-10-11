@@ -1,25 +1,28 @@
 import React from "react";
-import { RouteComponentProps, Redirect } from "@reach/router";
+import { Route, RouteProps, Redirect } from "react-router-dom";
 
 import AuthContext from "./AuthContext";
 
-interface AuthRouteProps extends RouteComponentProps {
-  component: React.ComponentType;
+interface AuthRouteProps extends RouteProps {
+  path: string;
+  children: React.ReactNode;
 }
 
-const AuthRoute: React.FC<AuthRouteProps> = props => {
+const AuthRoute: React.FC<AuthRouteProps> = ({ children, ...rest }) => {
   return (
-    <AuthContext.Consumer>
-      {({ user, loading }) => {
-        if (loading) return "...";
+    <Route {...rest}>
+      <AuthContext.Consumer>
+        {({ user, loading }) => {
+          if (loading) return "...";
 
-        if (!user) {
-          return <Redirect to="/login" noThrow={true} />;
-        }
+          if (!user) {
+            return <Redirect to="/login" />;
+          }
 
-        return <props.component {...props} />;
-      }}
-    </AuthContext.Consumer>
+          return children;
+        }}
+      </AuthContext.Consumer>
+    </Route>
   );
 };
 

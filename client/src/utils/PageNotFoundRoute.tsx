@@ -1,6 +1,6 @@
 import React from "react";
 
-const PageNotFoundRoute: React.FC<{ default: boolean }> = () => {
+const PageNotFoundRoute: React.FC = () => {
   return <h1>404 - Page not found</h1>;
 };
 

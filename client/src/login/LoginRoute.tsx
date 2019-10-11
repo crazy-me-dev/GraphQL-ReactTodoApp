@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteComponentProps, Redirect } from "@reach/router";
+import { Redirect } from "react-router-dom";
 import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline
@@ -45,7 +45,7 @@ const GOOGLE_AUTH_KEY = process.env.REACT_APP_GOOGLE_AUTH_KEY
   ? process.env.REACT_APP_GOOGLE_AUTH_KEY
   : "";
 
-const LoginRoute: React.FC<RouteComponentProps> = props => {
+const LoginRoute: React.FC = props => {
   const [loginWithGoogle] = useMutation<{}, { id_token: string }>(
     LOGIN_WITH_GOOGLE_MUTATION
   );
@@ -66,7 +66,7 @@ const LoginRoute: React.FC<RouteComponentProps> = props => {
   return (
     <AuthContext.Consumer>
       {({ user }) => {
-        if (user) return <Redirect to="/" noThrow={true} />;
+        if (user) return <Redirect to="/" />;
         return (
           <Wrapper>
             <Box>

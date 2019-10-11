@@ -1,5 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
+import { Route } from "react-router-dom";
 
 import { renderWithProviders } from "../utils/test-utils";
 import LoginRoute from "./LoginRoute";
@@ -7,8 +8,11 @@ import LoginRoute from "./LoginRoute";
 export default describe("<LoginRoute />", () => {
   test("should show Google login button when not authed", async () => {
     const { getByText, history } = await renderWithProviders(
-      <LoginRoute />,
-      null
+      <Route path="/login">
+        <LoginRoute />
+      </Route>,
+      null,
+      { route: "/login" }
     );
 
     const loginButton = getByText("Login with Google");
