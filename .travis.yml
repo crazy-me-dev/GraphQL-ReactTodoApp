@@ -16,8 +16,3 @@ env:
   global:
     - POSTGRES_PORT="5432"
     - POSTGRES_PASSWORD=""
-deploy:
-  provider: heroku
-  api_key:
-    secure: "YOUR ENCRYPTED API KEY"
-  app: janneleppanen-task-list-server
