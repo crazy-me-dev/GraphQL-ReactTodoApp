@@ -2,7 +2,7 @@ import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { DataProxy } from "apollo-cache";
 
-import { Project } from "./TaskList";
+import { Project } from "../task/TaskList";
 
 export const PROJECTS_QUERY = gql`
   {

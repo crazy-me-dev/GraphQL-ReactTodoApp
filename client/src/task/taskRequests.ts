@@ -1,9 +1,9 @@
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 
-import { optimisticallyUpdateProjectsQuery } from "./projectRequests";
+import { optimisticallyUpdateProjectsQuery } from "../project/projectRequests";
 import { Task, Project } from "./TaskList";
-import { PROJECTS_QUERY } from "./projectRequests";
+import { PROJECTS_QUERY } from "../project/projectRequests";
 
 export const CREATE_TASK_MUTATION = gql`
   mutation create_task($data: TaskInput!) {

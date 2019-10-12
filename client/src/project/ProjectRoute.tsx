@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import AppContainer from "../common/AppContainer";
 import Sidebar from "./Sidebar";
-import TaskList from "./TaskList";
+import TaskList from "../task/TaskList";
 import { useProjectsQuery } from "./projectRequests";
 
 interface ProjectProps {

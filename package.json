@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "lerna run test",
+    "test:travis": "lerna run test:travis",
     "new-version": "lerna version --conventional-commits --yes"
   },
   "repository": {

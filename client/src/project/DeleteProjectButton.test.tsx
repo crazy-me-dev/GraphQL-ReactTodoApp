@@ -15,6 +15,7 @@ const mocks = [
     result: {
       data: {
         projects: [
+          { id: "1", name: "Inbox", tasks: [] },
           { id: "2", name: "Books", tasks: [] },
           { id: "3", name: "Sports", tasks: [] }
         ]
@@ -33,6 +34,19 @@ const mocks = [
         }
       }
     }
+  },
+  {
+    request: {
+      query: PROJECTS_QUERY
+    },
+    result: {
+      data: {
+        projects: [
+          { id: "2", name: "Books", tasks: [] },
+          { id: "3", name: "Sports", tasks: [] }
+        ]
+      }
+    }
   }
 ];
 
@@ -40,7 +54,7 @@ describe("<DeleteProjectButton />", () => {
   test("should delete project when delete button is clicked", async () => {
     await act(async () => {
       let apolloClient;
-      const { getByTestId, container } = await render(
+      const { getByTestId } = await render(
         <MockedProvider mocks={mocks} addTypename={false}>
           <ApolloConsumer>
             {client => {
@@ -52,11 +66,14 @@ describe("<DeleteProjectButton />", () => {
       );
       await wait(0);
 
+      const resBefore = await apolloClient.query({ query: PROJECTS_QUERY });
+
       fireEvent.click(getByTestId("delete-project-1"));
 
-      const res = await apolloClient.query({ query: PROJECTS_QUERY });
+      const resAfter = await apolloClient.query({ query: PROJECTS_QUERY });
 
-      expect(res.data.projects.length).toBe(2);
+      expect(resBefore.data.projects.length).toBe(3);
+      expect(resAfter.data.projects.length).toBe(2);
     });
   });
 });

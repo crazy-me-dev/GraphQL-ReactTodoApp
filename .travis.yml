@@ -7,10 +7,11 @@ cache:
   directories:
     - node_modules
 script:
-  - npm run test:travis --prefix server
+  - npm run test:travis
 before_install:
-  - psql -c 'create database test;' -U postgres
+  - npm install --prefix client
   - npm install --prefix server
+  - psql -c 'create database test;' -U postgres
   - npm run test:migrate --prefix server
 env:
   global:

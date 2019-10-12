@@ -1,7 +1,7 @@
 import React from "react";
 import wait from "waait";
 import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent, act } from "@testing-library/react";
+import { fireEvent, act } from "@testing-library/react";
 import { MockedProvider } from "@apollo/react-testing";
 
 import Sidebar from "./Sidebar";

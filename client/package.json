@@ -29,7 +29,8 @@
     "eject": "react-scripts eject",
     "test": "react-scripts test --runInBand",
     "test:watch": "react-scripts test --watch",
-    "test:coverage": "react-scripts test --coverage"
+    "test:travis": "react-scripts test --runInBand --detectOpenHandles --watchAll=false",
+    "test:coverage": "react-scripts test  --watchAll=false --coverage --coverageDirectory=coverage/ --collectCoverageFrom=src/**/*.{ts,tsx} --collectCoverageFrom=!src/**/{*.stories.js,react-app-env.d.ts,index.ts,index.tsx,serviceWorker.ts}"
   },
   "eslintConfig": {
     "extends": "react-app"

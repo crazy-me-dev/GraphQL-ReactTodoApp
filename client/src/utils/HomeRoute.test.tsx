@@ -1,10 +1,11 @@
 import React from "react";
 
-import { renderWithProviders, App } from "./test-utils";
+import { renderWithProviders } from "./test-utils";
+import HomeRoute from "./HomeRoute";
 
 describe("<HomeRoute/>", () => {
   test("should redirect not-logged in user to login screen", async () => {
-    const { history } = await renderWithProviders(<App />, null, {
+    const { history } = await renderWithProviders(<HomeRoute />, null, {
       route: "/"
     });
 
@@ -13,7 +14,7 @@ describe("<HomeRoute/>", () => {
 
   test("should redirect logged in user to first project", async () => {
     const { history } = await renderWithProviders(
-      <App />,
+      <HomeRoute />,
       {
         id: "7357",
         name: "John Doe"
