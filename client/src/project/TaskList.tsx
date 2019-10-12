@@ -53,19 +53,19 @@ const Checkbox = styled.label`
   }
 `;
 
-type Task = {
+export type Task = {
   id: string;
   description: string;
   done: boolean;
 };
 
-type Project = {
+export type Project = {
   id: string;
   name: string;
-  tasks: [Task];
+  tasks: Task[];
 };
 
-interface TaskListProps {
+export interface TaskListProps {
   project: Project;
 }
 
@@ -88,6 +88,7 @@ const TaskList: React.FC<TaskListProps> = props => {
 
   const toggleTaskDone = (task: Task) => {
     updateTaskMutation(task.id, {
+      description: task.description,
       done: !task.done
     });
   };
@@ -100,7 +101,10 @@ const TaskList: React.FC<TaskListProps> = props => {
     <div>
       {props.project.tasks.map(task => {
         return (
-          <TaskRow key={task.id}>
+          <TaskRow
+            key={task.id}
+            style={{ opacity: task.id === "optimistic" ? 0.2 : 1 }}
+          >
             <Checkbox htmlFor={`t-${task.id}`}>
               <input
                 id={`t-${task.id}`}

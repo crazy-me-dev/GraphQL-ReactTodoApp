@@ -63,6 +63,7 @@ const Sidebar: React.FC = () => {
           <ProjectListItem
             key={project.id}
             data-testid={`project-${project.id}`}
+            style={{ opacity: project.id === "optimistic" ? 0.2 : 1 }}
           >
             <Link to={`/project/${project.id}`}>
               {project.name}
