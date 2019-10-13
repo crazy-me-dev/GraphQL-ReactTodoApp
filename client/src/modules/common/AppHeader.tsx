@@ -4,9 +4,9 @@ import { useMutation } from "@apollo/react-hooks";
 import { useTheme } from "emotion-theming";
 import styled from "@emotion/styled";
 
-import { Theme } from "../config/globalStyles";
+import { Theme } from "../../config/globalStyles";
 import Container from "../common/Container";
-import { ReactComponent as LogoSVG } from "../assets/logo.svg";
+import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import AuthContext from "../login/AuthContext";
 import { LOGOUT_MUTATION } from "../login/loginRequests";
 
@@ -46,7 +46,7 @@ const AppHeader: React.FC = props => {
   const theme = useTheme<Theme>();
 
   return (
-    <AppHeaderWrapper>
+    <AppHeaderWrapper data-testid="app-header">
       <Container
         style={{
           display: "flex",

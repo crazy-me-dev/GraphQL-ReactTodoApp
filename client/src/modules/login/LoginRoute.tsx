@@ -7,7 +7,7 @@ import GoogleLogin, {
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
-import { ReactComponent as LogoSVG } from "../assets/logo.svg";
+import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 
 import AuthContext from "./AuthContext";
 import { ME_QUERY } from "./loginRequests";

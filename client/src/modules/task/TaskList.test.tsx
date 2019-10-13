@@ -1,8 +1,7 @@
 import React from "react";
-import { render } from "@testing-library/react";
 
 import TaskList from "./TaskList";
-import { renderWithProviders } from "../utils/test-utils";
+import { renderWithProviders } from "../../utils/test-utils";
 
 const project = {
   id: "1",

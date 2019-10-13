@@ -1,19 +1,15 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+import { Project } from "./project.model";
 import AppContainer from "../common/AppContainer";
 import Sidebar from "./Sidebar";
 import TaskList from "../task/TaskList";
-import { useProjectsQuery } from "./projectRequests";
+import { useProjectsQuery } from "./project.requests";
 
 interface ProjectProps {
   id?: string;
 }
-
-type Project = {
-  id: string;
-  name: string;
-};
 
 const ProjectRoute: React.FC<ProjectProps> = props => {
   const { data } = useProjectsQuery();

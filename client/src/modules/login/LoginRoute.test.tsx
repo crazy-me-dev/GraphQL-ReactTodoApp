@@ -2,7 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { Route } from "react-router-dom";
 
-import { renderWithProviders } from "../utils/test-utils";
+import { renderWithProviders } from "../../utils/test-utils";
 import LoginRoute from "./LoginRoute";
 
 export default describe("<LoginRoute />", () => {

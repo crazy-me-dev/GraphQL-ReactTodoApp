@@ -5,12 +5,12 @@ import { fireEvent, act } from "@testing-library/react";
 import { MockedProvider } from "@apollo/react-testing";
 
 import Sidebar from "./Sidebar";
-import { renderWithProviders, fakeUser } from "../utils/test-utils";
+import { renderWithProviders, fakeUser } from "../../utils/test-utils";
 import {
   PROJECTS_QUERY,
   DELETE_PROJECT,
   CREATE_PROJECT
-} from "./projectRequests";
+} from "./project.requests";
 
 const mocks = [
   {

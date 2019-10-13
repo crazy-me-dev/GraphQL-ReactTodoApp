@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
+import { Project } from "./project.model";
 import DeleteProjectButton from "./DeleteProjectButton";
-import { useProjectsQuery, useCreateProjectMutation } from "./projectRequests";
+import { useProjectsQuery, useCreateProjectMutation } from "./project.requests";
 
 const ProjectList = styled.ul`
   list-style: none;
@@ -35,12 +36,6 @@ const Input = styled.input`
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;
 `;
-
-type Project = {
-  id: string;
-  name: string;
-  tasks: [];
-};
 
 const Sidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();

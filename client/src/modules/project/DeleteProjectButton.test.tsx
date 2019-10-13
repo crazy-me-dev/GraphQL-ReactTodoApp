@@ -5,7 +5,7 @@ import { MockedProvider } from "@apollo/react-testing";
 import { ApolloConsumer } from "@apollo/react-hooks";
 
 import DeleteProjectButton from "./DeleteProjectButton";
-import { DELETE_PROJECT, PROJECTS_QUERY } from "../project/projectRequests";
+import { DELETE_PROJECT, PROJECTS_QUERY } from "./project.requests";
 
 const mocks = [
   {

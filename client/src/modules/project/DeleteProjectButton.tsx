@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { useDeleteProjectMutation } from "./projectRequests";
+import { useDeleteProjectMutation } from "./project.requests";
 
 const DeleteButton = styled.button`
   background: transparent;

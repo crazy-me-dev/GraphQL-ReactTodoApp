@@ -7,13 +7,16 @@ import { render } from "@testing-library/react";
 import { ThemeProvider } from "emotion-theming";
 
 import { theme } from "../config/globalStyles";
-import AuthContext, { AuthContexOptions, User } from "../login/AuthContext";
-import HomeRoute from "../utils/HomeRoute";
-import LoginRoute from "../login/LoginRoute";
-import AuthRoute from "../login/AuthRoute";
-import PageNotFoundRoute from "../utils/PageNotFoundRoute";
-import ProjectRoute from "../project/ProjectRoute";
-import SettingsRoute from "../settings/SettingsRoute";
+import AuthContext, {
+  AuthContexOptions,
+  User
+} from "../modules/login/AuthContext";
+import HomeRoute from "../modules/home/HomeRoute";
+import PageNotFoundRoute from "../modules/home/PageNotFoundRoute";
+import LoginRoute from "../modules/login/LoginRoute";
+import AuthRoute from "../modules/login/AuthRoute";
+import ProjectRoute from "../modules/project/ProjectRoute";
+import SettingsRoute from "../modules/settings/SettingsRoute";
 
 export const App: React.FC = props => (
   <Switch>
@@ -42,14 +45,7 @@ export const fakeUser = {
 };
 
 const client = new ApolloClient<{}>({
-  uri: "https://localhost:7357/graphql",
-  request: async operation => {
-    operation.setContext({
-      fetchOptions: {
-        credentials: "include"
-      }
-    });
-  }
+  uri: "https://localhost:7357/graphql"
 });
 
 const authContextValue: AuthContexOptions = {

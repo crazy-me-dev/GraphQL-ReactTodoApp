@@ -1,6 +1,6 @@
 import React from "react";
 
-import { renderWithProviders } from "./test-utils";
+import { renderWithProviders } from "../../utils/test-utils";
 import HomeRoute from "./HomeRoute";
 
 describe("<HomeRoute/>", () => {
