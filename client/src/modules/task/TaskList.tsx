@@ -48,6 +48,13 @@ const TaskList: React.FC<TaskListProps> = props => {
     deleteTaskMutation(task.id);
   };
 
+  const updateDescription = (newDescription: string, task: Task) => {
+    updateTaskMutation(task.id, {
+      description: newDescription,
+      done: task.done
+    });
+  };
+
   return (
     <div>
       {props.project.tasks.map(task => {
@@ -57,6 +64,7 @@ const TaskList: React.FC<TaskListProps> = props => {
             task={task}
             onDelete={deleteTask}
             onDoneToggle={toggleTaskDone}
+            onDescriptionChange={updateDescription}
           />
         );
       })}

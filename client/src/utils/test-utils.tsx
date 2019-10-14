@@ -44,6 +44,12 @@ export const fakeUser = {
   name: "John Doe"
 };
 
+export const fakeTask = () => ({
+  id: "7357",
+  description: "Buy milk",
+  done: false
+});
+
 const client = new ApolloClient<{}>({
   uri: "https://localhost:7357/graphql"
 });

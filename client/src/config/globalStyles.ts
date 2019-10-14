@@ -34,12 +34,18 @@ injectGlobal`
   }
 
   body {
+    margin: 0;
+  }
+
+  input,
+  select,
+  button,
+  body {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
     line-height: 1.5;
     font-size: 16px;
     color: ${theme.colors.text};
     -webkit-font-smoothing: antialiased;
-    margin: 0;
   }
 
   ::selection {

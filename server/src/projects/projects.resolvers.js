@@ -3,7 +3,10 @@ const Query = {
     const userId = ctx.req.userId;
     if (!userId) throw [];
 
-    return await ctx.db("project").where({ user_id: userId });
+    return await ctx
+      .db("project")
+      .where({ user_id: userId })
+      .orderBy("id", "asc");
   }
 };
 
@@ -66,7 +69,10 @@ const Mutation = {
 
 const Project = {
   tasks: async (project, args, ctx, info) => {
-    return await ctx.db("task").where("project_id", project.id);
+    return await ctx
+      .db("task")
+      .where("project_id", project.id)
+      .orderBy("id", "asc");
   }
 };
 
