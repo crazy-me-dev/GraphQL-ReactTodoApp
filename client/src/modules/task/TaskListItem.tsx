@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled/macro";
 
 import { Task } from "./task.model";
+import styled from "../../config/globalStyles";
 
 export interface TaskListItemProps {
   task: Task;
@@ -63,7 +63,7 @@ const DescriptionInput = styled.input`
   border: 1px solid #ddd;
   &:focus {
     outline: none;
-    border: 2px solid #fb3535;
+    border: 2px solid ${props => props.theme.colors.primary};
   }
 `;
 
@@ -79,12 +79,12 @@ const DeleteButton = styled.button`
   font-weight: 400;
   color: #ddd;
   border-radius: 50%;
-  color: #fb3535;
+  color: ${props => props.theme.colors.primary};
   border: 2px solid transparent;
   padding: 0;
   &:hover,
   &:focus {
-    border-color: #fb3535;
+    border-color: ${props => props.theme.colors.primary};
     opacity: 1;
     outline: none;
   }
@@ -99,7 +99,7 @@ const TaskRow = styled.div`
 
   &:hover,
   &:focus-within {
-    ${DeleteButton} {
+    .delete-button {
       opacity: 1;
     }
   }
@@ -164,6 +164,7 @@ const TaskListItem: React.FC<TaskListItemProps> = ({
         onClick={() => {
           onDelete(task);
         }}
+        className="delete-button"
         data-testid="delete-task"
       >
         &times;

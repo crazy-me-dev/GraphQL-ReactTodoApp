@@ -1,4 +1,5 @@
 import { injectGlobal } from "emotion";
+import EmotionStyled, { CreateStyled } from "@emotion/styled";
 
 export interface Theme {
   colors: {
@@ -62,3 +63,6 @@ injectGlobal`
     border-top: 1px solid ${theme.colors.grey[400]};
   }
 `;
+
+const styled = EmotionStyled as CreateStyled<Theme>;
+export default styled;

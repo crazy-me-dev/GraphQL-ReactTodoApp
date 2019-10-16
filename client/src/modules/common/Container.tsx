@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from "../../config/globalStyles";
 
 const Container = styled.div`
   max-width: 900px;

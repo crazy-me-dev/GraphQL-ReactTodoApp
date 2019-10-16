@@ -1,13 +1,12 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 
-import { Task } from "./task.model";
-import { fakeTask } from "../../utils/test-utils";
+import { fakeTask, renderWithProviders } from "../../utils/test-utils";
 import TaskListItem from "./TaskListItem";
 
 describe("<TaskListItem />", () => {
   test("should change edit mode when description clicked", () => {
-    const { getByText, queryByTestId } = render(
+    const { getByText, queryByTestId } = renderWithProviders(
       <TaskListItem
         task={fakeTask()}
         onDescriptionChange={() => {}}
@@ -28,7 +27,7 @@ describe("<TaskListItem />", () => {
   test("should trigger onDelete", () => {
     const mockDeleteFn = jest.fn();
 
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithProviders(
       <TaskListItem
         task={fakeTask()}
         onDescriptionChange={() => {}}
@@ -47,7 +46,7 @@ describe("<TaskListItem />", () => {
     const mockChangeFn = jest.fn();
     let descriptionText = "";
 
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithProviders(
       <TaskListItem
         task={fakeTask()}
         onDescriptionChange={(description, task) => {
@@ -80,7 +79,7 @@ describe("<TaskListItem />", () => {
   test("should trigger onDoneToggle", () => {
     const mockDoneToggleFn = jest.fn();
 
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithProviders(
       <TaskListItem
         task={fakeTask()}
         onDescriptionChange={() => {}}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import styled from "@emotion/styled";
+import styled from "../../config/globalStyles";
 
 import { Project } from "./project.model";
 import DeleteProjectButton from "./DeleteProjectButton";

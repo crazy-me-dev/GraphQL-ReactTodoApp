@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
+import styled from "../../config/globalStyles";
 
 import { Task } from "./task.model";
 import { Project } from "../project/project.model";
