@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styled from "../../config/globalStyles";
 
+import { Button, Input, ListTransition } from "../common";
 import { Task } from "./task.model";
 import { Project } from "../project/project.model";
 import TaskListItem from "./TaskListItem";
@@ -10,17 +10,11 @@ import {
   useDeleteTaskMutation
 } from "./task.requests";
 
-const Input = styled.input`
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
-`;
-
 export interface TaskListProps {
   project: Project;
 }
 
-const TaskList: React.FC<TaskListProps> = props => {
+const TaskList: React.FC<TaskListProps> = ({ project }) => {
   const createTaskMutation = useCreateTaskMutation();
   const updateTaskMutation = useUpdateTaskMutation();
   const deleteTaskMutation = useDeleteTaskMutation();
@@ -32,7 +26,7 @@ const TaskList: React.FC<TaskListProps> = props => {
     createTaskMutation({
       description: newTaskName,
       done: false,
-      project: props.project.id
+      project: project.id
     });
     setNewTaskName("");
   };
@@ -57,8 +51,8 @@ const TaskList: React.FC<TaskListProps> = props => {
 
   return (
     <div>
-      {props.project.tasks.map(task => {
-        return (
+      {project.tasks.map(task => (
+        <ListTransition key={task.id}>
           <TaskListItem
             key={task.id}
             task={task}
@@ -66,8 +60,8 @@ const TaskList: React.FC<TaskListProps> = props => {
             onDoneToggle={toggleTaskDone}
             onDescriptionChange={updateDescription}
           />
-        );
-      })}
+        </ListTransition>
+      ))}
 
       <br />
 
@@ -80,7 +74,7 @@ const TaskList: React.FC<TaskListProps> = props => {
             onChange={e => setNewTaskName(e.target.value)}
           />
         </label>
-        <button type="submit">Add task</button>
+        <Button type="submit">Add task</Button>
       </form>
     </div>
   );

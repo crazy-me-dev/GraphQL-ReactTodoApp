@@ -6,7 +6,7 @@ import GoogleLogin, {
 } from "react-google-login";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
-import styled from "../../config/globalStyles";
+import styled from "../../config/styles";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 
 import AuthContext from "./AuthContext";

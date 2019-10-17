@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import styled from "../../config/globalStyles";
+import styled from "../../config/styles";
 
+import { Button, Input } from "../common";
 import { Project } from "./project.model";
 import DeleteProjectButton from "./DeleteProjectButton";
 import { useProjectsQuery, useCreateProjectMutation } from "./project.requests";
@@ -29,12 +30,6 @@ const ProjectListItem = styled.li`
 
 const Wrapper = styled.div`
   margin-right: 2rem;
-`;
-
-const Input = styled.input`
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
 `;
 
 const Sidebar: React.FC = () => {
@@ -79,9 +74,9 @@ const Sidebar: React.FC = () => {
             onChange={e => updateNewProjectName(e.target.value)}
           />
         </label>
-        <button data-testid="new-project-submit" type="submit">
-          Add
-        </button>
+        <Button data-testid="new-project-submit" type="submit">
+          Add project
+        </Button>
       </form>
     </Wrapper>
   );

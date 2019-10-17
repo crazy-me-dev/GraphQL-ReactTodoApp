@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import { useTheme } from "emotion-theming";
-import styled from "../../config/globalStyles";
+import styled, { Theme } from "../../config/styles";
 
-import { Theme } from "../../config/globalStyles";
-import Container from "../common/Container";
+import { Container, Button } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import AuthContext from "../login/AuthContext";
 import { LOGOUT_MUTATION } from "../login/loginRequests";
@@ -24,7 +23,7 @@ const LogOutButton = () => {
         if (!user) return null;
 
         return (
-          <button
+          <Button
             onClick={() => {
               logOut({
                 awaitRefetchQueries: true,
@@ -35,7 +34,7 @@ const LogOutButton = () => {
             }}
           >
             Logout
-          </button>
+          </Button>
         );
       }}
     </AuthContext.Consumer>

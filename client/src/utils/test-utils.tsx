@@ -6,7 +6,7 @@ import ApolloClient from "apollo-boost";
 import { render } from "@testing-library/react";
 import { ThemeProvider } from "emotion-theming";
 
-import { theme } from "../config/globalStyles";
+import { theme } from "../config/styles";
 import AuthContext, {
   AuthContexOptions,
   User

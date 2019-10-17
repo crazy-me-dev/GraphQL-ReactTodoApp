@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "../../config/globalStyles";
+import styled from "../../config/styles";
 
 import { useDeleteProjectMutation } from "./project.requests";
 

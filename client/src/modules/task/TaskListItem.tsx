@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Task } from "./task.model";
-import styled from "../../config/globalStyles";
+import styled from "../../config/styles";
 
 export interface TaskListItemProps {
   task: Task;
@@ -12,32 +12,48 @@ export interface TaskListItemProps {
 
 const Checkbox = styled.label`
   span {
-    display: flex;
-    align-items: center;
-    &:hover::before {
-      border-color: tomato;
-      border-width: 2px;
-    }
-  }
-
-  span::before {
+    position: relative;
     transition: all 0.2s;
     content: "";
     display: inline-block;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    border: 1px solid #ccc;
+    border: 1px solid ${props => props.theme.colors.borderDark};
     margin-right: 0.5rem;
+    &:hover {
+      border-color: ${props => props.theme.colors.primary};
+      border-width: 1px;
+      box-shadow: inset 0 0 0 1px ${props => props.theme.colors.primary};
+    }
+  }
+
+  span::after {
+    transition: all 0.2s;
+    transition-timing-function: cubic-bezier(0, 1.05, 1, 1.75);
+    content: "";
+    display: block;
+    width: 0.4rem;
+    height: 0.8rem;
+    position: absolute;
+    top: 0.3rem;
+    left: 0.5rem;
+    border-bottom: 3px solid ${props => props.theme.colors.primary};
+    border-right: 3px solid ${props => props.theme.colors.primary};
+    transform: rotate(40deg) scale(0.5);
+    opacity: 0;
   }
 
   input {
     display: none;
     &:checked + span {
-      opacity: 0.3;
       &::before {
-        background: #777;
+        background: ${props => props.theme.colors.border};
         border: none;
+      }
+      &::after {
+        opacity: 1;
+        transform: rotate(40deg) scale(1);
       }
     }
   }
@@ -54,6 +70,7 @@ const Description = styled.button<{ done: boolean }>`
   text-align: left;
   border: 2px solid transparent;
   opacity: ${props => (props.done ? 0.5 : 1)};
+  background-color: transparent;
 `;
 
 const DescriptionInput = styled.input`
@@ -61,6 +78,7 @@ const DescriptionInput = styled.input`
   padding: 0.5rem 1rem;
   border-radius: 4px;
   border: 1px solid #ddd;
+  background: transparent;
   &:focus {
     outline: none;
     border: 2px solid ${props => props.theme.colors.primary};
@@ -91,18 +109,11 @@ const DeleteButton = styled.button`
 `;
 
 const TaskRow = styled.div`
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${props => props.theme.colors.border};
   padding: 0.75rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  &:hover,
-  &:focus-within {
-    .delete-button {
-      opacity: 1;
-    }
-  }
 `;
 
 const TaskListItem: React.FC<TaskListItemProps> = ({
@@ -120,7 +131,7 @@ const TaskListItem: React.FC<TaskListItemProps> = ({
   };
 
   return (
-    <TaskRow key={task.id}>
+    <TaskRow>
       <Checkbox htmlFor={`t-${task.id}`}>
         <input
           id={`t-${task.id}`}
