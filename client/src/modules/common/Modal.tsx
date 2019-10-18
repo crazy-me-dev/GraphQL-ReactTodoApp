@@ -59,7 +59,12 @@ const ModalBox: React.FC<Props> = ({ children, onClose }) => {
     <animated.div style={styleProps}>
       <FocusTrap>
         <ModalBoxWrapper>
-          <CloseButton onClick={() => onClose()}>&times;</CloseButton>
+          <CloseButton
+            onClick={() => onClose()}
+            data-testid="modal-close-button"
+          >
+            &times;
+          </CloseButton>
           {children}
         </ModalBoxWrapper>
       </FocusTrap>
@@ -83,6 +88,7 @@ const Modal: React.FC<Props> = ({ children, open, onClose }) => {
       <span tabIndex={0} />
       <Wrapper
         ref={overlayElement}
+        data-testid="modal-outside"
         onMouseDown={e => {
           if (e.target === overlayElement.current) {
             onClose();

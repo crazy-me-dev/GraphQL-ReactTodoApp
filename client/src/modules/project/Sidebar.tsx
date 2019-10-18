@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "../../config/styles";
 
-import { Button, Input, Modal, Title } from "../common";
+import { Button, Modal } from "../common";
 import { Project } from "./project.model";
+import CreateProjectForm from "./CreateProjectForm";
 import DeleteProjectButton from "./DeleteProjectButton";
-import { useProjectsQuery, useCreateProjectMutation } from "./project.requests";
+import { useProjectsQuery } from "./project.requests";
 
 const ProjectList = styled.ul`
   list-style: none;
@@ -34,20 +35,11 @@ const Wrapper = styled.div`
 
 const Sidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();
-  const createProjectMutation = useCreateProjectMutation();
-  const [newProjectName, updateNewProjectName] = useState("");
+
   const [modalIsOpen, setModalOpen] = useState(false);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error!</div>;
-
-  const createNewProject = (e: React.FormEvent) => {
-    e.preventDefault();
-    createProjectMutation(newProjectName);
-    updateNewProjectName("");
-    setModalOpen(false);
-  };
-
   return (
     <Wrapper>
       <ProjectList>
@@ -74,23 +66,7 @@ const Sidebar: React.FC = () => {
       </Button>
 
       <Modal open={modalIsOpen} onClose={() => setModalOpen(false)}>
-        <form onSubmit={createNewProject}>
-          <Title.H2>Add a new project</Title.H2>
-          <label>
-            Name
-            <br />
-            <Input
-              data-testid="new-project-input"
-              type="text"
-              value={newProjectName}
-              autoFocus
-              onChange={e => updateNewProjectName(e.target.value)}
-            />
-          </label>
-          <Button data-testid="new-project-submit" filled type="submit">
-            Add
-          </Button>
-        </form>
+        <CreateProjectForm onSubmit={() => setModalOpen(false)} />
       </Modal>
     </Wrapper>
   );
