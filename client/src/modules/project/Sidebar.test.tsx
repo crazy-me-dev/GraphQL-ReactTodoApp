@@ -76,28 +76,4 @@ describe("<Sidebar />", () => {
       expect(queryByTestId("project-4")).toBeNull();
     });
   });
-
-  test("should create a new project", async () => {
-    await act(async () => {
-      const { getByTestId, container } = renderWithProviders(
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <Sidebar />
-        </MockedProvider>,
-        null
-      );
-      await wait(0);
-
-      fireEvent.change(getByTestId("new-project-input"), {
-        target: { value: "Cars" }
-      });
-      fireEvent.click(getByTestId("new-project-submit"));
-
-      await wait(0);
-
-      expect(getByTestId("project-1")).toHaveTextContent("Inbox");
-      expect(getByTestId("project-2")).toHaveTextContent("Books");
-      expect(getByTestId("project-3")).toHaveTextContent("Sports");
-      expect(getByTestId("project-4")).toHaveTextContent("Cars");
-    });
-  });
 });

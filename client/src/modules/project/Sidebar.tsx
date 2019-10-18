@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "../../config/styles";
 
-import { Button, Input } from "../common";
+import { Button, Input, Modal, Title } from "../common";
 import { Project } from "./project.model";
 import DeleteProjectButton from "./DeleteProjectButton";
 import { useProjectsQuery, useCreateProjectMutation } from "./project.requests";
@@ -36,6 +36,7 @@ const Sidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();
   const createProjectMutation = useCreateProjectMutation();
   const [newProjectName, updateNewProjectName] = useState("");
+  const [modalIsOpen, setModalOpen] = useState(false);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error!</div>;
@@ -44,6 +45,7 @@ const Sidebar: React.FC = () => {
     e.preventDefault();
     createProjectMutation(newProjectName);
     updateNewProjectName("");
+    setModalOpen(false);
   };
 
   return (
@@ -63,21 +65,33 @@ const Sidebar: React.FC = () => {
           </ProjectListItem>
         ))}
       </ProjectList>
-      <hr />
-      <form onSubmit={createNewProject}>
-        <label>
-          <div>Add a new project</div>
-          <Input
-            data-testid="new-project-input"
-            type="text"
-            value={newProjectName}
-            onChange={e => updateNewProjectName(e.target.value)}
-          />
-        </label>
-        <Button data-testid="new-project-submit" type="submit">
-          Add project
-        </Button>
-      </form>
+
+      <Button
+        onClick={() => setModalOpen(true)}
+        data-testid="open-new-project-input"
+      >
+        Add Project
+      </Button>
+
+      <Modal open={modalIsOpen} onClose={() => setModalOpen(false)}>
+        <form onSubmit={createNewProject}>
+          <Title.H2>Add a new project</Title.H2>
+          <label>
+            Name
+            <br />
+            <Input
+              data-testid="new-project-input"
+              type="text"
+              value={newProjectName}
+              autoFocus
+              onChange={e => updateNewProjectName(e.target.value)}
+            />
+          </label>
+          <Button data-testid="new-project-submit" filled type="submit">
+            Add
+          </Button>
+        </form>
+      </Modal>
     </Wrapper>
   );
 };
