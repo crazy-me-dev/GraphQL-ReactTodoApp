@@ -17,7 +17,7 @@ export interface Theme {
   maxWidth: number;
 }
 
-export const theme: Theme = {
+const theme: Theme = {
   colors: {
     primary: "#FB3535",
     border: "#eee",
@@ -33,7 +33,7 @@ export const theme: Theme = {
   maxWidth: 900
 };
 
-export const dark: Theme = {
+const dark: Theme = {
   colors: {
     primary: "#FB3535",
     border: "#303030",
@@ -49,7 +49,7 @@ export const dark: Theme = {
   maxWidth: 900
 };
 
-export const globalStyles = (theme: Theme) => css`
+const globalStyles = (theme: Theme) => css`
   *,
   ::after,
   ::before {
@@ -89,4 +89,14 @@ export const globalStyles = (theme: Theme) => css`
 `;
 
 const styled = EmotionStyled as CreateStyled<Theme>;
+
+const breakpoints = { medium: 600 };
+
+type BreakpointKeys = keyof typeof breakpoints;
+
+const mq = (breakpoint: BreakpointKeys) => {
+  return `@media (min-width: ${breakpoints[breakpoint]}px)`;
+};
+
+export { globalStyles, theme, dark, mq };
 export default styled;

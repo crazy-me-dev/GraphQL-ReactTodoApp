@@ -1,16 +1,12 @@
 import React from "react";
 import wait from "waait";
 import "@testing-library/jest-dom/extend-expect";
-import { fireEvent, act } from "@testing-library/react";
+import { act } from "@testing-library/react";
 import { MockedProvider } from "@apollo/react-testing";
 
 import Sidebar from "./Sidebar";
-import { renderWithProviders, fakeUser } from "../../utils/test-utils";
-import {
-  PROJECTS_QUERY,
-  DELETE_PROJECT,
-  CREATE_PROJECT
-} from "./project.requests";
+import { renderWithProviders } from "../../utils/test-utils";
+import { PROJECTS_QUERY, CREATE_PROJECT } from "./project.requests";
 
 const mocks = [
   {

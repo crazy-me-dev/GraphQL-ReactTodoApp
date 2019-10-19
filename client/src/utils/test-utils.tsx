@@ -17,6 +17,7 @@ import LoginRoute from "../modules/login/LoginRoute";
 import AuthRoute from "../modules/login/AuthRoute";
 import ProjectRoute from "../modules/project/ProjectRoute";
 import SettingsRoute from "../modules/settings/SettingsRoute";
+import { SideMenuProvider } from "../modules/project/SideMenuProvider";
 
 export const App: React.FC = props => (
   <Switch>
@@ -79,7 +80,9 @@ export function renderWithProviders(
       <ApolloProvider client={client}>
         <AuthContext.Provider value={authContextValue}>
           <ThemeProvider theme={theme}>
-            <Router history={history}>{ui}</Router>
+            <SideMenuProvider>
+              <Router history={history}>{ui}</Router>
+            </SideMenuProvider>
           </ThemeProvider>
         </AuthContext.Provider>
       </ApolloProvider>

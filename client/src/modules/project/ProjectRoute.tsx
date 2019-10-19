@@ -20,10 +20,8 @@ const ProjectRoute: React.FC<ProjectProps> = props => {
   return (
     <AppContainer>
       <div style={{ display: "flex" }}>
-        <div style={{ flex: 2 }}>
-          <Sidebar />
-        </div>
-        <div style={{ flex: 6 }}>
+        <Sidebar />
+        <div style={{ flex: 1 }}>
           {project && (
             <div>
               <h1>{project.name}</h1>
