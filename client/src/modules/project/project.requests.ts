@@ -43,7 +43,10 @@ export const useProjectsQuery = () => {
 };
 
 export const useCreateProjectMutation = () => {
-  const [createProject] = useMutation(CREATE_PROJECT);
+  const [createProject] = useMutation<{
+    __typename: string;
+    createProject: Project & { __typename: string };
+  }>(CREATE_PROJECT);
 
   return (name: string) =>
     createProject({
@@ -59,6 +62,7 @@ export const useCreateProjectMutation = () => {
         }
       },
       update: (proxy, mutationResult) => {
+        if (!mutationResult.data) return;
         const project: Project = mutationResult.data.createProject;
         optimisticallyUpdateProjectsQuery(projects => {
           return [...projects, project];

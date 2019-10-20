@@ -115,7 +115,12 @@ const Sidebar: React.FC = () => {
               data-testid={`project-${project.id}`}
               style={{ opacity: project.id === "optimistic" ? 0.2 : 1 }}
             >
-              <Link to={`/project/${project.id}`}>
+              <Link
+                to={`/project/${project.id}`}
+                onClick={() => {
+                  setSideMenuOpen(false);
+                }}
+              >
                 {project.name}
                 <ProjectNumber>{project.tasks.length}</ProjectNumber>
               </Link>
