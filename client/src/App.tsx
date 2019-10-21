@@ -1,10 +1,8 @@
 import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { ThemeProvider } from "emotion-theming";
-import { Global } from "@emotion/core";
 
 import Routes from "./routes";
-import { theme, globalStyles } from "./config/styles";
+import { ThemeProvider } from "./modules/settings";
 import { AuthContext } from "./modules/login";
 import { useMeQuery } from "./modules/login/loginRequests";
 import { client } from "./config/apollo";
@@ -17,9 +15,8 @@ const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={{ user, loading, refetchUser: refetch }}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <SideMenuProvider>
-            <Global styles={globalStyles(theme)} />
             <Routes />
           </SideMenuProvider>
         </ThemeProvider>

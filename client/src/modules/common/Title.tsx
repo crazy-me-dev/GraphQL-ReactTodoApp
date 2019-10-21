@@ -8,13 +8,21 @@ const defaultHeadingSettings = css`
 
 export const H1 = styled.h1`
   ${defaultHeadingSettings};
+  font-size: 2rem;
 `;
 
 export const H2 = styled.h2`
   ${defaultHeadingSettings};
+  font-size: 1.5rem;
+`;
+
+export const H3 = styled.h2`
+  ${defaultHeadingSettings};
+  font-size: 1.25rem;
 `;
 
 export default {
   H1,
-  H2
+  H2,
+  H3
 };

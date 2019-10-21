@@ -4,9 +4,7 @@ import { createMemoryHistory, MemoryHistory } from "history";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import { render } from "@testing-library/react";
-import { ThemeProvider } from "emotion-theming";
 
-import { theme } from "../config/styles";
 import AuthContext, {
   AuthContexOptions,
   User
@@ -18,6 +16,7 @@ import AuthRoute from "../modules/login/AuthRoute";
 import ProjectRoute from "../modules/project/ProjectRoute";
 import SettingsRoute from "../modules/settings/SettingsRoute";
 import { SideMenuProvider } from "../modules/project/SideMenuProvider";
+import { ThemeProvider } from "../modules/settings";
 
 export const App: React.FC = props => (
   <Switch>
@@ -79,7 +78,7 @@ export function renderWithProviders(
     ...render(
       <ApolloProvider client={client}>
         <AuthContext.Provider value={authContextValue}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider>
             <SideMenuProvider>
               <Router history={history}>{ui}</Router>
             </SideMenuProvider>

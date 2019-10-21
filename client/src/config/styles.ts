@@ -2,6 +2,8 @@ import { css } from "@emotion/core";
 import EmotionStyled, { CreateStyled } from "@emotion/styled";
 
 export interface Theme {
+  id: string;
+  name: string;
   colors: {
     primary: string;
     border: string;
@@ -17,7 +19,9 @@ export interface Theme {
   maxWidth: number;
 }
 
-const theme: Theme = {
+const defaultTheme: Theme = {
+  id: "theme",
+  name: "Default",
   colors: {
     primary: "#FB3535",
     border: "#eee",
@@ -34,12 +38,32 @@ const theme: Theme = {
 };
 
 const dark: Theme = {
+  id: "dark",
+  name: "Dark",
   colors: {
     primary: "#FB3535",
     border: "#303030",
     borderDark: "#303030",
     background: "#444",
     text: "#eee",
+    grey: {
+      "100": "#f1f1f1",
+      "400": "#ddd",
+      "700": "#ccc"
+    }
+  },
+  maxWidth: 900
+};
+
+const blue: Theme = {
+  id: "blue",
+  name: "Blue",
+  colors: {
+    primary: "#0099ff",
+    border: "#ddd",
+    borderDark: "#ccc",
+    background: "#f3f3f3",
+    text: "#444",
     grey: {
       "100": "#f1f1f1",
       "400": "#ddd",
@@ -98,5 +122,11 @@ const mq = (breakpoint: BreakpointKeys) => {
   return `@media (min-width: ${breakpoints[breakpoint]}px)`;
 };
 
-export { globalStyles, theme, dark, mq };
+const themes = {
+  defaultTheme,
+  dark,
+  blue
+};
+
+export { globalStyles, themes, mq };
 export default styled;
