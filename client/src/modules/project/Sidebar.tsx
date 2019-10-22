@@ -76,7 +76,7 @@ const Wrapper = styled.div<{ open: boolean }>`
   ${mq("medium")} {
     margin-top: 1rem;
     padding: 1rem;
-    background: white;
+    background: transparent;
     transform: translate(0);
     position: static;
     width: 220px;
