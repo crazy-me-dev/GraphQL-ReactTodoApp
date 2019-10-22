@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import GoogleLogin, {
   GoogleLoginResponse,
@@ -11,6 +11,7 @@ import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 
 import AuthContext from "./AuthContext";
 import { ME_QUERY } from "./loginRequests";
+import { Spinner } from "../common";
 
 const Wrapper = styled.div`
   display: flex;
@@ -49,12 +50,15 @@ const LoginRoute: React.FC = props => {
   const [loginWithGoogle] = useMutation<{}, { id_token: string }>(
     LOGIN_WITH_GOOGLE_MUTATION
   );
+  const { user, loading } = useContext(AuthContext);
+  const [hasLoader, setHasLoader] = useState(false);
 
   const responseGoogle = (
     e: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
     if ("getAuthResponse" in e) {
       const id_token = e.getAuthResponse().id_token;
+      setHasLoader(true);
       loginWithGoogle({
         variables: {
           id_token
@@ -63,26 +67,32 @@ const LoginRoute: React.FC = props => {
       });
     }
   };
+
+  if (user) return <Redirect to="/" />;
+
+  if (loading || hasLoader) {
+    return (
+      <Wrapper>
+        <Box>
+          <Spinner />
+        </Box>
+      </Wrapper>
+    );
+  }
+
   return (
-    <AuthContext.Consumer>
-      {({ user }) => {
-        if (user) return <Redirect to="/" />;
-        return (
-          <Wrapper>
-            <Box>
-              <LogoSVG style={{ fill: "tomato" }} />
-              <GoogleLogin
-                clientId={GOOGLE_AUTH_KEY}
-                buttonText={"Login with Google"}
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={"single_host_origin"}
-              />
-            </Box>
-          </Wrapper>
-        );
-      }}
-    </AuthContext.Consumer>
+    <Wrapper>
+      <Box>
+        <LogoSVG style={{ fill: "tomato" }} />
+        <GoogleLogin
+          clientId={GOOGLE_AUTH_KEY}
+          buttonText={"Login with Google"}
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
+      </Box>
+    </Wrapper>
   );
 };
 

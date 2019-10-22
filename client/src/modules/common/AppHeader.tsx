@@ -21,7 +21,6 @@ const FirstItemContainer = styled.div`
 const Logo = styled(LogoSVG)`
   display: none;
   fill: ${props => props.theme.colors.primary};
-  transform: translateY(-4px);
 
   ${mq("medium")} {
     display: inline-block;

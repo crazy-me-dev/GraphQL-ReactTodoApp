@@ -89,7 +89,7 @@ const Sidebar: React.FC = () => {
   const [modalIsOpen, setModalOpen] = useState(false);
   const { isSideMenuOpen, setSideMenuOpen } = useSideMenu();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return null;
   if (error) return <div>Error!</div>;
 
   return (

@@ -2,6 +2,7 @@ import React from "react";
 import { Route, RouteProps, Redirect } from "react-router-dom";
 
 import AuthContext from "./AuthContext";
+import { Spinner } from "../common";
 
 interface AuthRouteProps extends RouteProps {
   path: string;
@@ -13,7 +14,7 @@ const AuthRoute: React.FC<AuthRouteProps> = ({ children, ...rest }) => {
     <Route {...rest}>
       <AuthContext.Consumer>
         {({ user, loading }) => {
-          if (loading) return "...";
+          if (loading) return <Spinner />;
 
           if (!user) {
             return <Redirect to="/login" />;
