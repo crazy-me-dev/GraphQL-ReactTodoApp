@@ -63,7 +63,6 @@ const Wrapper = styled.div<{ open: boolean }>`
   position: relative;
   transition: all 0.4s;
   padding: 4rem 1rem 1rem 1rem;
-
   background: ${props => props.theme.colors.background};
   position: fixed;
   left: 0;
@@ -75,6 +74,7 @@ const Wrapper = styled.div<{ open: boolean }>`
   transform: ${props => (props.open ? `translateX(0)` : `translateX(-100%)`)};
 
   ${mq("medium")} {
+    margin-top: 1rem;
     padding: 1rem;
     background: white;
     transform: translate(0);

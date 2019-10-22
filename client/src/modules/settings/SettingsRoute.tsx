@@ -1,14 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import AppContainer from "../common/AppContainer";
+import { AppHeader, Container } from "../common";
 import ThemePicker from "./ThemePicker";
 
 const SettingsRoute: React.FC = () => (
-  <AppContainer>
-    <h1>Settings</h1>
-    <h2>Theme</h2>
-    <ThemePicker />
-  </AppContainer>
+  <>
+    <AppHeader>
+      <Link to="/">Back</Link>
+    </AppHeader>
+    <Container>
+      <h1>Settings</h1>
+      <h2>Theme</h2>
+      <ThemePicker />
+    </Container>
+  </>
 );
 
 export default SettingsRoute;

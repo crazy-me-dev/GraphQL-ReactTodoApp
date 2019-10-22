@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import styled, { mq } from "../../config/styles";
@@ -14,10 +14,13 @@ const AppHeaderWrapper = styled.header`
   box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.1);
 `;
 
+const FirstItemContainer = styled.div`
+  margin-right: auto;
+`;
+
 const Logo = styled(LogoSVG)`
   display: none;
   fill: ${props => props.theme.colors.primary};
-  margin-right: auto;
   transform: translateY(-4px);
 
   ${mq("medium")} {
@@ -39,28 +42,24 @@ const OpenSideMenu = styled.button`
 
 const LogOutButton = () => {
   const [logOut] = useMutation(LOGOUT_MUTATION);
+  const { user, refetchUser } = useContext(AuthContext);
+
+  if (!user) return null;
 
   return (
-    <AuthContext.Consumer>
-      {({ user, refetchUser }) => {
-        if (!user) return null;
-
-        return (
-          <Button
-            onClick={() => {
-              logOut({
-                awaitRefetchQueries: true,
-                update: () => {
-                  refetchUser();
-                }
-              });
-            }}
-          >
-            Logout
-          </Button>
-        );
+    <Button
+      onClick={() => {
+        logOut({
+          awaitRefetchQueries: true,
+          update: () => {
+            refetchUser();
+          }
+        });
       }}
-    </AuthContext.Consumer>
+      data-testid="logout-button"
+    >
+      Logout
+    </Button>
   );
 };
 
@@ -75,14 +74,23 @@ const AppHeader: React.FC = props => {
           justifyContent: "flex-start"
         }}
       >
-        <Logo />
-        <OpenSideMenu
-          onClick={() => {
-            setSideMenuOpen(true);
-          }}
-        >
-          &#9776;
-        </OpenSideMenu>
+        <FirstItemContainer>
+          {props.children || (
+            <>
+              <Link to="/">
+                <Logo data-testid="logo" />
+              </Link>
+              <OpenSideMenu
+                onClick={() => {
+                  setSideMenuOpen(true);
+                }}
+                data-testid="open-side-menu"
+              >
+                &#9776;
+              </OpenSideMenu>
+            </>
+          )}
+        </FirstItemContainer>
 
         <Link to="/settings">Settings</Link>
         <LogOutButton />

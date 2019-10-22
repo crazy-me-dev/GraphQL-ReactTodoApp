@@ -11,9 +11,7 @@ describe("<AppContainer />", () => {
       </AppContainer>
     );
 
-    expect(getByTestId("app-header")).toBeTruthy();
     expect(getByTestId("app-container")).toBeTruthy();
-    expect(getByTestId("container")).toBeTruthy();
     expect(container.innerHTML).toContain("App Content");
   });
 });

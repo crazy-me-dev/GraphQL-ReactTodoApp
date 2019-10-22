@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { Project } from "./project.model";
-import AppContainer from "../common/AppContainer";
+import { AppHeader, Container } from "../common";
 import Sidebar from "./Sidebar";
 import TaskList from "../task/TaskList";
 import { useProjectsQuery } from "./project.requests";
@@ -18,19 +18,22 @@ const ProjectRoute: React.FC<ProjectProps> = props => {
   const project = data ? data.projects.find((p: Project) => p.id === id) : null;
 
   return (
-    <AppContainer>
-      <div style={{ display: "flex" }}>
-        <Sidebar />
-        <div style={{ flex: 1 }}>
-          {project && (
-            <div>
-              <h1>{project.name}</h1>
-              <TaskList project={project} />
-            </div>
-          )}
+    <>
+      <AppHeader />
+      <Container>
+        <div style={{ display: "flex" }}>
+          <Sidebar />
+          <div style={{ flex: 1 }}>
+            {project && (
+              <div>
+                <h1>{project.name}</h1>
+                <TaskList project={project} />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </AppContainer>
+      </Container>
+    </>
   );
 };
 
