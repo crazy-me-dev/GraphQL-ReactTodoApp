@@ -9,6 +9,7 @@ import { useTheme, ThemeId } from "./ThemeProvider";
 const ThemeSelectList = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const ThemeSelectButtonWrapper = styled.div`
@@ -30,6 +31,7 @@ const ThemeSelectButton = styled.button<{ selected: boolean }>`
   border-radius: 4px;
   padding: 0.5rem 1rem;
   display: flex;
+  min-width: 150px;
   &:focus,
   &:hover {
     outline: none;
@@ -38,7 +40,7 @@ const ThemeSelectButton = styled.button<{ selected: boolean }>`
   ${props =>
     props.selected &&
     css`
-      transform: scale(1.2);
+      transform: scale(1.1);
       box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
       border-color: ${props.theme.colors.primary};
     `}
