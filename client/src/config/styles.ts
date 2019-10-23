@@ -80,6 +80,10 @@ const globalStyles = (theme: Theme) => css`
     box-sizing: border-box;
   }
 
+  html {
+    touch-action: manipulation;
+  }
+
   body {
     margin: 0;
     background: ${theme.colors.background};
