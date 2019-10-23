@@ -28,7 +28,7 @@ const SpinnerDot = styled.div`
   width: 1rem;
   height: 1rem;
   margin: 0.25rem;
-  background: tomato;
+  background: #fb3535;
   border-radius: 50%;
   &:nth-of-type(1) {
     animation: ${bounce} 1.2s -0.5s ease infinite;

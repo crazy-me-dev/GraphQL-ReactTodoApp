@@ -69,7 +69,7 @@ const Description = styled.button<{ done: boolean }>`
   width: 100%;
   text-align: left;
   border: 2px solid transparent;
-  opacity: ${props => (props.done ? 0.5 : 1)};
+  opacity: ${props => (props.done ? 0.7 : 1)};
   background-color: transparent;
 `;
 

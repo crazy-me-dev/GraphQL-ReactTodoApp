@@ -6,6 +6,8 @@ interface Props {
 }
 
 const Button = styled.button<Props>`
+  font-weight: bold;
+  letter-spacing: 0.04em;
   transition: all 0.2s;
   color: ${props => props.theme.colors.primary};
   background: transparent;
