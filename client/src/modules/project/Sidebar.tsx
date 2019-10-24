@@ -59,9 +59,15 @@ const Overlay = styled.div<{ visible: boolean }>`
   display: ${props => (props.visible ? "block" : "none")};
 `;
 
-const Wrapper = styled.div<{ open: boolean }>`
+interface WrapperProps {
+  open: boolean;
+  menuTranslateX: number;
+  isTouching: boolean;
+}
+
+const Wrapper = styled.div<WrapperProps>`
   position: relative;
-  transition: all 0.4s;
+  transition: all ${props => (props.isTouching ? `0s` : `0.4s`)};
   padding: 4rem 1rem 1rem 1rem;
   background: ${props => props.theme.colors.background};
   position: fixed;
@@ -71,7 +77,8 @@ const Wrapper = styled.div<{ open: boolean }>`
   width: 100%;
   max-width: 70vw;
   z-index: 10;
-  transform: ${props => (props.open ? `translateX(0)` : `translateX(-100%)`)};
+  transform: ${props =>
+    props.open ? `translateX(${props.menuTranslateX}%)` : `translateX(-100%)`};
 
   ${mq("medium")} {
     margin-top: 1rem;
@@ -89,6 +96,13 @@ const Sidebar: React.FC = () => {
   const [modalIsOpen, setModalOpen] = useState(false);
   const { isSideMenuOpen, setSideMenuOpen } = useSideMenu();
 
+  const [touchX, setTouchX] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [isTouching, setTouching] = useState(false);
+
+  let menuTranslateX = ((touchX - touchStartX) * 100) / window.innerWidth;
+  menuTranslateX = Math.min(menuTranslateX, 0);
+
   if (loading) return null;
   if (error) return <div>Error!</div>;
 
@@ -96,11 +110,31 @@ const Sidebar: React.FC = () => {
     <>
       <Overlay
         visible={isSideMenuOpen}
-        onClick={() => {
+        onTouchStart={() => {
           setSideMenuOpen(false);
         }}
       />
-      <Wrapper open={isSideMenuOpen}>
+      <Wrapper
+        menuTranslateX={menuTranslateX}
+        isTouching={isTouching}
+        open={isSideMenuOpen}
+        onTouchStart={e => {
+          setTouching(true);
+          setTouchStartX(e.targetTouches[0].clientX);
+          setTouchX(e.targetTouches[0].clientX);
+        }}
+        onTouchMove={e => {
+          setTouchX(e.targetTouches[0].clientX);
+        }}
+        onTouchEnd={() => {
+          setTouching(false);
+          if (menuTranslateX < -25) {
+            setSideMenuOpen(false);
+          }
+          setTouchStartX(0);
+          setTouchX(0);
+        }}
+      >
         <CloseButton
           onClick={() => {
             setSideMenuOpen(false);
