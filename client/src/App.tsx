@@ -7,6 +7,7 @@ import { AuthContext } from "./modules/login";
 import { useMeQuery } from "./modules/login/loginRequests";
 import { client } from "./config/apollo";
 import { SideMenuProvider } from "./modules/project/SideMenuProvider";
+import "./config/i18n";
 
 const App: React.FC = () => {
   const { data, refetch, loading } = useMeQuery(client);

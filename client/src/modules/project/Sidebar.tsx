@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import styled, { mq } from "../../config/styles";
 import { Button, Modal } from "../common";
@@ -95,7 +96,7 @@ const Sidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();
   const [modalIsOpen, setModalOpen] = useState(false);
   const { isSideMenuOpen, setSideMenuOpen } = useSideMenu();
-
+  const { t } = useTranslation();
   const [touchX, setTouchX] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
   const [isTouching, setTouching] = useState(false);
@@ -104,7 +105,7 @@ const Sidebar: React.FC = () => {
   menuTranslateX = Math.min(menuTranslateX, 0);
 
   if (loading) return null;
-  if (error) return <div>Error!</div>;
+  if (error) return <div>{t("common.error")}</div>;
 
   return (
     <>
@@ -167,7 +168,7 @@ const Sidebar: React.FC = () => {
           onClick={() => setModalOpen(true)}
           data-testid="open-new-project-input"
         >
-          Add Project
+          {t("project.newButton")}
         </Button>
 
         <Modal open={modalIsOpen} onClose={() => setModalOpen(false)}>

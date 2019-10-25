@@ -6,9 +6,10 @@ import GoogleLogin, {
 } from "react-google-login";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
+import { useTranslation } from "react-i18next";
+
 import styled from "../../config/styles";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
-
 import AuthContext from "./AuthContext";
 import { ME_QUERY } from "./loginRequests";
 import { Spinner } from "../common";
@@ -52,6 +53,7 @@ const LoginRoute: React.FC = props => {
   );
   const { user, loading } = useContext(AuthContext);
   const [hasLoader, setHasLoader] = useState(false);
+  const { t } = useTranslation();
 
   const responseGoogle = (
     e: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -86,10 +88,11 @@ const LoginRoute: React.FC = props => {
         <LogoSVG style={{ fill: "tomato" }} />
         <GoogleLogin
           clientId={GOOGLE_AUTH_KEY}
-          buttonText={"Login with Google"}
+          buttonText={t("login.googleButton")}
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
+          data-testid="google-login"
         />
       </Box>
     </Wrapper>

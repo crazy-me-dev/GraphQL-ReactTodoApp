@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { useCreateProjectMutation } from "./project.requests";
 import { Title, Button, Input } from "../common";
@@ -13,6 +14,8 @@ const CreateProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const [newProjectName, updateNewProjectName] = useState("");
   const createProjectMutation = useCreateProjectMutation();
   const { setSideMenuOpen } = useSideMenu();
+  const { t } = useTranslation();
+
   let history = useHistory();
 
   const createNewProject = (e: React.FormEvent) => {
@@ -29,9 +32,9 @@ const CreateProjectForm: React.FC<Props> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={createNewProject}>
-      <Title.H2>Add a new project</Title.H2>
+      <Title.H2>{t("project.newModal.title")}</Title.H2>
       <label>
-        Name
+        {t("project.newModal.name")}
         <br />
         <Input
           data-testid="new-project-input"
@@ -42,7 +45,7 @@ const CreateProjectForm: React.FC<Props> = ({ onSubmit }) => {
         />
       </label>
       <Button data-testid="new-project-submit" filled type="submit">
-        Add
+        {t("project.newModal.submit")}
       </Button>
     </form>
   );

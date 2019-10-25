@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button, Input, ListTransition } from "../common";
 import { Task } from "./task.model";
@@ -20,6 +21,7 @@ const TaskList: React.FC<TaskListProps> = ({ project }) => {
   const deleteTaskMutation = useDeleteTaskMutation();
 
   const [newTaskName, setNewTaskName] = useState("");
+  const { t } = useTranslation();
 
   const addNewTask = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,14 +69,14 @@ const TaskList: React.FC<TaskListProps> = ({ project }) => {
 
       <form onSubmit={addNewTask}>
         <label>
-          <div>Add a new task</div>
+          <div>{t("task.newName")}</div>
           <Input
             type="text"
             value={newTaskName}
             onChange={e => setNewTaskName(e.target.value)}
           />
         </label>
-        <Button type="submit">Add task</Button>
+        <Button type="submit">{t("task.newSubmit")}</Button>
       </form>
     </div>
   );

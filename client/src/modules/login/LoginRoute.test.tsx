@@ -15,7 +15,7 @@ export default describe("<LoginRoute />", () => {
       { route: "/login" }
     );
 
-    const loginButton = getByText("Login with Google");
+    const loginButton = getByText("login.googleButton");
 
     expect(history.location.pathname).toBe("/login");
     expect(loginButton).toBeDefined();

@@ -17,6 +17,7 @@ import ProjectRoute from "../modules/project/ProjectRoute";
 import SettingsRoute from "../modules/settings/SettingsRoute";
 import { SideMenuProvider } from "../modules/project/SideMenuProvider";
 import { ThemeProvider } from "../modules/settings";
+import "../config/i18n";
 
 export const App: React.FC = props => (
   <Switch>

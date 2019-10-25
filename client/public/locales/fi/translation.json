@@ -1,0 +1,30 @@
+{
+  "common": {
+    "logout": "Kirjaudu ulos",
+    "back": "Takaisin",
+    "error": "Virhe!"
+  },
+  "login": {
+    "googleButton": "Kirjaudu Googlen avulla"
+  },
+  "project": {
+    "newButton": "Lisää projekti",
+    "newModal": {
+      "title": "Luo uusi projekti",
+      "name": "Nimi",
+      "submit": "Lisää"
+    }
+  },
+  "task": {
+    "newName": "Lisää uusi tehtävä",
+    "newSubmit": "Lisää tehtävä"
+  },
+  "settings": {
+    "title": "Asetukset",
+    "theme": "Teema",
+    "currentTheme": "Tällä hetkellä teemana \"{{theme}}\".",
+    "language": "Kieli",
+    "language:fi": "Suomeksi",
+    "language:en": "In English"
+  }
+}

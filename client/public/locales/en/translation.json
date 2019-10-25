@@ -1,0 +1,30 @@
+{
+  "common": {
+    "logout": "Logout",
+    "back": "Back",
+    "error": "Error!"
+  },
+  "login": {
+    "googleButton": "Login with google"
+  },
+  "project": {
+    "newButton": "Add project",
+    "newModal": {
+      "title": "Add a new project",
+      "name": "Name",
+      "submit": "Add"
+    }
+  },
+  "task": {
+    "newName": "Add a new task",
+    "newSubmit": "Add task"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": "Theme",
+    "currentTheme": "Currently using theme \"{{theme}}\".",
+    "language": "Language",
+    "language:fi": "Suomeksi",
+    "language:en": "In English"
+  }
+}

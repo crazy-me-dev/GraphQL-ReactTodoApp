@@ -1,5 +1,6 @@
 import React from "react";
 import { css } from "@emotion/core";
+import { useTranslation } from "react-i18next";
 
 import { Title } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
@@ -59,11 +60,14 @@ const ThemeTitle = styled(Title.H3)`
 
 const ThemePicker: React.FC = () => {
   const { currentTheme, setTheme, themes } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <>
-      <p>
-        Currently using <strong>{currentTheme.name}</strong> theme.
+      <p data-testid={`currenttheme:${currentTheme.name}`}>
+        {t("settings.currentTheme", {
+          theme: `${currentTheme.name}`
+        })}
       </p>
       <ThemeSelectList>
         {(Object.keys(themes) as Array<ThemeId>).map(themeId => {

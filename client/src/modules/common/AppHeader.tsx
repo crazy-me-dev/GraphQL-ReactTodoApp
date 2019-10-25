@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
-import styled, { mq } from "../../config/styles";
+import { useTranslation } from "react-i18next";
 
+import styled, { mq } from "../../config/styles";
 import { Container, Button } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import AuthContext from "../login/AuthContext";
@@ -42,6 +43,7 @@ const OpenSideMenu = styled.button`
 const LogOutButton = () => {
   const [logOut] = useMutation(LOGOUT_MUTATION);
   const { user, refetchUser } = useContext(AuthContext);
+  const { t } = useTranslation();
 
   if (!user) return null;
 
@@ -57,13 +59,14 @@ const LogOutButton = () => {
       }}
       data-testid="logout-button"
     >
-      Logout
+      {t("common.logout")}
     </Button>
   );
 };
 
 const AppHeader: React.FC = props => {
   const { setSideMenuOpen } = useSideMenu();
+  const { t } = useTranslation();
 
   return (
     <AppHeaderWrapper data-testid="app-header">
@@ -91,7 +94,7 @@ const AppHeader: React.FC = props => {
           )}
         </FirstItemContainer>
 
-        <Link to="/settings">Settings</Link>
+        <Link to="/settings">{t("settings.title")}</Link>
         <LogOutButton />
       </Container>
     </AppHeaderWrapper>
