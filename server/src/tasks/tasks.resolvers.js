@@ -10,6 +10,12 @@ const Mutation = {
       args.data.project = project.id;
     }
     const { project: project_id, ...newTaskData } = args.data;
+
+    // Set the highest order number
+    const otherTasks = await ctx.db("task").where({ project_id: project_id });
+    newTaskData.order_number =
+      Math.max(...otherTasks.map(t => t.order_number), -1) + 1;
+
     const [task] = await ctx
       .db("task")
       .returning("*")
