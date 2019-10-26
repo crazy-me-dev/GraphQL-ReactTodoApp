@@ -4,4 +4,5 @@ export type Project = {
   id: string;
   name: string;
   tasks: Task[];
+  order_number: number;
 };

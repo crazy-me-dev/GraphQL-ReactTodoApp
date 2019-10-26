@@ -1,21 +1,47 @@
 import React, { useState } from "react";
+import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd/index";
 
+import { ReactComponent as HandleIcon } from "../../assets/drag-handle-icon.svg";
 import { Task } from "./task.model";
-import styled from "../../config/styles";
+import styled, { mq } from "../../config/styles";
 
 export interface TaskListItemProps {
   task: Task;
+  index: number;
   onDelete: (task: Task) => void;
   onDoneToggle: (task: Task) => void;
   onDescriptionChange: (newDescription: string, task: Task) => void;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
 }
 
+const DragHandle = styled.div`
+  transition: all 0.2s;
+  padding: 1rem;
+  color: ${props => props.theme.colors.grey[400]};
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  svg {
+    fill: currentColor;
+  }
+
+  ${mq("medium")} {
+    opacity: 0;
+    position: absolute;
+    right: 100%;
+    bottom: 0;
+    top: 0;
+  }
+`;
+
 const Checkbox = styled.label`
+  display: inline-flex;
+  align-items: center;
+
   span {
     position: relative;
     transition: all 0.2s;
     content: "";
-    display: inline-block;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
@@ -86,7 +112,6 @@ const DescriptionInput = styled.input`
 `;
 
 const DeleteButton = styled.button`
-  opacity: 0;
   background: transparent;
   transition: all 0.2s;
   border: none;
@@ -95,32 +120,47 @@ const DeleteButton = styled.button`
   width: 2rem;
   height: 2rem;
   font-weight: 400;
-  color: #ddd;
+  color: ${props => props.theme.colors.grey[400]};
   border-radius: 50%;
-  color: ${props => props.theme.colors.primary};
   border: 2px solid transparent;
   padding: 0;
   &:hover,
   &:focus {
     border-color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.primary};
     opacity: 1;
     outline: none;
+  }
+
+  ${mq("medium")} {
+    opacity: 0;
+    color: ${props => props.theme.colors.primary};
   }
 `;
 
 const TaskRow = styled.div`
+  position: relative;
   border-bottom: 1px solid ${props => props.theme.colors.border};
   padding: 0.75rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: ${props => props.theme.colors.background};
+  &:hover {
+    .delete-button,
+    .drag-handle {
+      opacity: 1;
+    }
+  }
 `;
 
 const TaskListItem: React.FC<TaskListItemProps> = ({
   task,
+  index,
   onDelete,
   onDoneToggle,
-  onDescriptionChange
+  onDescriptionChange,
+  dragHandleProps
 }) => {
   const [newDescription, setNewDescription] = useState(task.description);
   const [isEditMode, setEditMode] = useState(false);
@@ -132,6 +172,12 @@ const TaskListItem: React.FC<TaskListItemProps> = ({
 
   return (
     <TaskRow>
+      {dragHandleProps && (
+        <DragHandle {...dragHandleProps} className="drag-handle">
+          <HandleIcon />
+        </DragHandle>
+      )}
+
       <Checkbox htmlFor={`t-${task.id}`}>
         <input
           id={`t-${task.id}`}
@@ -144,6 +190,7 @@ const TaskListItem: React.FC<TaskListItemProps> = ({
         />
         <span></span>
       </Checkbox>
+
       <DescriptionContainer>
         {isEditMode ? (
           <DescriptionInput
@@ -171,6 +218,7 @@ const TaskListItem: React.FC<TaskListItemProps> = ({
           </Description>
         )}
       </DescriptionContainer>
+
       <DeleteButton
         onClick={() => {
           onDelete(task);

@@ -12,6 +12,7 @@ export const CREATE_TASK_MUTATION = gql`
       id
       description
       done
+      order_number
     }
   }
 `;
@@ -30,6 +31,15 @@ export const UPDATE_TASK_MUTATION = gql`
       id
       description
       done
+      order_number
+    }
+  }
+`;
+
+export const REORDER_TASKS_MUTATION = gql`
+  mutation reorderTasks($project: ID!, $taskMap: [ID]!) {
+    reorderTasks(project: $project, taskMap: $taskMap) {
+      id
     }
   }
 `;
@@ -54,6 +64,7 @@ export const useCreateTaskMutation = () => {
           __typename: "task",
           id: "optimistic",
           description: data.description,
+          order_number: 1000,
           done: false
         }
       },
@@ -132,6 +143,39 @@ export const useDeleteTaskMutation = () => {
           return projects.map(project => {
             project.tasks = project.tasks.filter(t => t.id !== task.id);
             return project;
+          });
+        }, proxy);
+      }
+    });
+  };
+};
+
+export const useReorderTasks = () => {
+  const [reorderTasksMutation] = useMutation(REORDER_TASKS_MUTATION);
+
+  return (project: Project, tasks: Task[]) => {
+    const optimisticResponse = {
+      __typename: "Mutation",
+      reorderTasks: tasks.map(t => ({
+        __typename: "Task",
+        id: t.id
+      }))
+    };
+
+    return reorderTasksMutation({
+      variables: {
+        project: project.id,
+        taskMap: tasks.map(t => t.id)
+      },
+      refetchQueries: [{ query: PROJECTS_QUERY }],
+      optimisticResponse,
+      update: (proxy, mutationResult) => {
+        optimisticallyUpdateProjectsQuery((projects: Project[]) => {
+          return projects.map(p => {
+            if (p.id === project.id) {
+              project.tasks = tasks;
+            }
+            return p;
           });
         }, proxy);
       }

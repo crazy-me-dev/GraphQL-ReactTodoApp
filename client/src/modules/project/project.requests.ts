@@ -13,6 +13,7 @@ export const PROJECTS_QUERY = gql`
         id
         description
         done
+        order_number
       }
     }
   }
@@ -58,6 +59,7 @@ export const useCreateProjectMutation = () => {
           __typename: "Project",
           id: "optimistic",
           name,
+          order_number: 0,
           tasks: []
         }
       },
