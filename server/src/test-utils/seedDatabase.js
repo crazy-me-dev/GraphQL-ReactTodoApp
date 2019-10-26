@@ -43,7 +43,8 @@ export const projectThree = {
 export const taskOne = {
   input: {
     description: "Buy a car",
-    done: false
+    done: false,
+    order_number: 0
   },
   task: undefined
 };
@@ -51,7 +52,17 @@ export const taskOne = {
 export const taskTwo = {
   input: {
     description: "Buy a house",
-    done: false
+    done: false,
+    order_number: 0
+  },
+  task: undefined
+};
+
+export const taskThree = {
+  input: {
+    description: "Walk to work",
+    done: false,
+    order_number: 1
   },
   task: undefined
 };
@@ -105,6 +116,12 @@ const seedDatabase = async () => {
     .insert({
       ...taskTwo.input,
       project_id: projectTwo.project.id
+    });
+  [taskThree.task] = await db("task")
+    .returning("*")
+    .insert({
+      ...taskThree.input,
+      project_id: projectOne.project.id
     });
 };
 

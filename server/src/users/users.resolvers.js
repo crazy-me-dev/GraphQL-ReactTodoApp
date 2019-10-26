@@ -16,7 +16,10 @@ const Query = {
 
 const User = {
   projects: async (user, args, ctx, info) => {
-    return await ctx.db("project").where("user_id", user.id);
+    return await ctx
+      .db("project")
+      .where("user_id", user.id)
+      .orderBy("order_number", "asc");
   }
 };
 

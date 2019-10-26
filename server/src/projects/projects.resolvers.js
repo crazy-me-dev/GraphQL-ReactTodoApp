@@ -72,7 +72,7 @@ const Project = {
     return await ctx
       .db("task")
       .where("project_id", project.id)
-      .orderBy("id", "asc");
+      .orderBy("order_number", "asc");
   }
 };
 

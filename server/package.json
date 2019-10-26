@@ -9,10 +9,10 @@
     "test:watch": "NODE_ENV=test jest --watch --runInBand",
     "test:coverage": "NODE_ENV=test jest --coverage --runInBand",
     "test:start": "nodemon --watch '**/*.js' --exec 'node' index.js",
-    "test:migrate": "knex migrate:latest --env test --knexfile ./database/knexfile.js",
-    "test:migrate:rest": "knex migrate:latest --env test",
+    "test:migrate": "NODE_ENV=test knex migrate:latest --env test --knexfile ./database/migrate.js",
     "test:travis": "npm run test",
-    "app:migrate": "knex migrate:latest --knexfile ./database/knexfile.js",
+    "app:migrate": "knex migrate:latest --knexfile ./database/migrate.js",
+    "app:rollback": "knex migrate:rollback --knexfile ./database/migrate.js",
     "start": "nodemon -e js,graphql src/index.js",
     "heroku-prebuild": "npm run app:migrate"
   },

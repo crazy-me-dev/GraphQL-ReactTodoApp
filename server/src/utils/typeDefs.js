@@ -18,6 +18,7 @@ module.exports = gql`
     createTask(data: TaskInput!): Task
     updateTask(id: ID!, data: TaskUpdateInput!): Task
     deleteTask(id: ID!): Task
+    reorderTasks(project: ID!, taskMap: [ID]!): [Task]
   }
 
   input ProjectUpdateInput {
@@ -50,6 +51,7 @@ module.exports = gql`
     name: String!
     user: User!
     tasks: [Task!]!
+    order_number: Int!
   }
 
   type Task {
@@ -57,6 +59,7 @@ module.exports = gql`
     project: Project!
     done: Boolean!
     description: String!
+    order_number: Int!
   }
 
   type Message {

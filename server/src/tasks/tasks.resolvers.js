@@ -59,6 +59,28 @@ const Mutation = {
       .where({ id: args.id })
       .delete();
     return deletedTask;
+  },
+  reorderTasks: async (parent, args, ctx, info) => {
+    if (!ctx.req.userId) throw new Error("You must be logged in");
+
+    const [project] = await ctx
+      .db("project")
+      .where({ id: args.project, user_id: ctx.req.userId });
+
+    if (!project) throw new Error("You can reorder only your own projects");
+
+    args.taskMap.map(async (taskId, index) => {
+      await ctx
+        .db("task")
+        .where({ id: taskId, project_id: project.id })
+        .returning("*")
+        .update({ order_number: index });
+    });
+
+    return await ctx
+      .db("task")
+      .returning("*")
+      .where({ project_id: project.id });
   }
 };
 
