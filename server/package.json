@@ -14,7 +14,7 @@
     "app:migrate": "knex migrate:latest --knexfile ./database/migrate.js",
     "app:rollback": "knex migrate:rollback --knexfile ./database/migrate.js",
     "start": "nodemon -e js,graphql src/index.js",
-    "heroku-prebuild": "npm run app:migrate"
+    "heroku-prebuild": "npm install && npm run app:migrate"
   },
   "keywords": [],
   "author": "",
