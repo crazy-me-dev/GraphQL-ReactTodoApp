@@ -21,7 +21,7 @@ const LanguagePicker: React.FC = () => {
           filled={i18n.language === lang}
           onClick={() => i18n.changeLanguage(lang)}
         >
-          {t(`language.${lang}`)}
+          {t(`settings.languageSelect.${lang}`)}
         </LanguageSelectButton>
       ))}
     </>

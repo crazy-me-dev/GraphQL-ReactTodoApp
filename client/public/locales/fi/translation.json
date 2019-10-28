@@ -24,7 +24,9 @@
     "theme": "Teema",
     "currentTheme": "Tällä hetkellä teemana \"{{theme}}\".",
     "language": "Kieli",
-    "language:fi": "Suomeksi",
-    "language:en": "In English"
+    "languageSelect": {
+      "fi": "Suomeksi",
+      "en": "In English"
+    }
   }
 }

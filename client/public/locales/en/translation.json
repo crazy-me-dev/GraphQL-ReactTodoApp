@@ -24,7 +24,9 @@
     "theme": "Theme",
     "currentTheme": "Currently using theme \"{{theme}}\".",
     "language": "Language",
-    "language:fi": "Suomeksi",
-    "language:en": "In English"
+    "languageSelect": {
+      "fi": "Suomeksi",
+      "en": "In English"
+    }
   }
 }
