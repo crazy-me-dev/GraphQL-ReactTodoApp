@@ -1,7 +1,6 @@
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
-const { createUser } = require("./users.helpers");
+const { createUser, signUserIn } = require("./users.helpers");
 const verifyGoogleToken = require("../utils/verifyGoogle");
 
 const Query = {
@@ -50,6 +49,8 @@ const Mutation = {
       password: hashedPassword
     });
 
+    signUserIn(ctx, newUser);
+
     return newUser;
   },
 
@@ -67,6 +68,8 @@ const Mutation = {
       throw new Error("Given credentials are incorrect!");
     }
 
+    signUserIn(ctx, user);
+
     return user;
   },
 
@@ -80,12 +83,7 @@ const Mutation = {
       user = await createUser(ctx, googleUser);
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-
-    ctx.res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365
-    });
+    signUserIn(ctx, user);
 
     return user;
   },
