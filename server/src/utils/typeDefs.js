@@ -8,6 +8,14 @@ module.exports = gql`
   }
 
   type Mutation {
+    registerNewUser(
+      email: String!
+      password: String!
+      name: String!
+      termsAccepted: Boolean!
+    ): User!
+
+    loginWithCredentials(email: String!, password: String!): User!
     loginWithGoogle(id_token: String!): User!
     logOut: Message!
 

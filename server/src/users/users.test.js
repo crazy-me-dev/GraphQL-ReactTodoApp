@@ -1,4 +1,5 @@
 import { gql } from "apollo-boost";
+import * as bcrypt from "bcryptjs";
 
 import db from "../utils/db";
 import getClient from "../test-utils/getClient";
@@ -26,6 +27,35 @@ const MeQuery = gql`
   }
 `;
 
+export const registerNewUserMutation = gql`
+  mutation(
+    $email: String!
+    $password: String!
+    $name: String!
+    $termsAccepted: Boolean!
+  ) {
+    registerNewUser(
+      email: $email
+      password: $password
+      name: $name
+      termsAccepted: $termsAccepted
+    ) {
+      id
+      name
+      email
+    }
+  }
+`;
+
+export const loginWithCredentialsMutation = gql`
+  mutation($email: String!, $password: String!) {
+    loginWithCredentials(email: $email, password: $password) {
+      id
+      name
+    }
+  }
+`;
+
 export const loginWithGoogleMutation = gql`
   mutation($id_token: String!) {
     loginWithGoogle(id_token: $id_token) {
@@ -49,107 +79,228 @@ describe("User", () => {
   beforeEach(seedDatabase);
   beforeAll(startTestServer);
   afterAll(closeTestServer);
+  let userRegistrationData = {
+    email: "john@doe.oh",
+    password: "secret123",
+    name: "John Doe",
+    termsAccepted: true
+  };
+  let userLoginData = {
+    email: userRegistrationData.email,
+    password: userRegistrationData.password
+  };
 
-  it("should return me when logged in", async () => {
-    const client = getClient(userOne.jwt);
+  describe("when registering first time", () => {
+    it("should create a new user account with credentials", async () => {
+      const { data } = await client.mutate({
+        mutation: registerNewUserMutation,
+        variables: userRegistrationData
+      });
+      const user = data.registerNewUser;
 
-    const {
-      data: { me }
-    } = await client.query({ query: MeQuery });
+      expect(user.name).toBe("John Doe");
+      expect(user.email).toBe("john@doe.oh");
+      expect(user.password).toBeFalsy();
 
-    expect(me.email).toBe("john.doe@example.com");
-  });
+      const [dbUser] = await db("user").where({
+        id: user.id
+      });
+      const validPassword = await bcrypt.compare("secret123", dbUser.password);
 
-  it("should not return me data when not logged in", async () => {
-    await expect(client.query({ query: MeQuery })).rejects.toEqual(
-      new Error("GraphQL error: You are not logged in.")
-    );
-  });
-
-  it("should not return me data with incorrect userId", async () => {
-    const client = getClient("token-that-does-not-exist.123.123");
-    await expect(client.query({ query: MeQuery })).rejects.toEqual(
-      new Error("GraphQL error: You are not logged in.")
-    );
-  });
-
-  it("should login with existing account", async () => {
-    const id_token = "123456789-existing-user-id-token";
-
-    const {
-      data: { loginWithGoogle: user }
-    } = await client.mutate({
-      mutation: loginWithGoogleMutation,
-      variables: { id_token }
+      expect(dbUser.name).toBe("John Doe");
+      expect(dbUser.email).toBe("john@doe.oh");
+      expect(validPassword).toBe(true);
     });
 
-    expect(user.name).toBe("Google User");
-  });
+    it("should throw if already registered", async () => {
+      await client.mutate({
+        mutation: registerNewUserMutation,
+        variables: userRegistrationData
+      });
 
-  it("should register if user not existing yet", async () => {
-    const usersBeforeRegistration = await db("user");
-    expect(usersBeforeRegistration.length).toBe(2);
-
-    const id_token = "123456789-new-user-id-token";
-    const {
-      data: { loginWithGoogle: user }
-    } = await client.mutate({
-      mutation: loginWithGoogleMutation,
-      variables: { id_token }
+      await expect(
+        client.mutate({
+          mutation: registerNewUserMutation,
+          variables: userRegistrationData
+        })
+      ).rejects.toEqual(
+        new Error("GraphQL error: You have already registered!")
+      );
     });
 
-    expect(user.name).toBe("New Google User");
-
-    const usersAfterRegistration = await db("user");
-    expect(usersAfterRegistration.length).toBe(3);
-  });
-
-  it("should have a default project after registration", async () => {
-    const id_token = "123456789-new-user-id-token";
-
-    const {
-      data: { loginWithGoogle: user }
-    } = await client.mutate({
-      mutation: loginWithGoogleMutation,
-      variables: { id_token }
+    it("should throw when terms are not accepted on register", async () => {
+      await expect(
+        client.mutate({
+          mutation: registerNewUserMutation,
+          variables: { ...userRegistrationData, termsAccepted: false }
+        })
+      ).rejects.toEqual(
+        new Error("GraphQL error: You have to accept the terms!")
+      );
     });
 
-    const projects = await db("project").where({
-      user_id: user.id
+    it("should throw when too short password", async () => {
+      await expect(
+        client.mutate({
+          mutation: registerNewUserMutation,
+          variables: { ...userRegistrationData, password: "short" }
+        })
+      ).rejects.toEqual(
+        new Error(
+          "GraphQL error: Password should be at least 6 characters long!"
+        )
+      );
+    });
+  });
+
+  describe("when logging in", () => {
+    it("should log in with correct password", async () => {
+      await client.mutate({
+        mutation: registerNewUserMutation,
+        variables: userRegistrationData
+      });
+
+      const { data } = await client.mutate({
+        mutation: loginWithCredentialsMutation,
+        variables: userLoginData
+      });
+      const user = data.loginWithCredentials;
+
+      expect(user.name).toBe("John Doe");
     });
 
-    expect(projects.length).toBe(1);
-    expect(projects[0].name).toBe("Inbox");
-  });
-
-  it("should log out correctly", async () => {
-    const {
-      data: { logOut: res }
-    } = await client.mutate({
-      mutation: logOutMutation,
-      variables: {}
+    it("should throw if password not provided", async () => {
+      await expect(
+        client.mutate({
+          mutation: loginWithCredentialsMutation,
+          variables: { email: userLoginData.email, password: "" }
+        })
+      ).rejects.toEqual(
+        new Error("GraphQL error: You must provide both email and password!")
+      );
     });
 
-    expect(res.message).toEqual("Goodbye!");
+    it("should throw with incorrect password", async () => {
+      await client.mutate({
+        mutation: registerNewUserMutation,
+        variables: userRegistrationData
+      });
+
+      await expect(
+        client.mutate({
+          mutation: loginWithCredentialsMutation,
+          variables: { email: userLoginData.email, password: "incorrect123!" }
+        })
+      ).rejects.toEqual(
+        new Error("GraphQL error: Given credentials are incorrect!")
+      );
+    });
+
+    it("should return me when logged in", async () => {
+      const client = getClient(userOne.jwt);
+
+      const {
+        data: { me }
+      } = await client.query({ query: MeQuery });
+
+      expect(me.email).toBe("john.doe@example.com");
+    });
+
+    it("should not return me data when not logged in", async () => {
+      await expect(client.query({ query: MeQuery })).rejects.toEqual(
+        new Error("GraphQL error: You are not logged in.")
+      );
+    });
+
+    it("should not return me data with incorrect userId", async () => {
+      const client = getClient("token-that-does-not-exist.123.123");
+      await expect(client.query({ query: MeQuery })).rejects.toEqual(
+        new Error("GraphQL error: You are not logged in.")
+      );
+    });
+
+    it("should login with existing account", async () => {
+      const id_token = "123456789-existing-user-id-token";
+
+      const {
+        data: { loginWithGoogle: user }
+      } = await client.mutate({
+        mutation: loginWithGoogleMutation,
+        variables: { id_token }
+      });
+
+      expect(user.name).toBe("Google User");
+    });
+
+    it("should register if user not existing yet", async () => {
+      const usersBeforeRegistration = await db("user");
+      expect(usersBeforeRegistration.length).toBe(2);
+
+      const id_token = "123456789-new-user-id-token";
+      const {
+        data: { loginWithGoogle: user }
+      } = await client.mutate({
+        mutation: loginWithGoogleMutation,
+        variables: { id_token }
+      });
+
+      expect(user.name).toBe("New Google User");
+
+      const usersAfterRegistration = await db("user");
+      expect(usersAfterRegistration.length).toBe(3);
+    });
   });
 
-  it("should have correct amount of projects", async () => {
-    const client = getClient(userOne.jwt);
+  describe("when logging out", () => {
+    it("should log out correctly", async () => {
+      const {
+        data: { logOut: res }
+      } = await client.mutate({
+        mutation: logOutMutation,
+        variables: {}
+      });
 
-    const {
-      data: { me }
-    } = await client.query({ query: MeQuery });
-
-    expect(me.projects.length).toBe(1);
+      expect(res.message).toEqual("Goodbye!");
+    });
   });
 
-  it("should have correct amount of tasks in projects", async () => {
-    const client = getClient(userOne.jwt);
+  describe("when fetching data", () => {
+    it("should have a default project after registration", async () => {
+      const id_token = "123456789-new-user-id-token";
 
-    const {
-      data: { me }
-    } = await client.query({ query: MeQuery });
+      const {
+        data: { loginWithGoogle: user }
+      } = await client.mutate({
+        mutation: loginWithGoogleMutation,
+        variables: { id_token }
+      });
 
-    expect(me.projects[0].tasks[0].description).toBe("Buy a car");
+      const projects = await db("project").where({
+        user_id: user.id
+      });
+
+      expect(projects.length).toBe(1);
+      expect(projects[0].name).toBe("Inbox");
+    });
+
+    it("should have correct amount of projects", async () => {
+      const client = getClient(userOne.jwt);
+
+      const {
+        data: { me }
+      } = await client.query({ query: MeQuery });
+
+      expect(me.projects.length).toBe(1);
+    });
+
+    it("should have correct amount of tasks in projects", async () => {
+      const client = getClient(userOne.jwt);
+
+      const {
+        data: { me }
+      } = await client.query({ query: MeQuery });
+
+      expect(me.projects[0].tasks[0].description).toBe("Buy a car");
+    });
   });
 });
