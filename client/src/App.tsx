@@ -4,7 +4,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import Routes from "./routes";
 import { ThemeProvider } from "./modules/settings";
 import { AuthContext } from "./modules/login";
-import { useMeQuery } from "./modules/login/loginRequests";
+import { useMeQuery } from "./modules/login/login.requests";
 import { client } from "./config/apollo";
 import { SideMenuProvider } from "./modules/project/SideMenuProvider";
 import "./config/i18n";

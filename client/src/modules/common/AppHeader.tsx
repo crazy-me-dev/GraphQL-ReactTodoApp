@@ -7,7 +7,7 @@ import styled, { mq } from "../../config/styles";
 import { Container, Button } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import AuthContext from "../login/AuthContext";
-import { LOGOUT_MUTATION } from "../login/loginRequests";
+import { LOGOUT_MUTATION } from "../login/login.requests";
 import { useSideMenu } from "../project/SideMenuProvider";
 
 const AppHeaderWrapper = styled.header`

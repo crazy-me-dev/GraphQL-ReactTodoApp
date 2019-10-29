@@ -4,15 +4,17 @@ import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline
 } from "react-google-login";
-import { gql } from "apollo-boost";
-import { useMutation } from "@apollo/react-hooks";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import styled from "../../config/styles";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import AuthContext from "./AuthContext";
-import { ME_QUERY } from "./loginRequests";
-import { Spinner } from "../common";
+import {
+  useLoginWithGoogleMutation,
+  useLoginWithCredentialsMutation
+} from "./login.requests";
+import { Spinner, Input, Button } from "../common";
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,25 +36,17 @@ const Box = styled.div`
   align-items: center;
 `;
 
-const LOGIN_WITH_GOOGLE_MUTATION = gql`
-  mutation LoginWithGoogle($id_token: String!) {
-    loginWithGoogle(id_token: $id_token) {
-      id
-      name
-    }
-  }
-`;
-
 const GOOGLE_AUTH_KEY = process.env.REACT_APP_GOOGLE_AUTH_KEY
   ? process.env.REACT_APP_GOOGLE_AUTH_KEY
   : "";
 
 const LoginRoute: React.FC = props => {
-  const [loginWithGoogle] = useMutation<{}, { id_token: string }>(
-    LOGIN_WITH_GOOGLE_MUTATION
-  );
+  const loginWithGoogle = useLoginWithGoogleMutation();
+  const loginWithCredentials = useLoginWithCredentialsMutation();
   const { user, loading } = useContext(AuthContext);
   const [hasLoader, setHasLoader] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { t } = useTranslation();
 
   const responseGoogle = (
@@ -61,13 +55,13 @@ const LoginRoute: React.FC = props => {
     if ("getAuthResponse" in e) {
       const id_token = e.getAuthResponse().id_token;
       setHasLoader(true);
-      loginWithGoogle({
-        variables: {
-          id_token
-        },
-        refetchQueries: [{ query: ME_QUERY }]
-      });
+      loginWithGoogle(id_token);
     }
+  };
+
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    loginWithCredentials({ email, password });
   };
 
   if (user) return <Redirect to="/" />;
@@ -86,6 +80,27 @@ const LoginRoute: React.FC = props => {
     <Wrapper>
       <Box>
         <LogoSVG style={{ fill: "tomato" }} />
+
+        <form onSubmit={handleLogin}>
+          <label>
+            <div>email</div>
+            <Input value={email} onChange={e => setEmail(e.target.value)} />
+          </label>
+
+          <label>
+            <div>password</div>
+            <Input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </label>
+
+          <div>
+            <Button>Log in</Button>
+          </div>
+        </form>
+
         <GoogleLogin
           clientId={GOOGLE_AUTH_KEY}
           buttonText={t("login.googleButton")}
@@ -94,6 +109,10 @@ const LoginRoute: React.FC = props => {
           cookiePolicy={"single_host_origin"}
           data-testid="google-login"
         />
+
+        <p>
+          Don’t have an account? <Link to="/registration">Sign in</Link>
+        </p>
       </Box>
     </Wrapper>
   );

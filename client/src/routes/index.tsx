@@ -8,7 +8,7 @@ import {
 
 import { SettingsRoute } from "../modules/settings";
 import { ProjectRoute } from "../modules/project";
-import { LoginRoute, AuthRoute } from "../modules/login";
+import { LoginRoute, AuthRoute, RegistrationRoute } from "../modules/login";
 import { PageNotFoundRoute, HomeRoute } from "../modules/home";
 
 const Routes = () => {
@@ -20,6 +20,9 @@ const Routes = () => {
         </Route>
         <Route path="/login" exact>
           <LoginRoute />
+        </Route>
+        <Route path="/registration" exact>
+          <RegistrationRoute />
         </Route>
         <AuthRoute path="/project/:id" exact>
           <ProjectRoute />

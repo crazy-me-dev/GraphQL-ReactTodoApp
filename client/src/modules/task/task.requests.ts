@@ -86,6 +86,7 @@ type UseTaskUpdateMutationVariables = {
   done: boolean;
   description: string;
 };
+
 export const useUpdateTaskMutation = () => {
   const [updateTaskMutation] = useMutation(UPDATE_TASK_MUTATION);
   return (id: string, data: UseTaskUpdateMutationVariables) => {
