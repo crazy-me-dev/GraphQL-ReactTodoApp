@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
-const verifyGoogleToken = require("../utils/verifyGoogle");
 const bcrypt = require("bcryptjs");
+
+const { createUser } = require("./users.helpers");
+const verifyGoogleToken = require("../utils/verifyGoogle");
 
 const Query = {
   async me(parent, args, ctx, info) {
@@ -42,14 +44,11 @@ const Mutation = {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const [newUser] = await ctx
-      .db("user")
-      .returning("*")
-      .insert({
-        name: name,
-        password: hashedPassword,
-        email: email
-      });
+    const newUser = await createUser(ctx, {
+      name,
+      email,
+      password: hashedPassword
+    });
 
     return newUser;
   },
@@ -78,18 +77,7 @@ const Mutation = {
     let [user] = await ctx.db("user").where("email", googleUser.email);
 
     if (!user) {
-      [user] = await ctx
-        .db("user")
-        .returning("*")
-        .insert({
-          name: googleUser.name,
-          email: googleUser.email
-        });
-
-      await ctx.db("project").insert({
-        name: "Inbox",
-        user_id: user.id
-      });
+      user = await createUser(ctx, googleUser);
     }
 
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
