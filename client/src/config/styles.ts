@@ -101,6 +101,10 @@ const globalStyles = (theme: Theme) => css`
     -webkit-font-smoothing: antialiased;
   }
 
+  form {
+    width: 100%;
+  }
+
   ::selection {
     background: ${theme.colors.primary};
     color: #fff;

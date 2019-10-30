@@ -3,6 +3,10 @@ import { keyframes } from "@emotion/core";
 
 import styled from "../../config/styles";
 
+interface Props {
+  isCentered?: boolean;
+}
+
 const bounce = keyframes`
   0%, 100% {
     opacity: 1;
@@ -18,10 +22,11 @@ const bounce = keyframes`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<Props>`
   padding: 2rem;
   display: flex;
   justify-content: center;
+  margin: ${props => (props.isCentered ? "0 auto" : "0")};
 `;
 
 const SpinnerDot = styled.div`
@@ -41,9 +46,9 @@ const SpinnerDot = styled.div`
   }
 `;
 
-const Spinner: React.FC = () => {
+const Spinner: React.FC<Props> = () => {
   return (
-    <Wrapper>
+    <Wrapper isCentered>
       <SpinnerDot />
       <SpinnerDot />
       <SpinnerDot />

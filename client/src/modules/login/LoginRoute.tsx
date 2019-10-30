@@ -7,34 +7,14 @@ import GoogleLogin, {
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import styled from "../../config/styles";
-import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import AuthContext from "./AuthContext";
 import {
   useLoginWithGoogleMutation,
   useLoginWithCredentialsMutation
 } from "./login.requests";
-import { Spinner, Input, Button } from "../common";
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-`;
-
-const Box = styled.div`
-  padding: 4rem 2rem;
-  border-radius: 4px;
-  min-height: 350px;
-  width: 350px;
-  box-shadow: 0 0.1rem 0.6rem rgba(0, 0, 0, 0.1);
-  border: 1px solid #f1f1f1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`;
+import { Spinner, Button, Logo } from "../common";
+import { FormItem, TextField } from "../common/form";
+import LoginBox from "./LoginBox";
 
 const GOOGLE_AUTH_KEY = process.env.REACT_APP_GOOGLE_AUTH_KEY
   ? process.env.REACT_APP_GOOGLE_AUTH_KEY
@@ -68,53 +48,47 @@ const LoginRoute: React.FC = props => {
 
   if (loading || hasLoader) {
     return (
-      <Wrapper>
-        <Box>
-          <Spinner />
-        </Box>
-      </Wrapper>
+      <LoginBox>
+        <Spinner />
+      </LoginBox>
     );
   }
 
   return (
-    <Wrapper>
-      <Box>
-        <LogoSVG style={{ fill: "tomato" }} />
+    <LoginBox>
+      <Logo hasName hasPadding isCentered />
 
-        <form onSubmit={handleLogin}>
-          <label>
-            <div>email</div>
-            <Input value={email} onChange={e => setEmail(e.target.value)} />
-          </label>
+      <form onSubmit={handleLogin}>
+        <FormItem label="Email">
+          <TextField value={email} onChange={e => setEmail(e.target.value)} />
+        </FormItem>
 
-          <label>
-            <div>password</div>
-            <Input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </label>
+        <FormItem label="Password">
+          <TextField
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </FormItem>
 
-          <div>
-            <Button>Log in</Button>
-          </div>
-        </form>
+        <FormItem>
+          <Button>Log in</Button>
+        </FormItem>
+      </form>
 
-        <GoogleLogin
-          clientId={GOOGLE_AUTH_KEY}
-          buttonText={t("login.googleButton")}
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={"single_host_origin"}
-          data-testid="google-login"
-        />
+      <GoogleLogin
+        clientId={GOOGLE_AUTH_KEY}
+        buttonText={t("login.googleButton")}
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+        data-testid="google-login"
+      />
 
-        <p>
-          Don’t have an account? <Link to="/registration">Sign in</Link>
-        </p>
-      </Box>
-    </Wrapper>
+      <p>
+        Don’t have an account? <Link to="/registration">Sign in</Link>
+      </p>
+    </LoginBox>
   );
 };
 

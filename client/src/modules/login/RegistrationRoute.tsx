@@ -1,31 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 
-import styled from "../../config/styles";
 import AuthContext from "./AuthContext";
-import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
-import { Input, Button, Spinner } from "../common";
+import { Button, Spinner, Logo, Title } from "../common";
+import { FormItem, TextField } from "../common/form";
 import { useRegisterNewUserMutation } from "./login.requests";
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-`;
-
-const Box = styled.div`
-  padding: 4rem 2rem;
-  border-radius: 4px;
-  min-height: 350px;
-  width: 350px;
-  box-shadow: 0 0.1rem 0.6rem rgba(0, 0, 0, 0.1);
-  border: 1px solid #f1f1f1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-`;
+import LoginBox from "./LoginBox";
 
 const fieldsDefaultState = {
   email: "",
@@ -59,70 +39,63 @@ const RegistrationRoute = () => {
 
   if (loading || hasLoader) {
     return (
-      <Wrapper>
-        <Box>
-          <Spinner />
-        </Box>
-      </Wrapper>
+      <LoginBox>
+        <Spinner />
+      </LoginBox>
     );
   }
 
   return (
-    <Wrapper>
-      <Box>
-        <LogoSVG style={{ fill: "tomato" }} />
+    <LoginBox>
+      <Logo hasPadding hasName isCentered />
 
-        <form onSubmit={handleFormSubmit}>
-          <label>
-            <div>Email</div>
-            <Input
-              placeholder="john@doe.com"
-              value={fields.email}
-              name="email"
-              onChange={handleInputChange}
-            />
-          </label>
+      <Title.H2>Create a new account</Title.H2>
+      <form onSubmit={handleFormSubmit}>
+        <FormItem label="Email">
+          <TextField
+            placeholder="john@doe.com"
+            value={fields.email}
+            name="email"
+            onChange={handleInputChange}
+          />
+        </FormItem>
 
-          <label>
-            <div>Name</div>
-            <Input
-              placeholder="John Doe"
-              value={fields.name}
-              name="name"
-              onChange={handleInputChange}
-            />
-          </label>
+        <FormItem label="Name">
+          <TextField
+            placeholder="John Doe"
+            value={fields.name}
+            name="name"
+            onChange={handleInputChange}
+          />
+        </FormItem>
 
-          <label>
-            <div>Password</div>
-            <Input
-              type="password"
-              value={fields.password}
-              name="password"
-              onChange={handleInputChange}
-            />
-          </label>
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                checked={termsAccepted}
-                onChange={e => {
-                  setTermsAccepted(e.currentTarget.checked);
-                }}
-              />{" "}
-              <Link to="terms">I accept the terms</Link>
-            </label>
-          </div>
+        <FormItem label="Password">
+          <TextField
+            type="password"
+            value={fields.password}
+            name="password"
+            onChange={handleInputChange}
+          />
+        </FormItem>
 
-          <Button>Sign in</Button>
+        <FormItem>
+          <input
+            type="checkbox"
+            checked={termsAccepted}
+            onChange={e => {
+              setTermsAccepted(e.currentTarget.checked);
+            }}
+          />{" "}
+          <Link to="terms">I accept the terms</Link>
+        </FormItem>
 
-          <p>
-            Or just <Link to="/login">log in</Link>
-          </p>
-        </form>
-      </Box>
-    </Wrapper>
+        <Button>Sign in</Button>
+
+        <p>
+          Or just <Link to="/login">log in</Link>
+        </p>
+      </form>
+    </LoginBox>
   );
 };
 
