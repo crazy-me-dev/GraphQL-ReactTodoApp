@@ -6,6 +6,7 @@ export interface Theme {
   name: string;
   colors: {
     primary: string;
+    primaryShade: string;
     border: string;
     borderDark: string;
     background: string;
@@ -24,6 +25,7 @@ const defaultTheme: Theme = {
   name: "Default",
   colors: {
     primary: "#FB3535",
+    primaryShade: "rgba(251, 53, 53, 0.4)",
     border: "#eee",
     borderDark: "#ccc",
     background: "#fff",
@@ -42,6 +44,7 @@ const dark: Theme = {
   name: "Dark",
   colors: {
     primary: "#FB3535",
+    primaryShade: "rgba(251, 53, 53, 0.4)",
     border: "#303030",
     borderDark: "#303030",
     background: "#444",
@@ -60,6 +63,7 @@ const blue: Theme = {
   name: "Blue",
   colors: {
     primary: "#0099ff",
+    primaryShade: "rgba(0, 153, 255, 0.4)",
     border: "#ddd",
     borderDark: "#ccc",
     background: "#f3f3f3",
@@ -110,6 +114,11 @@ const globalStyles = (theme: Theme) => css`
     color: #fff;
   }
 
+  *:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem ${theme.colors.primaryShade};
+  }
+
   a {
     color: ${theme.colors.text};
   }
@@ -117,6 +126,7 @@ const globalStyles = (theme: Theme) => css`
   hr {
     border: none;
     border-top: 1px solid ${theme.colors.border};
+    margin: 2rem 0;
   }
 `;
 

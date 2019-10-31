@@ -1,19 +1,23 @@
 import React from "react";
+import { css } from "@emotion/core";
 
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import styled from "../../config/styles";
 
 interface LogoProps {
   hasName?: boolean;
-  hasPadding?: boolean;
-  isCentered?: boolean;
+  centered?: boolean;
 }
 
 const LogoWrapper = styled.div<LogoProps>`
   display: flex;
   align-items: center;
-  padding: ${props => (props.hasPadding ? "0 0 4rem 0" : "0")};
-  margin: ${props => (props.isCentered ? "0 auto" : "0")};
+  ${props =>
+    props.centered &&
+    css`
+      display: flex;
+      justify-content: center;
+    `};
 `;
 
 const LogoIcon = styled(LogoSVG)`
@@ -32,9 +36,9 @@ const AppName = styled.span`
   color: ${props => props.theme.colors.text};
 `;
 
-const Logo: React.FC<LogoProps> = ({ hasName, hasPadding }) => {
+const Logo: React.FC<LogoProps> = ({ hasName }) => {
   return (
-    <LogoWrapper hasPadding isCentered>
+    <LogoWrapper centered>
       <LogoIcon />
       {hasName && <AppName>Check!t</AppName>}
     </LogoWrapper>

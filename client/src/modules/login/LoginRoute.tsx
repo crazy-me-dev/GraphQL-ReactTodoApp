@@ -12,8 +12,8 @@ import {
   useLoginWithGoogleMutation,
   useLoginWithCredentialsMutation
 } from "./login.requests";
-import { Spinner, Button, Logo } from "../common";
-import { FormItem, TextField } from "../common/form";
+import { Spinner, Button, Logo, Text } from "../common";
+import { Form, FormItem, TextField } from "../common/form";
 import LoginBox from "./LoginBox";
 
 const GOOGLE_AUTH_KEY = process.env.REACT_APP_GOOGLE_AUTH_KEY
@@ -56,9 +56,13 @@ const LoginRoute: React.FC = props => {
 
   return (
     <LoginBox>
-      <Logo hasName hasPadding isCentered />
+      <Logo hasName centered />
 
-      <form onSubmit={handleLogin}>
+      <Text centered>Login in and organize your life!</Text>
+
+      <br />
+
+      <Form onSubmit={handleLogin}>
         <FormItem label="Email">
           <TextField value={email} onChange={e => setEmail(e.target.value)} />
         </FormItem>
@@ -72,22 +76,36 @@ const LoginRoute: React.FC = props => {
         </FormItem>
 
         <FormItem>
-          <Button>Log in</Button>
+          <Button filled fullWidth>
+            Log in
+          </Button>
         </FormItem>
-      </form>
+      </Form>
+
+      <Text centered>or</Text>
 
       <GoogleLogin
         clientId={GOOGLE_AUTH_KEY}
-        buttonText={t("login.googleButton")}
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
         cookiePolicy={"single_host_origin"}
         data-testid="google-login"
+        render={renderProps => (
+          <Button
+            fullWidth
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+          >
+            {t("login.googleButton")}
+          </Button>
+        )}
       />
 
-      <p>
+      <hr />
+
+      <Text centered>
         Don’t have an account? <Link to="/registration">Sign in</Link>
-      </p>
+      </Text>
     </LoginBox>
   );
 };

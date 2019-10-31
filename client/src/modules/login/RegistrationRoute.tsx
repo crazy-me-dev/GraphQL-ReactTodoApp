@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 import AuthContext from "./AuthContext";
-import { Button, Spinner, Logo, Title } from "../common";
-import { FormItem, TextField } from "../common/form";
+import { Button, Spinner, Logo, Text } from "../common";
+import { Form, FormItem, TextField, Checkbox } from "../common/form";
 import { useRegisterNewUserMutation } from "./login.requests";
 import LoginBox from "./LoginBox";
 
@@ -47,10 +47,13 @@ const RegistrationRoute = () => {
 
   return (
     <LoginBox>
-      <Logo hasPadding hasName isCentered />
+      <Logo hasName centered />
 
-      <Title.H2>Create a new account</Title.H2>
-      <form onSubmit={handleFormSubmit}>
+      <Text centered>Create a brand new account</Text>
+
+      <br />
+
+      <Form onSubmit={handleFormSubmit}>
         <FormItem label="Email">
           <TextField
             placeholder="john@doe.com"
@@ -79,22 +82,26 @@ const RegistrationRoute = () => {
         </FormItem>
 
         <FormItem>
-          <input
-            type="checkbox"
+          <Checkbox
             checked={termsAccepted}
             onChange={e => {
               setTermsAccepted(e.currentTarget.checked);
             }}
-          />{" "}
-          <Link to="terms">I accept the terms</Link>
+          >
+            I accept <Link to="terms">the terms</Link>
+          </Checkbox>
         </FormItem>
 
-        <Button>Sign in</Button>
+        <Button filled fullWidth>
+          Sign in
+        </Button>
 
-        <p>
+        <hr />
+
+        <Text centered>
           Or just <Link to="/login">log in</Link>
-        </p>
-      </form>
+        </Text>
+      </Form>
     </LoginBox>
   );
 };

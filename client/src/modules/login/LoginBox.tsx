@@ -14,10 +14,6 @@ const Box = styled.div`
   border-radius: 4px;
   min-height: 350px;
   width: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
 `;
 
 const LoginBox: React.FC = ({ children }) => {
