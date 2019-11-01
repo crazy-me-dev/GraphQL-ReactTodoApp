@@ -50,14 +50,16 @@ const CloseButton = styled(Button)`
 `;
 
 const Overlay = styled.div<{ visible: boolean }>`
+  transition: all 0.4s;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 9;
-  display: ${props => (props.visible ? "block" : "none")};
+  opacity: ${props => (props.visible ? "1.0" : "0")};
+  pointer-events: ${props => (props.visible ? "auto" : "none")};
 `;
 
 interface WrapperProps {
