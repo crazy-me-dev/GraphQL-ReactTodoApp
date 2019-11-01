@@ -1,5 +1,5 @@
 import { css } from "@emotion/core";
-import styled from "../../config/styles";
+import styled, { color } from "../../config/styles";
 
 interface Props {
   filled?: boolean;
@@ -10,15 +10,15 @@ const Button = styled.button<Props>`
   font-weight: bold;
   letter-spacing: 0.04em;
   transition: all 0.2s;
-  color: ${props => props.theme.colors.primary};
+  color: ${color("primary")};
   background: transparent;
-  border: 1px solid ${props => props.theme.colors.primary};
+  border: 1px solid ${color("primary")};
   border-radius: 4px;
   padding: 0.5rem 1rem;
-  box-shadow: 0 0 0 0 ${props => props.theme.colors.primary};
+  box-shadow: 0 0 0 0 ${color("primary")};
 
   &:hover {
-    background: ${props => props.theme.colors.primary};
+    background: ${color("primary")};
     color: white;
   }
 

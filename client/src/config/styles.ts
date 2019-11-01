@@ -11,11 +11,9 @@ export interface Theme {
     borderDark: string;
     background: string;
     text: string;
-    grey: {
-      "100": string;
-      "400": string;
-      "700": string;
-    };
+    grey100: string;
+    grey400: string;
+    grey700: string;
   };
   maxWidth: number;
 }
@@ -30,11 +28,9 @@ const defaultTheme: Theme = {
     borderDark: "#ccc",
     background: "#fff",
     text: "#333",
-    grey: {
-      "100": "#f1f1f1",
-      "400": "#ddd",
-      "700": "#ccc"
-    }
+    grey100: "#f1f1f1",
+    grey400: "#ddd",
+    grey700: "#ccc"
   },
   maxWidth: 900
 };
@@ -49,11 +45,9 @@ const dark: Theme = {
     borderDark: "#303030",
     background: "#444",
     text: "#eee",
-    grey: {
-      "100": "#f1f1f1",
-      "400": "#ddd",
-      "700": "#ccc"
-    }
+    grey100: "#f1f1f1",
+    grey400: "#ddd",
+    grey700: "#ccc"
   },
   maxWidth: 900
 };
@@ -68,11 +62,9 @@ const blue: Theme = {
     borderDark: "#ccc",
     background: "#f3f3f3",
     text: "#444",
-    grey: {
-      "100": "#f1f1f1",
-      "400": "#ddd",
-      "700": "#ccc"
-    }
+    grey100: "#f1f1f1",
+    grey400: "#ddd",
+    grey700: "#ccc"
   },
   maxWidth: 900
 };
@@ -140,11 +132,18 @@ const mq = (breakpoint: BreakpointKeys) => {
   return `@media (min-width: ${breakpoints[breakpoint]}px)`;
 };
 
+interface ColorProps {
+  theme: Theme;
+}
+const color = (color: keyof Theme["colors"]) => (props: ColorProps) => {
+  return props.theme.colors[color];
+};
+
 const themes = {
   defaultTheme,
   dark,
   blue
 };
 
-export { globalStyles, themes, mq };
+export { globalStyles, themes, mq, color };
 export default styled;

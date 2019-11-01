@@ -3,7 +3,7 @@ import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd/index";
 
 import { ReactComponent as HandleIcon } from "../../assets/drag-handle-icon.svg";
 import { Task } from "./task.model";
-import styled, { mq } from "../../config/styles";
+import styled, { mq, color } from "../../config/styles";
 
 export interface TaskListItemProps {
   task: Task;
@@ -17,7 +17,7 @@ export interface TaskListItemProps {
 const DragHandle = styled.div`
   transition: all 0.2s;
   padding: 1rem;
-  color: ${props => props.theme.colors.grey[400]};
+  color: ${color("grey400")};
   opacity: 1;
   display: flex;
   align-items: center;
@@ -45,12 +45,12 @@ const Checkbox = styled.label`
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    border: 1px solid ${props => props.theme.colors.borderDark};
+    border: 1px solid ${color("borderDark")};
     margin-right: 0.5rem;
     &:hover {
-      border-color: ${props => props.theme.colors.primary};
+      border-color: ${color("primary")};
       border-width: 1px;
-      box-shadow: inset 0 0 0 1px ${props => props.theme.colors.primary};
+      box-shadow: inset 0 0 0 1px ${color("primary")};
     }
   }
 
@@ -64,8 +64,8 @@ const Checkbox = styled.label`
     position: absolute;
     top: 0.3rem;
     left: 0.5rem;
-    border-bottom: 3px solid ${props => props.theme.colors.primary};
-    border-right: 3px solid ${props => props.theme.colors.primary};
+    border-bottom: 3px solid ${color("primary")};
+    border-right: 3px solid ${color("primary")};
     transform: rotate(40deg) scale(0.5);
     opacity: 0;
   }
@@ -74,7 +74,7 @@ const Checkbox = styled.label`
     display: none;
     &:checked + span {
       &::before {
-        background: ${props => props.theme.colors.border};
+        background: ${color("border")};
         border: none;
       }
       &::after {
@@ -107,7 +107,7 @@ const DescriptionInput = styled.input`
   background: transparent;
   &:focus {
     outline: none;
-    border: 2px solid ${props => props.theme.colors.primary};
+    border: 2px solid ${color("primary")};
   }
 `;
 
@@ -120,32 +120,32 @@ const DeleteButton = styled.button`
   width: 2rem;
   height: 2rem;
   font-weight: 400;
-  color: ${props => props.theme.colors.grey[400]};
+  color: ${color("grey400")};
   border-radius: 50%;
   border: 2px solid transparent;
   padding: 0;
   &:hover,
   &:focus {
-    border-color: ${props => props.theme.colors.primary};
-    color: ${props => props.theme.colors.primary};
+    border-color: ${color("primary")};
+    color: ${color("primary")};
     opacity: 1;
     outline: none;
   }
 
   ${mq("medium")} {
     opacity: 0;
-    color: ${props => props.theme.colors.primary};
+    color: ${color("primary")};
   }
 `;
 
 const TaskRow = styled.div`
   position: relative;
-  border-bottom: 1px solid ${props => props.theme.colors.border};
+  border-bottom: 1px solid ${color("border")};
   padding: 0.75rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${props => props.theme.colors.background};
+  background: ${color("background")};
   &:hover {
     .delete-button,
     .drag-handle {

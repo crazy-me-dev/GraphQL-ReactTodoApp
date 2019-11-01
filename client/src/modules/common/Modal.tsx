@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { useSpring, animated } from "react-spring";
 import FocusTrap from "focus-trap-react";
 
-import styled from "../../config/styles";
+import styled, { color } from "../../config/styles";
 import usePortal from "../../utils/usePortal";
 
 const Wrapper = styled.div`
@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 
 const ModalBoxWrapper = styled.div`
   position: relative;
-  background: ${props => props.theme.colors.background};
+  background: ${color("background")};
   padding: 2rem;
   max-width: 500px;
   width: 100%;
@@ -39,7 +39,7 @@ const CloseButton = styled.button`
   &:hover,
   &:focus {
     outline: none;
-    color: ${props => props.theme.colors.primary};
+    color: ${color("primary")};
   }
 `;
 

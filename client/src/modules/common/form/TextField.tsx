@@ -1,8 +1,8 @@
-import styled from "../../../config/styles";
+import styled, { color } from "../../../config/styles";
 
 const Input = styled.input`
   transition: all 0.2s;
-  border: 1px solid ${props => props.theme.colors.border};
+  border: 1px solid ${color("border")};
   border-radius: 0.25rem;
   padding: 0.5rem 0.75rem;
   background-color: transparent;

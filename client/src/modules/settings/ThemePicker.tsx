@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { Title } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
-import styled from "../../config/styles";
+import styled, { color } from "../../config/styles";
 import { useTheme, ThemeId } from "./ThemeProvider";
 
 const ThemeSelectList = styled.div`
@@ -26,9 +26,9 @@ const ThemeSelectButtonWrapper = styled.div`
 
 const ThemeSelectButton = styled.button<{ selected: boolean }>`
   transition: inherit;
-  border: 2px solid ${props => props.theme.colors.border};
-  background: ${props => props.theme.colors.background};
-  color: ${props => props.theme.colors.text};
+  border: 2px solid ${color("border")};
+  background: ${color("background")};
+  color: ${color("text")};
   border-radius: 4px;
   padding: 0.5rem 1rem;
   display: flex;
@@ -36,7 +36,7 @@ const ThemeSelectButton = styled.button<{ selected: boolean }>`
   &:focus,
   &:hover {
     outline: none;
-    border-color: ${props => props.theme.colors.primary};
+    border-color: ${color("primary")};
   }
   ${props =>
     props.selected &&
@@ -48,7 +48,7 @@ const ThemeSelectButton = styled.button<{ selected: boolean }>`
 `;
 
 const Logo = styled(LogoSVG)`
-  fill: ${props => props.theme.colors.primary};
+  fill: ${color("primary")};
   margin-right: auto;
   transform: translateY(-4px);
   margin-right: 1rem;

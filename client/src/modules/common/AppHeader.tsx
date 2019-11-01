@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import styled, { mq } from "../../config/styles";
+import styled, { mq, color } from "../../config/styles";
 import { Container } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import { useSideMenu } from "../project/SideMenuProvider";
@@ -19,7 +19,7 @@ const FirstItemContainer = styled.div`
 
 const Logo = styled(LogoSVG)`
   display: none;
-  fill: ${props => props.theme.colors.primary};
+  fill: ${color("primary")};
 
   ${mq("medium")} {
     display: inline-block;

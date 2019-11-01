@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import styled, { mq } from "../../config/styles";
+import styled, { mq, color } from "../../config/styles";
 import { Button, Modal } from "../common";
 import { Project } from "./project.model";
 import CreateProjectForm from "./CreateProjectForm";
@@ -39,10 +39,10 @@ const CloseButton = styled(Button)`
   font-size: 2rem;
   padding: 0.2rem;
   line-height: 1;
-  color: ${props => props.theme.colors.text};
+  color: ${color("text")};
   &:hover {
     background: transparent;
-    color: ${props => props.theme.colors.primary};
+    color: ${color("primary")};
   }
   ${mq("medium")} {
     display: none;
@@ -72,7 +72,7 @@ const Wrapper = styled.div<WrapperProps>`
   position: relative;
   transition: all ${props => (props.isTouching ? `0s` : `0.4s`)};
   padding: 4rem 1rem 1rem 1rem;
-  background: ${props => props.theme.colors.background};
+  background: ${color("background")};
   position: fixed;
   left: 0;
   top: 0;

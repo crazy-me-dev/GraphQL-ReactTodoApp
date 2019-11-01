@@ -1,6 +1,6 @@
 import React from "react";
 
-import styled from "../../../config/styles";
+import styled, { color } from "../../../config/styles";
 import { ReactComponent as CheckSVG } from "../../../assets/check.svg";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
@@ -24,7 +24,7 @@ const CheckboxInput = styled.input`
   }
   &:focus + span {
     border-color: transparent;
-    box-shadow: 0 0 0 0.2rem ${props => props.theme.colors.primaryShade};
+    box-shadow: 0 0 0 0.2rem ${color("primaryShade")};
   }
 `;
 
@@ -49,7 +49,7 @@ const CheckIcon = styled(CheckSVG)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  fill: ${props => props.theme.colors.background};
+  fill: ${color("background")};
 `;
 
 const Checkbox = ({ children, ...rest }: Props) => {
