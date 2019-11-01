@@ -17,13 +17,14 @@ describe("<HomeRoute/>", () => {
       <HomeRoute />,
       {
         id: "7357",
-        name: "John Doe"
+        name: "John Doe",
+        projects: [{ id: "13", name: "Inbox", tasks: [], order_number: 1 }]
       },
       {
         route: "/"
       }
     );
 
-    expect(history.location.pathname).toBe("/project/1");
+    expect(history.location.pathname).toBe("/project/13");
   });
 });

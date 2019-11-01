@@ -1,11 +1,13 @@
 import React from "react";
-import { render, act, fireEvent } from "@testing-library/react";
+import { act, fireEvent } from "@testing-library/react";
 import wait from "waait";
 import { MockedProvider } from "@apollo/react-testing";
 import { ApolloConsumer } from "@apollo/react-hooks";
+import ApolloClient from "apollo-boost";
 
 import DeleteProjectButton from "./DeleteProjectButton";
 import { DELETE_PROJECT, PROJECTS_QUERY } from "./project.requests";
+import { renderWithProviders } from "../../utils/test-utils";
 
 const mocks = [
   {
@@ -53,8 +55,8 @@ const mocks = [
 describe("<DeleteProjectButton />", () => {
   test("should delete project when delete button is clicked", async () => {
     await act(async () => {
-      let apolloClient;
-      const { getByTestId } = await render(
+      let apolloClient: ApolloClient<{}> | undefined;
+      const { getByTestId } = await renderWithProviders(
         <MockedProvider mocks={mocks} addTypename={false}>
           <ApolloConsumer>
             {client => {
@@ -65,6 +67,8 @@ describe("<DeleteProjectButton />", () => {
         </MockedProvider>
       );
       await wait(0);
+
+      if (!apolloClient) throw new Error("ApolloClient no set");
 
       const resBefore = await apolloClient.query({ query: PROJECTS_QUERY });
 
