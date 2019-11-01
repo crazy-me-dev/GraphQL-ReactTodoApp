@@ -108,3 +108,23 @@ export const useRegisterNewUserMutation = () => {
     });
   };
 };
+
+interface LogOutProps {
+  update: Function;
+}
+
+export const useLogOutMutation = () => {
+  const [logOut, { client }] = useMutation(LOGOUT_MUTATION, {});
+
+  return ({ update }: LogOutProps) => {
+    return logOut({
+      awaitRefetchQueries: true,
+      update: () => {
+        if (client) {
+          client.cache.reset();
+        }
+        update();
+      }
+    });
+  };
+};
