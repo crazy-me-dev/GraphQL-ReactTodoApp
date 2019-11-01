@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
 import { Global } from "@emotion/core";
 
@@ -12,9 +12,15 @@ const ThemeContext = createContext({
   themes
 });
 
+const localState: ThemeId = localStorage.getItem("theme") as ThemeId;
+
 const ThemeProvider: React.FC = ({ children }) => {
-  const [themeId, setTheme] = useState<ThemeId>("defaultTheme");
+  const [themeId, setTheme] = useState<ThemeId>(localState || "defaultTheme");
   const currentTheme = themes[themeId];
+
+  useEffect(() => {
+    localStorage.setItem("theme", themeId);
+  }, [themeId]);
 
   const themeContextValues = {
     currentTheme,
