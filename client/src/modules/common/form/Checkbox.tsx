@@ -19,8 +19,8 @@ const CheckboxInput = styled.input`
   opacity: 0;
 
   &:checked + span {
-    background: tomato;
-    border-color: tomato;
+    background: ${color("primary")};
+    border-color: ${color("primary")};
   }
   &:focus + span {
     border-color: transparent;

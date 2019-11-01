@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "../../config/styles";
+import styled, { color } from "../../config/styles";
 
 import { useDeleteProjectMutation } from "./project.requests";
 
@@ -14,7 +14,7 @@ const DeleteButton = styled.button`
   &:hover,
   &:focus {
     background: #eee;
-    color: tomato;
+    color: ${color("primary")};
   }
 `;
 

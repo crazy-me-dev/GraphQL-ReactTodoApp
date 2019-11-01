@@ -1,7 +1,7 @@
 import React from "react";
 import { keyframes } from "@emotion/core";
 
-import styled from "../../config/styles";
+import styled, { color } from "../../config/styles";
 
 interface Props {
   isCentered?: boolean;
@@ -33,7 +33,7 @@ const SpinnerDot = styled.div`
   width: 1rem;
   height: 1rem;
   margin: 0.25rem;
-  background: #fb3535;
+  background: ${color("primary")};
   border-radius: 50%;
   &:nth-of-type(1) {
     animation: ${bounce} 1.2s -0.5s ease infinite;
