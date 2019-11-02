@@ -10,7 +10,8 @@ import { Link } from "react-router-dom";
 import AuthContext from "./AuthContext";
 import {
   useLoginWithGoogleMutation,
-  useLoginWithCredentialsMutation
+  useLoginWithCredentialsMutation,
+  useLoginWithDemoCredentialsMutation
 } from "./login.requests";
 import { Spinner, Button, Logo, Text } from "../common";
 import { Form, FormItem, TextField } from "../common/form";
@@ -23,6 +24,7 @@ const GOOGLE_AUTH_KEY = process.env.REACT_APP_GOOGLE_AUTH_KEY
 const LoginRoute: React.FC = props => {
   const loginWithGoogle = useLoginWithGoogleMutation();
   const loginWithCredentials = useLoginWithCredentialsMutation();
+  const loginWithDemoCredentials = useLoginWithDemoCredentialsMutation();
   const { user, loading } = useContext(AuthContext);
   const [hasLoader, setHasLoader] = useState(false);
   const [email, setEmail] = useState("");
@@ -84,22 +86,35 @@ const LoginRoute: React.FC = props => {
 
       <Text centered>or</Text>
 
-      <GoogleLogin
-        clientId={GOOGLE_AUTH_KEY}
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={"single_host_origin"}
-        data-testid="google-login"
-        render={renderProps => (
-          <Button
-            fullWidth
-            onClick={renderProps.onClick}
-            disabled={renderProps.disabled}
-          >
-            {t("login.googleButton")}
-          </Button>
-        )}
-      />
+      <FormItem>
+        <GoogleLogin
+          clientId={GOOGLE_AUTH_KEY}
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={"single_host_origin"}
+          data-testid="google-login"
+          render={renderProps => (
+            <Button
+              fullWidth
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+            >
+              {t("login.googleButton")}
+            </Button>
+          )}
+        />
+      </FormItem>
+
+      <FormItem>
+        <Button
+          fullWidth
+          onClick={() => {
+            loginWithDemoCredentials();
+          }}
+        >
+          {t("login.tryDemo")}
+        </Button>
+      </FormItem>
 
       <hr />
 

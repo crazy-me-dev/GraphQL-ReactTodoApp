@@ -5,7 +5,8 @@
     "error": "Error!"
   },
   "login": {
-    "googleButton": "Login with google"
+    "googleButton": "Login with google",
+    "tryDemo": "Try demo"
   },
   "project": {
     "newButton": "Add project",

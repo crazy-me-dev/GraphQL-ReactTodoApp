@@ -17,6 +17,7 @@ module.exports = gql`
 
     loginWithCredentials(email: String!, password: String!): User!
     loginWithGoogle(id_token: String!): User!
+    loginWithDemoCredentials: User!
     logOut: Message!
 
     createProject(name: String!): Project

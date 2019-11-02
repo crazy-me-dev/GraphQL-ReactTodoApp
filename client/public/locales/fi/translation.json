@@ -5,7 +5,8 @@
     "error": "Virhe!"
   },
   "login": {
-    "googleButton": "Kirjaudu Googlen avulla"
+    "googleButton": "Kirjaudu Googlen avulla",
+    "tryDemo": "Kokeile demo-tunnuksilla"
   },
   "project": {
     "newButton": "Lisää projekti",

@@ -87,6 +87,18 @@ const Mutation = {
 
     return user;
   },
+
+  async loginWithDemoCredentials(parent, args, ctx, info) {
+    const user = await createUser(ctx, {
+      name: "Demo User",
+      is_demo_account: true
+    });
+
+    signUserIn(ctx, user);
+
+    return user;
+  },
+
   logOut(parent, args, ctx, info) {
     ctx.res.clearCookie("token");
     return { message: "Goodbye!" };

@@ -65,6 +65,15 @@ export const loginWithGoogleMutation = gql`
   }
 `;
 
+export const loginWithDemoCredentials = gql`
+  mutation {
+    loginWithDemoCredentials {
+      id
+      name
+    }
+  }
+`;
+
 export const logOutMutation = gql`
   mutation {
     logOut {
@@ -232,7 +241,7 @@ describe("User", () => {
       expect(user.name).toBe("Google User");
     });
 
-    it("should register if user not existing yet", async () => {
+    it("should register if Google user not existing yet", async () => {
       const usersBeforeRegistration = await db("user");
       expect(usersBeforeRegistration.length).toBe(2);
 
@@ -248,6 +257,19 @@ describe("User", () => {
 
       const usersAfterRegistration = await db("user");
       expect(usersAfterRegistration.length).toBe(3);
+    });
+
+    it("should log demo user in", async () => {
+      const {
+        data: { loginWithDemoCredentials: userResponse }
+      } = await client.mutate({
+        mutation: loginWithDemoCredentials
+      });
+
+      const [user] = await db("user").where({ id: userResponse.id });
+
+      expect(user).toBeTruthy();
+      expect(user.is_demo_account).toBe(true);
     });
   });
 

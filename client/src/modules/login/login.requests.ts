@@ -39,6 +39,15 @@ export const LOGIN_WITH_CREDENTIALS_MUTATION = gql`
   }
 `;
 
+export const LOGIN_WITH_DEMO_CREDENTIALS_MUTATION = gql`
+  mutation loginWithDemoCredentials {
+    loginWithDemoCredentials {
+      id
+      name
+    }
+  }
+`;
+
 export const REGISTER_NEW_USER_MUTATION = gql`
   mutation registerNewUser(
     $email: String!
@@ -94,6 +103,16 @@ export const useLoginWithCredentialsMutation = () => {
       refetchQueries: [{ query: ME_QUERY }]
     });
   };
+};
+
+export const useLoginWithDemoCredentialsMutation = () => {
+  const [loginWithDemoCredentials] = useMutation(
+    LOGIN_WITH_DEMO_CREDENTIALS_MUTATION
+  );
+  return () =>
+    loginWithDemoCredentials({
+      refetchQueries: [{ query: ME_QUERY }]
+    });
 };
 
 interface NewUserData extends LoginCredentials {
