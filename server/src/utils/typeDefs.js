@@ -14,6 +14,7 @@ module.exports = gql`
       name: String!
       termsAccepted: Boolean!
     ): User!
+    deleteAccount: User!
 
     loginWithCredentials(email: String!, password: String!): User!
     loginWithGoogle(id_token: String!): User!

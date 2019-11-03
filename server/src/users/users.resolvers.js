@@ -54,6 +54,26 @@ const Mutation = {
     return newUser;
   },
 
+  async deleteAccount(parent, args, ctx, info) {
+    const { userId } = ctx.req;
+    if (!userId) throw new Error("You must be logged in to delete an account");
+
+    const [userToDelete] = await ctx.db("user").where({ id: userId });
+
+    if (!userToDelete) throw new Error("The accoutn doesn't exist");
+
+    const deletedSuccessfully = await ctx
+      .db("user")
+      .where({ id: userId })
+      .del();
+
+    if (!deletedSuccessfully) throw new Error("Couldn't delete the account");
+
+    ctx.res.clearCookie("token");
+
+    return userToDelete;
+  },
+
   async loginWithCredentials(parent, args, ctx, info) {
     const { email, password } = args;
 

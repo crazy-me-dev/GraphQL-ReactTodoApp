@@ -47,6 +47,15 @@ export const registerNewUserMutation = gql`
   }
 `;
 
+export const deleteAccount = gql`
+  mutation {
+    deleteAccount {
+      id
+      name
+    }
+  }
+`;
+
 export const loginWithCredentialsMutation = gql`
   mutation($email: String!, $password: String!) {
     loginWithCredentials(email: $email, password: $password) {
@@ -158,6 +167,50 @@ describe("User", () => {
         new Error(
           "GraphQL error: Password should be at least 6 characters long!"
         )
+      );
+    });
+  });
+
+  describe("when deleting an account", () => {
+    it("should delete logged in user's account", async () => {
+      const client = getClient(userOne.jwt);
+
+      const {
+        data: { deleteAccount: deletedUser }
+      } = await client.mutate({
+        mutation: deleteAccount
+      });
+
+      const users = await db("user").where({ id: userOne.user.id });
+
+      expect(deletedUser).toBeTruthy();
+      expect(users.length).toBe(0);
+    });
+
+    it("should delete user's projects and tasks", async () => {
+      const client = getClient(userOne.jwt);
+
+      await client.mutate({
+        mutation: deleteAccount
+      });
+
+      const projects = await db("project").where({ user_id: userOne.user.id });
+      const tasks = await db("user")
+        .innerJoin("project", "user.id", "project.user_id")
+        .innerJoin("task", "project.id", "task.project_id")
+        .where({ user_id: userOne.user.id });
+
+      expect(projects.length).toBe(0);
+      expect(tasks.length).toBe(0);
+    });
+
+    it("should throw an error, if not logged in", async () => {
+      await expect(
+        client.mutate({
+          mutation: deleteAccount
+        })
+      ).rejects.toEqual(
+        new Error("GraphQL error: You must be logged in to delete an account")
       );
     });
   });
