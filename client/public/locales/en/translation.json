@@ -28,6 +28,10 @@
     "languageSelect": {
       "fi": "Suomeksi",
       "en": "In English"
-    }
+    },
+    "deleteAccount": "Delete your account"
+  },
+  "account": {
+    "deleteButton": "Delete your account"
   }
 }

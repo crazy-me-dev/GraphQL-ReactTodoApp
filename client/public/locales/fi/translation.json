@@ -28,6 +28,10 @@
     "languageSelect": {
       "fi": "Suomeksi",
       "en": "In English"
-    }
+    },
+    "deleteAccount": "Poista tili"
+  },
+  "account": {
+    "deleteButton": "Poista tilisi"
   }
 }

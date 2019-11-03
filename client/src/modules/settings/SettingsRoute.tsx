@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { AppHeader, Container } from "../common";
 import ThemePicker from "./ThemePicker";
 import LanguagePicker from "./LanguagePicker";
+import DeleteAccountButton from "./DeleteAccountButton";
 
 const SettingsRoute: React.FC = () => {
   const { t } = useTranslation();
@@ -20,6 +21,9 @@ const SettingsRoute: React.FC = () => {
 
         <h2>{t("settings.language")}</h2>
         <LanguagePicker />
+
+        <h2>{t("settings.deleteAccount")}</h2>
+        <DeleteAccountButton />
       </Container>
     </>
   );

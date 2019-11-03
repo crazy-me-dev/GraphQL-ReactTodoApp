@@ -67,6 +67,15 @@ export const REGISTER_NEW_USER_MUTATION = gql`
   }
 `;
 
+export const DELETE_ACCOUNT = gql`
+  mutation deleteAccount {
+    deleteAccount {
+      id
+      name
+    }
+  }
+`;
+
 export const useMeQuery = (client: ApolloClient<{}>) => {
   return useQuery(ME_QUERY, {
     client,
@@ -131,14 +140,28 @@ export const useRegisterNewUserMutation = () => {
   };
 };
 
-interface LogOutProps {
+interface HasUpdateProp {
   update: Function;
 }
 
-export const useLogOutMutation = () => {
-  const [logOut, { client }] = useMutation(LOGOUT_MUTATION, {});
+export const useAccountDeleteMutation = () => {
+  const [deleteAccount, { client }] = useMutation(DELETE_ACCOUNT);
+  return ({ update }: HasUpdateProp) =>
+    deleteAccount({
+      awaitRefetchQueries: true,
+      update: () => {
+        if (client) {
+          client.cache.reset();
+          update();
+        }
+      }
+    });
+};
 
-  return ({ update }: LogOutProps) => {
+export const useLogOutMutation = () => {
+  const [logOut, { client }] = useMutation(LOGOUT_MUTATION);
+
+  return ({ update }: HasUpdateProp) => {
     return logOut({
       awaitRefetchQueries: true,
       update: () => {
