@@ -2,11 +2,29 @@
   "common": {
     "logout": "Logout",
     "back": "Back",
-    "error": "Error!"
+    "error": "Error!",
+    "email": "Email",
+    "emailPlaceholder": "john@doe.com",
+    "password": "Password",
+    "name": "Name",
+    "namePlaceholder": "John Doe",
+    "or": "or"
   },
   "login": {
-    "googleButton": "Login with google",
-    "tryDemo": "Try demo"
+    "slogan": "Log in and organize your life!",
+    "logIn": "Log in",
+    "googleButton": "Login with Google",
+    "tryDemo": "Try demo",
+    "noAccount": "Don’t have an account?",
+    "signIn": "Sign in"
+  },
+  "registration": {
+    "title": "Create a brand new account",
+    "iAccept": "I accept",
+    "termsLinkLabel": "the terms",
+    "signIn": "Sign in",
+    "footer": "Or just",
+    "logInLinkLabel": "log in"
   },
   "project": {
     "newButton": "Add project",

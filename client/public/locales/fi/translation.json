@@ -2,11 +2,29 @@
   "common": {
     "logout": "Kirjaudu ulos",
     "back": "Takaisin",
-    "error": "Virhe!"
+    "error": "Virhe!",
+    "email": "Sähköposti",
+    "emailPlaceholder": "matti@meikalainen.com",
+    "password": "Salasana",
+    "name": "Nimi",
+    "namePlaceholder": "Matti Meikäläinen",
+    "or": "tai"
   },
   "login": {
-    "googleButton": "Kirjaudu Googlen avulla",
-    "tryDemo": "Kokeile demo-tunnuksilla"
+    "slogan": "Kirjaudu ja laita elämäsi järjestykseen!",
+    "logIn": "Kirjaudu",
+    "googleButton": "Kirjaudu Googlen-tunnuksilla",
+    "tryDemo": "Kokeile demo-tunnuksilla",
+    "noAccount": "Puuttuuko tili?",
+    "signIn": "Rekisteröidy"
+  },
+  "registration": {
+    "title": "Luo uusi tili",
+    "iAccept": "Hyväksyn",
+    "termsLinkLabel": "käyttöehdot",
+    "signIn": "Rekisteröidy",
+    "footer": "tai",
+    "logInLinkLabel": "kirjaudu"
   },
   "project": {
     "newButton": "Lisää projekti",

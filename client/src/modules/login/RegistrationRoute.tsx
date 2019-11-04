@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import AuthContext from "./AuthContext";
 import { Button, Spinner, Logo, Text } from "../common";
@@ -19,6 +20,7 @@ const RegistrationRoute = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [hasLoader, setHasLoader] = useState(false);
   const { user, loading } = useContext(AuthContext);
+  const { t } = useTranslation();
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,30 +51,30 @@ const RegistrationRoute = () => {
     <LoginBox>
       <Logo hasName centered />
 
-      <Text centered>Create a brand new account</Text>
+      <Text centered>{t("registration.title")}</Text>
 
       <br />
 
       <Form onSubmit={handleFormSubmit}>
-        <FormItem label="Email">
+        <FormItem label={t("common.email")}>
           <TextField
-            placeholder="john@doe.com"
+            placeholder={t("common.emailPlaceholder")}
             value={fields.email}
             name="email"
             onChange={handleInputChange}
           />
         </FormItem>
 
-        <FormItem label="Name">
+        <FormItem label={t("common.name")}>
           <TextField
-            placeholder="John Doe"
+            placeholder={t("common.namePlaceholder")}
             value={fields.name}
             name="name"
             onChange={handleInputChange}
           />
         </FormItem>
 
-        <FormItem label="Password">
+        <FormItem label={t("common.password")}>
           <TextField
             type="password"
             value={fields.password}
@@ -88,18 +90,20 @@ const RegistrationRoute = () => {
               setTermsAccepted(e.currentTarget.checked);
             }}
           >
-            I accept <Link to="terms">the terms</Link>
+            {t("registration.iAccept")}{" "}
+            <Link to="terms">{t("registration.termsLinkLabel")}</Link>
           </Checkbox>
         </FormItem>
 
         <Button filled fullWidth>
-          Sign in
+          {t("registration.signIn")}
         </Button>
 
         <hr />
 
         <Text centered>
-          Or just <Link to="/login">log in</Link>
+          {t("registration.footer")}{" "}
+          <Link to="/login">{t("registration.logInLinkLabel")}</Link>
         </Text>
       </Form>
     </LoginBox>

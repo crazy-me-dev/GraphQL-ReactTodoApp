@@ -60,16 +60,16 @@ const LoginRoute: React.FC = props => {
     <LoginBox>
       <Logo hasName centered />
 
-      <Text centered>Login in and organize your life!</Text>
+      <Text centered>{t("login.slogan")}</Text>
 
       <br />
 
       <Form onSubmit={handleLogin}>
-        <FormItem label="Email">
+        <FormItem label={t("common.email")}>
           <TextField value={email} onChange={e => setEmail(e.target.value)} />
         </FormItem>
 
-        <FormItem label="Password">
+        <FormItem label={t("common.password")}>
           <TextField
             type="password"
             value={password}
@@ -79,12 +79,12 @@ const LoginRoute: React.FC = props => {
 
         <FormItem>
           <Button filled fullWidth>
-            Log in
+            {t("login.logIn")}
           </Button>
         </FormItem>
       </Form>
 
-      <Text centered>or</Text>
+      <Text centered>{t("common.or")}</Text>
 
       <FormItem>
         <GoogleLogin
@@ -119,7 +119,8 @@ const LoginRoute: React.FC = props => {
       <hr />
 
       <Text centered>
-        Don’t have an account? <Link to="/registration">Sign in</Link>
+        {t("login.noAccount")}{" "}
+        <Link to="/registration">{t("login.signIn")}</Link>
       </Text>
     </LoginBox>
   );
