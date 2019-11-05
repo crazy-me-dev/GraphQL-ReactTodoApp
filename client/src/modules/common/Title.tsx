@@ -10,19 +10,19 @@ const defaultHeadingSettings = css`
   margin: 0 0 1rem 0;
 `;
 
-export const H1 = styled.h1<Props>`
+const H1 = styled.h1<Props>`
   ${defaultHeadingSettings};
   font-size: 2rem;
   ${props => (props.centered ? "text-align: center;" : "")}
 `;
 
-export const H2 = styled.h2<Props>`
+const H2 = styled.h2<Props>`
   ${defaultHeadingSettings};
   font-size: 1.5rem;
   ${props => (props.centered ? "text-align: center;" : "")}
 `;
 
-export const H3 = styled.h2<Props>`
+const H3 = styled.h2<Props>`
   ${defaultHeadingSettings};
   font-size: 1.25rem;
   ${props => (props.centered ? "text-align: center;" : "")}

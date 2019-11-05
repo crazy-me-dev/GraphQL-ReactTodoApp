@@ -19,7 +19,7 @@ import { SideMenuProvider } from "../modules/project/SideMenuProvider";
 import { ThemeProvider } from "../modules/settings";
 import "../config/i18n";
 
-export const App: React.FC = props => (
+const App: React.FC = props => (
   <Switch>
     <Route exact path="/">
       <HomeRoute />
@@ -40,12 +40,12 @@ export const App: React.FC = props => (
   </Switch>
 );
 
-export const fakeUser = {
+const fakeUser = {
   id: "7357",
   name: "John Doe"
 };
 
-export const fakeTask = () => ({
+const fakeTask = () => ({
   id: "7357",
   description: "Buy milk",
   done: false
@@ -66,7 +66,7 @@ interface RouterOptions {
   history?: MemoryHistory;
 }
 
-export function renderWithProviders(
+function renderWithProviders(
   ui: React.ReactNode,
   user: User = null,
   {
@@ -90,3 +90,5 @@ export function renderWithProviders(
     history
   };
 }
+
+export { App, renderWithProviders, fakeTask, fakeUser };

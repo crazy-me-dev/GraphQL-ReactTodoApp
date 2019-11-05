@@ -1,7 +1,7 @@
 import { gql, ApolloClient } from "apollo-boost";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
-export const ME_QUERY = gql`
+const ME_QUERY = gql`
   {
     me {
       id
@@ -13,7 +13,7 @@ export const ME_QUERY = gql`
   }
 `;
 
-export const LOGOUT_MUTATION = gql`
+const LOGOUT_MUTATION = gql`
   mutation logOut {
     logOut {
       message
@@ -21,7 +21,7 @@ export const LOGOUT_MUTATION = gql`
   }
 `;
 
-export const LOGIN_WITH_GOOGLE_MUTATION = gql`
+const LOGIN_WITH_GOOGLE_MUTATION = gql`
   mutation LoginWithGoogle($id_token: String!) {
     loginWithGoogle(id_token: $id_token) {
       id
@@ -30,7 +30,7 @@ export const LOGIN_WITH_GOOGLE_MUTATION = gql`
   }
 `;
 
-export const LOGIN_WITH_CREDENTIALS_MUTATION = gql`
+const LOGIN_WITH_CREDENTIALS_MUTATION = gql`
   mutation loginWithCredentials($email: String!, $password: String!) {
     loginWithCredentials(email: $email, password: $password) {
       id
@@ -39,7 +39,7 @@ export const LOGIN_WITH_CREDENTIALS_MUTATION = gql`
   }
 `;
 
-export const LOGIN_WITH_DEMO_CREDENTIALS_MUTATION = gql`
+const LOGIN_WITH_DEMO_CREDENTIALS_MUTATION = gql`
   mutation loginWithDemoCredentials {
     loginWithDemoCredentials {
       id
@@ -48,7 +48,7 @@ export const LOGIN_WITH_DEMO_CREDENTIALS_MUTATION = gql`
   }
 `;
 
-export const REGISTER_NEW_USER_MUTATION = gql`
+const REGISTER_NEW_USER_MUTATION = gql`
   mutation registerNewUser(
     $email: String!
     $password: String!
@@ -67,7 +67,7 @@ export const REGISTER_NEW_USER_MUTATION = gql`
   }
 `;
 
-export const DELETE_ACCOUNT = gql`
+const DELETE_ACCOUNT = gql`
   mutation deleteAccount {
     deleteAccount {
       id
@@ -76,14 +76,14 @@ export const DELETE_ACCOUNT = gql`
   }
 `;
 
-export const useMeQuery = (client: ApolloClient<{}>) => {
+const useMeQuery = (client: ApolloClient<{}>) => {
   return useQuery(ME_QUERY, {
     client,
     errorPolicy: "ignore"
   });
 };
 
-export const useLoginWithGoogleMutation = () => {
+const useLoginWithGoogleMutation = () => {
   const [loginWithGoogle] = useMutation<{}, { id_token: string }>(
     LOGIN_WITH_GOOGLE_MUTATION
   );
@@ -103,7 +103,7 @@ interface LoginCredentials {
   password: string;
 }
 
-export const useLoginWithCredentialsMutation = () => {
+const useLoginWithCredentialsMutation = () => {
   const [loginWithCredentials] = useMutation(LOGIN_WITH_CREDENTIALS_MUTATION);
 
   return (loginCredentials: LoginCredentials) => {
@@ -114,7 +114,7 @@ export const useLoginWithCredentialsMutation = () => {
   };
 };
 
-export const useLoginWithDemoCredentialsMutation = () => {
+const useLoginWithDemoCredentialsMutation = () => {
   const [loginWithDemoCredentials] = useMutation(
     LOGIN_WITH_DEMO_CREDENTIALS_MUTATION
   );
@@ -129,7 +129,7 @@ interface NewUserData extends LoginCredentials {
   termsAccepted: boolean;
 }
 
-export const useRegisterNewUserMutation = () => {
+const useRegisterNewUserMutation = () => {
   const [registerNewUser] = useMutation(REGISTER_NEW_USER_MUTATION);
 
   return (newUserData: NewUserData) => {
@@ -144,7 +144,7 @@ interface HasUpdateProp {
   update: Function;
 }
 
-export const useAccountDeleteMutation = () => {
+const useAccountDeleteMutation = () => {
   const [deleteAccount, { client }] = useMutation(DELETE_ACCOUNT);
   return ({ update }: HasUpdateProp) =>
     deleteAccount({
@@ -158,7 +158,7 @@ export const useAccountDeleteMutation = () => {
     });
 };
 
-export const useLogOutMutation = () => {
+const useLogOutMutation = () => {
   const [logOut, { client }] = useMutation(LOGOUT_MUTATION);
 
   return ({ update }: HasUpdateProp) => {
@@ -172,4 +172,21 @@ export const useLogOutMutation = () => {
       }
     });
   };
+};
+
+export {
+  ME_QUERY,
+  LOGOUT_MUTATION,
+  LOGIN_WITH_GOOGLE_MUTATION,
+  LOGIN_WITH_CREDENTIALS_MUTATION,
+  LOGIN_WITH_DEMO_CREDENTIALS_MUTATION,
+  REGISTER_NEW_USER_MUTATION,
+  DELETE_ACCOUNT,
+  useMeQuery,
+  useLoginWithGoogleMutation,
+  useLoginWithCredentialsMutation,
+  useLoginWithDemoCredentialsMutation,
+  useRegisterNewUserMutation,
+  useAccountDeleteMutation,
+  useLogOutMutation
 };

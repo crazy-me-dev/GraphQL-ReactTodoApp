@@ -1,6 +1,6 @@
 import ApolloClient from "apollo-boost";
 
-export const client = new ApolloClient<{}>({
+const client = new ApolloClient<{}>({
   uri: process.env.REACT_APP_API_URL,
   request: async operation => {
     operation.setContext({
@@ -10,3 +10,5 @@ export const client = new ApolloClient<{}>({
     });
   }
 });
+
+export { client };

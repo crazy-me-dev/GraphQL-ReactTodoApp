@@ -6,7 +6,7 @@ import { optimisticallyUpdateProjectsQuery } from "../project/project.requests";
 import { Project } from "../project/project.model";
 import { PROJECTS_QUERY } from "../project/project.requests";
 
-export const CREATE_TASK_MUTATION = gql`
+const CREATE_TASK_MUTATION = gql`
   mutation create_task($data: TaskInput!) {
     createTask(data: $data) {
       id
@@ -17,7 +17,7 @@ export const CREATE_TASK_MUTATION = gql`
   }
 `;
 
-export const DELETE_TASK_MUTATION = gql`
+const DELETE_TASK_MUTATION = gql`
   mutation deleteTask($id: ID!) {
     deleteTask(id: $id) {
       id
@@ -25,7 +25,7 @@ export const DELETE_TASK_MUTATION = gql`
   }
 `;
 
-export const UPDATE_TASK_MUTATION = gql`
+const UPDATE_TASK_MUTATION = gql`
   mutation updateTask($id: ID!, $data: TaskUpdateInput!) {
     updateTask(id: $id, data: $data) {
       id
@@ -36,7 +36,7 @@ export const UPDATE_TASK_MUTATION = gql`
   }
 `;
 
-export const REORDER_TASKS_MUTATION = gql`
+const REORDER_TASKS_MUTATION = gql`
   mutation reorderTasks($project: ID!, $taskMap: [ID]!) {
     reorderTasks(project: $project, taskMap: $taskMap) {
       id
@@ -50,7 +50,7 @@ type UseTaskCreateMutationVariables = {
   project: string;
 };
 
-export const useCreateTaskMutation = () => {
+const useCreateTaskMutation = () => {
   const [createTaskMutation] = useMutation(CREATE_TASK_MUTATION);
   return (data: UseTaskCreateMutationVariables) =>
     createTaskMutation({
@@ -87,7 +87,7 @@ type UseTaskUpdateMutationVariables = {
   description: string;
 };
 
-export const useUpdateTaskMutation = () => {
+const useUpdateTaskMutation = () => {
   const [updateTaskMutation] = useMutation(UPDATE_TASK_MUTATION);
   return (id: string, data: UseTaskUpdateMutationVariables) => {
     const optimisticResponse = {
@@ -122,7 +122,7 @@ export const useUpdateTaskMutation = () => {
   };
 };
 
-export const useDeleteTaskMutation = () => {
+const useDeleteTaskMutation = () => {
   const [deleteTaskMutation] = useMutation(DELETE_TASK_MUTATION);
   return (id: string) => {
     const optimisticResponse = {
@@ -151,7 +151,7 @@ export const useDeleteTaskMutation = () => {
   };
 };
 
-export const useReorderTasks = () => {
+const useReorderTasks = () => {
   const [reorderTasksMutation] = useMutation(REORDER_TASKS_MUTATION);
 
   return (project: Project, tasks: Task[]) => {
@@ -182,4 +182,15 @@ export const useReorderTasks = () => {
       }
     });
   };
+};
+
+export {
+  CREATE_TASK_MUTATION,
+  DELETE_TASK_MUTATION,
+  UPDATE_TASK_MUTATION,
+  REORDER_TASKS_MUTATION,
+  useCreateTaskMutation,
+  useUpdateTaskMutation,
+  useDeleteTaskMutation,
+  useReorderTasks
 };

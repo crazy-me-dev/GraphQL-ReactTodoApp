@@ -4,7 +4,7 @@ import { DataProxy } from "apollo-cache";
 
 import { Project } from "./project.model";
 
-export const PROJECTS_QUERY = gql`
+const PROJECTS_QUERY = gql`
   {
     projects {
       id
@@ -19,7 +19,7 @@ export const PROJECTS_QUERY = gql`
   }
 `;
 
-export const CREATE_PROJECT = gql`
+const CREATE_PROJECT = gql`
   mutation createProject($name: String!) {
     createProject(name: $name) {
       id
@@ -31,7 +31,7 @@ export const CREATE_PROJECT = gql`
   }
 `;
 
-export const DELETE_PROJECT = gql`
+const DELETE_PROJECT = gql`
   mutation deleteProject($id: ID!) {
     deleteProject(id: $id) {
       id
@@ -39,11 +39,11 @@ export const DELETE_PROJECT = gql`
   }
 `;
 
-export const useProjectsQuery = () => {
+const useProjectsQuery = () => {
   return useQuery(PROJECTS_QUERY);
 };
 
-export const useCreateProjectMutation = () => {
+const useCreateProjectMutation = () => {
   const [createProject] = useMutation<{
     __typename: string;
     createProject: Project & { __typename: string };
@@ -73,7 +73,7 @@ export const useCreateProjectMutation = () => {
     });
 };
 
-export const useDeleteProjectMutation = () => {
+const useDeleteProjectMutation = () => {
   const [deleteProjectMutation] = useMutation(DELETE_PROJECT);
   return (id: string) =>
     deleteProjectMutation({
@@ -97,7 +97,7 @@ export const useDeleteProjectMutation = () => {
 
 export type OptimisticProjectQueryUpdater = (projects: Project[]) => Project[];
 
-export function optimisticallyUpdateProjectsQuery(
+function optimisticallyUpdateProjectsQuery(
   projectUpdater: OptimisticProjectQueryUpdater,
   proxy: DataProxy
 ) {
@@ -115,3 +115,13 @@ export function optimisticallyUpdateProjectsQuery(
     }
   });
 }
+
+export {
+  PROJECTS_QUERY,
+  CREATE_PROJECT,
+  DELETE_PROJECT,
+  useProjectsQuery,
+  useCreateProjectMutation,
+  useDeleteProjectMutation,
+  optimisticallyUpdateProjectsQuery
+};
