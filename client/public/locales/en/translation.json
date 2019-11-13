@@ -50,6 +50,11 @@
     "deleteAccount": "Delete your account"
   },
   "account": {
-    "deleteButton": "Delete your account"
+    "delete": {
+      "button": "Delete your account",
+      "areYouSure": "Do you want to delete your account?",
+      "submit": "Delete account",
+      "cancel": "Cancel"
+    }
   }
 }

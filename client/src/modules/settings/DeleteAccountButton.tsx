@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "../common";
+import { Button, Confirm } from "../common";
 import { AuthContext } from "../login";
 import { useAccountDeleteMutation } from "../login/login.requests";
 
@@ -12,15 +12,25 @@ const DeleteAccountButton = () => {
 
   return (
     <div>
-      <Button
-        onClick={() => {
-          deleteAccount({
-            update: refetchUser
-          });
-        }}
+      <Confirm
+        title={t("account.delete.areYouSure")}
+        submitText={t("account.delete.submit")}
+        cancelText={t("account.delete.cancel")}
       >
-        {t("account.deleteButton")}
-      </Button>
+        {confirm => (
+          <Button
+            onClick={() => {
+              confirm(() =>
+                deleteAccount({
+                  update: refetchUser
+                })
+              );
+            }}
+          >
+            {t("account.delete.button")}
+          </Button>
+        )}
+      </Confirm>
     </div>
   );
 };

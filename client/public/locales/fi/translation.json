@@ -50,6 +50,11 @@
     "deleteAccount": "Poista tili"
   },
   "account": {
-    "deleteButton": "Poista tilisi"
+    "delete": {
+      "button": "Poista tili",
+      "areYouSure": "Haluatko varmasti poistaa tilin?",
+      "submit": "Poista tilini",
+      "cancel": "Peruuta"
+    }
   }
 }
