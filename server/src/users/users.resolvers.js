@@ -76,15 +76,17 @@ const Mutation = {
 
   async loginWithCredentials(parent, args, ctx, info) {
     const { email, password } = args;
-
     if (!password || !email) {
       throw new Error("You must provide both email and password!");
     }
 
     const [user] = await ctx.db("user").where("email", email);
-    const validPassword = await bcrypt.compare(password, user.password);
+    if (!user) {
+      throw new Error("Given credentials are incorrect!");
+    }
 
-    if (!user || !validPassword) {
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
       throw new Error("Given credentials are incorrect!");
     }
 
