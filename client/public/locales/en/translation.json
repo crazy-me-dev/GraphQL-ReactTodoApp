@@ -51,6 +51,8 @@
   },
   "account": {
     "delete": {
+      "title": "Delete your account",
+      "disclaimer": "Deleting your account is permanent. All your data will be deleted immediately and you won't be able to get it back.",
       "button": "Delete your account",
       "areYouSure": "Do you want to delete your account?",
       "submit": "Delete account",

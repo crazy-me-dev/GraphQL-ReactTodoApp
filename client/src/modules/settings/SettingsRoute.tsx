@@ -19,10 +19,13 @@ const SettingsRoute: React.FC = () => {
         <h2>{t("settings.theme")}</h2>
         <ThemePicker />
 
+        <hr />
         <h2>{t("settings.language")}</h2>
         <LanguagePicker />
 
-        <h2>{t("settings.deleteAccount")}</h2>
+        <hr />
+        <h2>{t("account.delete.title")}</h2>
+        <p>{t("account.delete.disclaimer")}</p>
         <DeleteAccountButton />
       </Container>
     </>

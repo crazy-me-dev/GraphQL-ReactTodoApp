@@ -51,7 +51,9 @@
   },
   "account": {
     "delete": {
-      "button": "Poista tili",
+      "title": "Poista tilisi",
+      "disclaimer": "Tilin poistaminen on pysyvää. Kaikki tietosi postetaan välittömästi eikä niitä voida palauttaa.",
+      "button": "Poista tilisi",
       "areYouSure": "Haluatko varmasti poistaa tilin?",
       "submit": "Poista tilini",
       "cancel": "Peruuta"
