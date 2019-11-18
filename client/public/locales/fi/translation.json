@@ -33,6 +33,11 @@
       "title": "Luo uusi projekti",
       "name": "Nimi",
       "submit": "Lisää"
+    },
+    "delete": {
+      "areYouSure": "Haluatko varmasti poistaa tämän projektin?",
+      "submit": "Poista projekti",
+      "cancel": "Peru"
     }
   },
   "task": {

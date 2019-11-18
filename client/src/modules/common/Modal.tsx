@@ -20,6 +20,7 @@ const Wrapper = styled.div`
 `;
 
 const ModalBoxWrapper = styled.div`
+  text-align: center;
   position: relative;
   background: ${color("background")};
   padding: 2rem;

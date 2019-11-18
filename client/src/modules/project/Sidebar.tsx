@@ -6,7 +6,6 @@ import styled, { mq, color } from "../../config/styles";
 import { Button, Modal } from "../common";
 import { Project } from "./project.model";
 import CreateProjectForm from "./CreateProjectForm";
-import DeleteProjectButton from "./DeleteProjectButton";
 import { useProjectsQuery } from "./project.requests";
 import { useSideMenu } from "./SideMenuProvider";
 
@@ -161,7 +160,6 @@ const Sidebar: React.FC = () => {
                 {project.name}
                 <ProjectNumber>{project.tasks.length}</ProjectNumber>
               </Link>
-              <DeleteProjectButton projectId={project.id} />
             </ProjectListItem>
           ))}
         </ProjectList>

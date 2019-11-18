@@ -1,12 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
+import styled from "../../config/styles";
 import { Project } from "./project.model";
 import { AppHeader, Container } from "../common";
 import Sidebar from "./Sidebar";
 import TaskList from "../task/TaskList";
 import { useProjectsQuery } from "./project.requests";
-
+import DeleteProjectButton from "./DeleteProjectButton";
 interface ProjectProps {
   id?: string;
 }
@@ -26,7 +27,10 @@ const ProjectRoute: React.FC<ProjectProps> = props => {
           <div style={{ flex: 1 }}>
             {project && (
               <div>
-                <h1>{project.name}</h1>
+                <ProjectHead>
+                  <h1>{project.name}</h1>
+                  <DeleteProjectButton projectId={project.id} />
+                </ProjectHead>
                 <TaskList project={project} />
               </div>
             )}
@@ -36,5 +40,13 @@ const ProjectRoute: React.FC<ProjectProps> = props => {
     </>
   );
 };
+
+const ProjectHead = styled.div`
+  display: flex;
+  align-items: center;
+  *:first-child {
+    flex: 1;
+  }
+`;
 
 export default ProjectRoute;
