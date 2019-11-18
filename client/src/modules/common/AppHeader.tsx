@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { css } from "@emotion/core";
 
 import styled, { mq, color, Theme } from "../../config/styles";
-import { Container } from "../common";
+import { Container, SROnly } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import { ReactComponent as ThreeDotsSVG } from "../../assets/three-dots.svg";
 import { useSideMenu } from "../project/SideMenuProvider";
@@ -45,6 +45,7 @@ const AppHeader: React.FC = props => {
               }}
             >
               <MenuIcon />
+              <SROnly>{t("common.menu")}</SROnly>
             </MenuToggle>
             <Menu show={showMenu}>
               <MenuItemLink to="/settings">{t("settings.title")}</MenuItemLink>

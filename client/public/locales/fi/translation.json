@@ -8,7 +8,8 @@
     "password": "Salasana",
     "name": "Nimi",
     "namePlaceholder": "Matti Meikäläinen",
-    "or": "tai"
+    "or": "tai",
+    "menu": "valikko"
   },
   "login": {
     "slogan": "Kirjaudu ja laita elämäsi järjestykseen!",

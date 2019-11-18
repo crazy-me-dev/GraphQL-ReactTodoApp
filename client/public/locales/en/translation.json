@@ -8,7 +8,8 @@
     "password": "Password",
     "name": "Name",
     "namePlaceholder": "John Doe",
-    "or": "or"
+    "or": "or",
+    "menu": "menu"
   },
   "login": {
     "slogan": "Log in and organize your life!",
