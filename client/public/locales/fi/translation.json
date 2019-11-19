@@ -9,7 +9,8 @@
     "name": "Nimi",
     "namePlaceholder": "Matti Meikäläinen",
     "or": "tai",
-    "menu": "valikko"
+    "menu": "valikko",
+    "cancel": "Peru"
   },
   "login": {
     "slogan": "Kirjaudu ja laita elämäsi järjestykseen!",

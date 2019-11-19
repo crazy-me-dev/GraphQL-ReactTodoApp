@@ -9,7 +9,8 @@
     "name": "Name",
     "namePlaceholder": "John Doe",
     "or": "or",
-    "menu": "menu"
+    "menu": "menu",
+    "cancel": "Cancel"
   },
   "login": {
     "slogan": "Log in and organize your life!",

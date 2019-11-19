@@ -23,8 +23,9 @@ const ModalBoxWrapper = styled.div`
   text-align: center;
   position: relative;
   background: ${color("background")};
-  padding: 2rem;
-  max-width: 500px;
+  padding: 4rem;
+  max-width: 540px;
+  min-width: 400px;
   width: 100%;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
 `;

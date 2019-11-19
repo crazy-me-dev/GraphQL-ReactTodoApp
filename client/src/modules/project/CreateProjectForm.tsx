@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useCreateProjectMutation } from "./project.requests";
 import { Title, Button, Input } from "../common";
 import { useSideMenu } from "./SideMenuProvider";
+import styled from "../../config/styles";
 
 interface Props {
   onSubmit?: () => void;
@@ -31,23 +32,41 @@ const CreateProjectForm: React.FC<Props> = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={createNewProject}>
+    <Form onSubmit={createNewProject}>
       <Title.H2>{t("project.newModal.title")}</Title.H2>
-      <label>
-        {t("project.newModal.name")}
-        <br />
-        <Input
-          data-testid="new-project-input"
-          type="text"
-          value={newProjectName}
-          autoFocus
-          onChange={e => updateNewProjectName(e.target.value)}
-        />
-      </label>
-      <Button data-testid="new-project-submit" filled type="submit">
-        {t("project.newModal.submit")}
-      </Button>
-    </form>
+
+      <Input
+        data-testid="new-project-input"
+        type="text"
+        value={newProjectName}
+        autoFocus
+        onChange={e => updateNewProjectName(e.target.value)}
+      />
+
+      <Actions>
+        <Button
+          disabled={newProjectName === ""}
+          data-testid="new-project-submit"
+          filled
+          type="submit"
+        >
+          {t("project.newModal.submit")}
+        </Button>
+        <Button>{t("common.cancel")}</Button>
+      </Actions>
+    </Form>
   );
 };
+
+const Form = styled.form`
+  text-align: center;
+`;
+
+const Actions = styled.form`
+  margin-top: 1rem;
+  button {
+    margin: 0 0.5rem;
+  }
+`;
+
 export default CreateProjectForm;
