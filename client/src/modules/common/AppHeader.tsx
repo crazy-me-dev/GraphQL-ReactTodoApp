@@ -130,7 +130,7 @@ const Menu = styled.nav<{ show: boolean }>`
   border: 1px solid ${color("border")};
   border-radius: 0.25rem;
   min-width: 160px;
-
+  z-index: 1;
   opacity: 0;
   transform: translateY(1rem);
   pointer-events: none;
