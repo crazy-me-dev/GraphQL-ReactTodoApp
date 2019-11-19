@@ -33,6 +33,8 @@ const TaskList: React.FC<TaskListProps> = ({ project }) => {
 
   const addNewTask = (e: React.FormEvent) => {
     e.preventDefault();
+    if (newTaskName === "") return;
+
     createTaskMutation({
       description: newTaskName,
       done: false,
@@ -113,7 +115,9 @@ const TaskList: React.FC<TaskListProps> = ({ project }) => {
             onChange={e => setNewTaskName(e.target.value)}
           />
         </label>
-        <Button type="submit">{t("task.newSubmit")}</Button>
+        <Button disabled={newTaskName === ""} type="submit">
+          {t("task.newSubmit")}
+        </Button>
       </form>
     </div>
   );

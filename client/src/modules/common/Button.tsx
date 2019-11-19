@@ -4,6 +4,7 @@ import styled, { color } from "../../config/styles";
 interface Props {
   filled?: boolean;
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 const Button = styled.button<Props>`
@@ -38,6 +39,13 @@ const Button = styled.button<Props>`
         box-shadow: 0 0 0 0.2rem ${props.theme.colors.primary};
       }
     `}
+
+    ${props =>
+      props.disabled &&
+      css`
+        opacity: 0.5;
+        pointer-events: none;
+      `}
 `;
 
 export default Button;
