@@ -93,6 +93,25 @@ const Wrapper = styled.div<WrapperProps>`
   }
 `;
 
+const AddProjectButton = styled.button`
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  &:hover {
+    color: ${color("primary")};
+  }
+
+  &:before {
+    display: inline-block;
+    content: "+";
+    font-weight: bold;
+    margin-right: 0.5rem;
+    transform: translateY(-0.1em);
+  }
+`;
+
 const Sidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();
   const [modalIsOpen, setModalOpen] = useState(false);
@@ -164,12 +183,14 @@ const Sidebar: React.FC = () => {
           ))}
         </ProjectList>
 
-        <Button
+        <hr />
+
+        <AddProjectButton
           onClick={() => setModalOpen(true)}
           data-testid="open-new-project-input"
         >
           {t("project.newButton")}
-        </Button>
+        </AddProjectButton>
 
         <Modal open={modalIsOpen} onClose={() => setModalOpen(false)}>
           <CreateProjectForm onSubmit={() => setModalOpen(false)} />
