@@ -18,7 +18,10 @@
     "googleButton": "Kirjaudu Googlen-tunnuksilla",
     "tryDemo": "Kokeile demo-tunnuksilla",
     "noAccount": "Puuttuuko tili?",
-    "signIn": "Rekisteröidy"
+    "signIn": "Rekisteröidy",
+    "error": {
+      "credentials": "Annetuilla tunnuksilla ei voitu kirjautua"
+    }
   },
   "registration": {
     "title": "Luo uusi tili",

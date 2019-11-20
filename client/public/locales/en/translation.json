@@ -18,7 +18,10 @@
     "googleButton": "Login with Google",
     "tryDemo": "Try demo",
     "noAccount": "Don’t have an account?",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "error": {
+      "credentials": "Couldn't log in with given credentials"
+    }
   },
   "registration": {
     "title": "Create a brand new account",

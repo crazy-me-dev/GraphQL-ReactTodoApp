@@ -22,12 +22,19 @@ const RegistrationRoute = () => {
   const { user, loading } = useContext(AuthContext);
   const { t } = useTranslation();
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const notFilled =
+    !termsAccepted || !fields.email || !fields.name || !fields.password;
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    registerNewUser({ ...fields, termsAccepted });
-    setFields(fieldsDefaultState);
-    setTermsAccepted(false);
-    setHasLoader(true);
+    try {
+      await registerNewUser({ ...fields, termsAccepted });
+      setFields(fieldsDefaultState);
+      setTermsAccepted(false);
+      setHasLoader(true);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +102,7 @@ const RegistrationRoute = () => {
           </Checkbox>
         </FormItem>
 
-        <Button filled fullWidth>
+        <Button filled fullWidth disabled={notFilled}>
           {t("registration.signIn")}
         </Button>
 

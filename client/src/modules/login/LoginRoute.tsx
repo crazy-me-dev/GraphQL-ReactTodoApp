@@ -6,6 +6,8 @@ import GoogleLogin, {
 } from "react-google-login";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import AuthContext from "./AuthContext";
 import {
@@ -30,20 +32,32 @@ const LoginRoute: React.FC = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { t } = useTranslation();
+  const notify = (text: string) => toast.error(text);
 
   const responseGoogle = (
     e: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
+    console.log(e);
     if ("getAuthResponse" in e) {
-      const id_token = e.getAuthResponse().id_token;
-      setHasLoader(true);
-      loginWithGoogle(id_token);
+      try {
+        const id_token = e.getAuthResponse().id_token;
+        setHasLoader(true);
+        loginWithGoogle(id_token);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    loginWithCredentials({ email, password });
+    try {
+      setHasLoader(true);
+      await loginWithCredentials({ email, password });
+    } catch (e) {
+      setHasLoader(false);
+      notify(t("login.error.credentials"));
+    }
   };
 
   if (user) return <Redirect to="/" />;
@@ -78,7 +92,7 @@ const LoginRoute: React.FC = props => {
         </FormItem>
 
         <FormItem>
-          <Button filled fullWidth>
+          <Button filled fullWidth disabled={!email || !password}>
             {t("login.logIn")}
           </Button>
         </FormItem>
