@@ -23,9 +23,9 @@ const AppHeader: React.FC = props => {
           <FirstItemContainer>
             {props.children || (
               <>
-                <Link to="/">
+                <LogoLink to="/">
                   <Logo data-testid="logo" />
-                </Link>
+                </LogoLink>
                 <OpenSideMenu
                   onClick={() => {
                     setSideMenuOpen(true);
@@ -77,6 +77,10 @@ const AppHeaderContainter = styled.div`
 
 const FirstItemContainer = styled.div`
   margin-right: auto;
+`;
+
+const LogoLink = styled(Link)`
+  display: inline-block;
 `;
 
 const Logo = styled(LogoSVG)`
