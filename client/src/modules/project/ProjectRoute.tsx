@@ -44,7 +44,7 @@ const ProjectRoute: React.FC<ProjectProps> = props => {
 const ProjectHead = styled.div`
   display: flex;
   align-items: center;
-  *:first-child {
+  h1:first-of-type {
     flex: 1;
   }
 `;
