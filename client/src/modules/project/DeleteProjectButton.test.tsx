@@ -75,7 +75,7 @@ describe("<DeleteProjectButton />", () => {
       const resBefore = await apolloClient.query({ query: PROJECTS_QUERY });
 
       fireEvent.click(getByTestId("delete-project-1"));
-      fireEvent.click(getByTestId("confirm-submit"));
+      fireEvent.click(getByTestId("confirm-button"));
 
       const resAfter = await apolloClient.query({ query: PROJECTS_QUERY });
 

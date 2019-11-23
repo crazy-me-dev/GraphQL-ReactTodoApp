@@ -6,13 +6,18 @@ import styled from "../../config/styles";
 interface Props {
   children: (callback: Function) => {};
   title: string;
-  submitText: string;
-  cancelText: string;
+  confirmButtonText: string;
+  cancelButtonText: string;
 }
 
-const Confirm = ({ children, title, submitText, cancelText }: Props) => {
+const Confirm = ({
+  children,
+  title,
+  confirmButtonText,
+  cancelButtonText
+}: Props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [confirm, setConfirm] = useState<Function>(() => () => {});
+  const [callback, setCallback] = useState<Function>(() => () => {});
 
   return (
     <>
@@ -26,26 +31,26 @@ const Confirm = ({ children, title, submitText, cancelText }: Props) => {
         <Actions>
           <Button
             filled
-            data-testid="confirm-submit"
+            data-testid="confirm-button"
             onClick={() => {
-              confirm();
+              callback();
               setModalIsOpen(false);
             }}
           >
-            {submitText}
+            {confirmButtonText}
           </Button>
           <Button
-            data-testid="confirm-cancel"
+            data-testid="confirm-cancel-button"
             onClick={() => setModalIsOpen(false)}
           >
-            {cancelText}
+            {cancelButtonText}
           </Button>
         </Actions>
       </Modal>
 
       {children((callback: Function) => {
         setModalIsOpen(true);
-        setConfirm(() => callback);
+        setCallback(() => callback);
       })}
     </>
   );

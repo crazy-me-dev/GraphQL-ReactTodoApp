@@ -20,12 +20,12 @@ const DeleteProjectButton: React.FC<DeleteProjectButtonProps> = props => {
   return (
     <Confirm
       title={t("project.delete.areYouSure")}
-      submitText={t("project.delete.submit")}
-      cancelText={t("project.delete.cancel")}
+      confirmButtonText={t("project.delete.submit")}
+      cancelButtonText={t("project.delete.cancel")}
     >
-      {confirm => (
+      {onConfirm => (
         <DeleteButton
-          onClick={() => confirm(() => deleteProject(props.projectId))}
+          onClick={() => onConfirm(() => deleteProject(props.projectId))}
           data-testid={`delete-project-${props.projectId}`}
         >
           <span>&times;</span>

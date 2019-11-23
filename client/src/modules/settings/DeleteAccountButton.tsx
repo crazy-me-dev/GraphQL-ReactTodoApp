@@ -14,13 +14,13 @@ const DeleteAccountButton = () => {
     <div>
       <Confirm
         title={t("account.delete.areYouSure")}
-        submitText={t("account.delete.submit")}
-        cancelText={t("account.delete.cancel")}
+        confirmButtonText={t("account.delete.submit")}
+        cancelButtonText={t("account.delete.cancel")}
       >
-        {confirm => (
+        {onConfirm => (
           <Button
             onClick={() => {
-              confirm(() =>
+              onConfirm(() =>
                 deleteAccount({
                   update: refetchUser
                 })
