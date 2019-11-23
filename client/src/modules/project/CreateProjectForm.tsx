@@ -62,7 +62,7 @@ const Form = styled.form`
   text-align: center;
 `;
 
-const Actions = styled.form`
+const Actions = styled.div`
   margin-top: 1rem;
   button {
     margin: 0 0.5rem;
