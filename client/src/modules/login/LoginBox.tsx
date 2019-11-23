@@ -2,6 +2,14 @@ import React from "react";
 
 import styled, { mq } from "../../config/styles";
 
+const LoginBox: React.FC = ({ children }) => {
+  return (
+    <Wrapper>
+      <Box>{children}</Box>
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.div`
   display: flex;
   align-items: flex-start;
@@ -19,13 +27,5 @@ const Box = styled.div`
     margin-top: 10vh;
   }
 `;
-
-const LoginBox: React.FC = ({ children }) => {
-  return (
-    <Wrapper>
-      <Box>{children}</Box>
-    </Wrapper>
-  );
-};
 
 export default LoginBox;

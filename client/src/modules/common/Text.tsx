@@ -7,6 +7,10 @@ interface Props {
   centered?: boolean;
 }
 
+const Text: React.FC<Props> = ({ children, ...rest }) => {
+  return <Wrapper {...rest}>{children}</Wrapper>;
+};
+
 const Wrapper = styled.p<Props>`
   ${props =>
     props.centered &&
@@ -14,9 +18,5 @@ const Wrapper = styled.p<Props>`
       text-align: center;
     `}
 `;
-
-const Text: React.FC<Props> = ({ children, ...rest }) => {
-  return <Wrapper {...rest}>{children}</Wrapper>;
-};
 
 export default Text;

@@ -9,6 +9,15 @@ interface LogoProps {
   centered?: boolean;
 }
 
+const Logo: React.FC<LogoProps> = ({ hasName }) => {
+  return (
+    <LogoWrapper centered>
+      <LogoIcon />
+      {hasName && <AppName>Check!t</AppName>}
+    </LogoWrapper>
+  );
+};
+
 const LogoWrapper = styled.div<LogoProps>`
   display: flex;
   align-items: center;
@@ -35,14 +44,5 @@ const AppName = styled.span`
   letter-spacing: 0.04em;
   color: ${color("text")};
 `;
-
-const Logo: React.FC<LogoProps> = ({ hasName }) => {
-  return (
-    <LogoWrapper centered>
-      <LogoIcon />
-      {hasName && <AppName>Check!t</AppName>}
-    </LogoWrapper>
-  );
-};
 
 export default Logo;

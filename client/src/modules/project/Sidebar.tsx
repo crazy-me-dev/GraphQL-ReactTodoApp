@@ -9,108 +9,11 @@ import CreateProjectForm from "./CreateProjectForm";
 import { useProjectsQuery } from "./project.requests";
 import { useSideMenu } from "./SideMenuProvider";
 
-const ProjectList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const ProjectNumber = styled.small`
-  margin-left: 0.5rem;
-  font-size: 0.75rem;
-  opacity: 0.6;
-`;
-
-const ProjectListItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.25rem;
-  a {
-    text-decoration: none;
-  }
-`;
-
-const CloseButton = styled(Button)`
-  position: absolute;
-  top: 0;
-  right: 0.5rem;
-  border: none;
-  font-size: 2rem;
-  padding: 0.2rem;
-  line-height: 1;
-  color: ${color("text")};
-  &:hover {
-    background: transparent;
-    color: ${color("primary")};
-  }
-  ${mq("medium")} {
-    display: none;
-  }
-`;
-
-const Overlay = styled.div<{ visible: boolean }>`
-  transition: all 0.4s;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 9;
-  opacity: ${props => (props.visible ? "1.0" : "0")};
-  pointer-events: ${props => (props.visible ? "auto" : "none")};
-`;
-
 interface WrapperProps {
   open: boolean;
   menuTranslateX: number;
   isTouching: boolean;
 }
-
-const Wrapper = styled.div<WrapperProps>`
-  position: relative;
-  transition: all ${props => (props.isTouching ? `0s` : `0.4s`)};
-  padding: 4rem 1rem 1rem 1rem;
-  background: ${color("background")};
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  max-width: 70vw;
-  z-index: 10;
-  transform: ${props =>
-    props.open ? `translateX(${props.menuTranslateX}%)` : `translateX(-100%)`};
-
-  ${mq("medium")} {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: transparent;
-    transform: translate(0);
-    position: static;
-    width: 220px;
-    margin-right: 2rem;
-  }
-`;
-
-const AddProjectButton = styled.button`
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-
-  &:hover {
-    color: ${color("primary")};
-  }
-
-  &:before {
-    display: inline-block;
-    content: "+";
-    font-weight: bold;
-    margin-right: 0.5rem;
-    transform: translateY(-0.1em);
-  }
-`;
 
 const Sidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();
@@ -199,5 +102,102 @@ const Sidebar: React.FC = () => {
     </>
   );
 };
+
+const ProjectList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const ProjectNumber = styled.small`
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.6;
+`;
+
+const ProjectListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  a {
+    text-decoration: none;
+  }
+`;
+
+const CloseButton = styled(Button)`
+  position: absolute;
+  top: 0;
+  right: 0.5rem;
+  border: none;
+  font-size: 2rem;
+  padding: 0.2rem;
+  line-height: 1;
+  color: ${color("text")};
+  &:hover {
+    background: transparent;
+    color: ${color("primary")};
+  }
+  ${mq("medium")} {
+    display: none;
+  }
+`;
+
+const Overlay = styled.div<{ visible: boolean }>`
+  transition: all 0.4s;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9;
+  opacity: ${props => (props.visible ? "1.0" : "0")};
+  pointer-events: ${props => (props.visible ? "auto" : "none")};
+`;
+
+const Wrapper = styled.div<WrapperProps>`
+  position: relative;
+  transition: all ${props => (props.isTouching ? `0s` : `0.4s`)};
+  padding: 4rem 1rem 1rem 1rem;
+  background: ${color("background")};
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 70vw;
+  z-index: 10;
+  transform: ${props =>
+    props.open ? `translateX(${props.menuTranslateX}%)` : `translateX(-100%)`};
+
+  ${mq("medium")} {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: transparent;
+    transform: translate(0);
+    position: static;
+    width: 220px;
+    margin-right: 2rem;
+  }
+`;
+
+const AddProjectButton = styled.button`
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  &:hover {
+    color: ${color("primary")};
+  }
+
+  &:before {
+    display: inline-block;
+    content: "+";
+    font-weight: bold;
+    margin-right: 0.5rem;
+    transform: translateY(-0.1em);
+  }
+`;
 
 export default Sidebar;

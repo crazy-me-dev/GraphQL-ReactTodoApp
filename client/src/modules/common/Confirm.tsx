@@ -3,13 +3,6 @@ import React, { useState } from "react";
 import { Modal, Button } from "./";
 import styled from "../../config/styles";
 
-const Actions = styled.div`
-  text-align: center;
-  button {
-    margin: 0 0.5rem;
-  }
-`;
-
 interface Props {
   children: (callback: Function) => {};
   title: string;
@@ -33,6 +26,7 @@ const Confirm = ({ children, title, submitText, cancelText }: Props) => {
         <Actions>
           <Button
             filled
+            data-testid="confirm-submit"
             onClick={() => {
               confirm();
               setModalIsOpen(false);
@@ -40,7 +34,12 @@ const Confirm = ({ children, title, submitText, cancelText }: Props) => {
           >
             {submitText}
           </Button>
-          <Button onClick={() => setModalIsOpen(false)}>{cancelText}</Button>
+          <Button
+            data-testid="confirm-cancel"
+            onClick={() => setModalIsOpen(false)}
+          >
+            {cancelText}
+          </Button>
         </Actions>
       </Modal>
 
@@ -51,5 +50,12 @@ const Confirm = ({ children, title, submitText, cancelText }: Props) => {
     </>
   );
 };
+
+const Actions = styled.div`
+  text-align: center;
+  button {
+    margin: 0 0.5rem;
+  }
+`;
 
 export default Confirm;

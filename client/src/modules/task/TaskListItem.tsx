@@ -14,6 +14,84 @@ export interface TaskListItemProps {
   dragHandleProps?: DraggableProvidedDragHandleProps | null;
 }
 
+const TaskListItem: React.FC<TaskListItemProps> = ({
+  task,
+  index,
+  onDelete,
+  onDoneToggle,
+  onDescriptionChange,
+  dragHandleProps
+}) => {
+  const [newDescription, setNewDescription] = useState(task.description);
+  const [isEditMode, setEditMode] = useState(false);
+
+  const exitEditMode = () => {
+    onDescriptionChange(newDescription, task);
+    setEditMode(false);
+  };
+
+  return (
+    <TaskRow>
+      {dragHandleProps && (
+        <DragHandle {...dragHandleProps} className="drag-handle">
+          <HandleIcon />
+        </DragHandle>
+      )}
+
+      <Checkbox htmlFor={`t-${task.id}`}>
+        <input
+          id={`t-${task.id}`}
+          type="checkbox"
+          checked={task.done}
+          onChange={() => {
+            onDoneToggle(task);
+          }}
+          data-testid="task-done-checkbox"
+        />
+        <span></span>
+      </Checkbox>
+
+      <DescriptionContainer>
+        {isEditMode ? (
+          <DescriptionInput
+            type="text"
+            autoFocus
+            value={newDescription}
+            onChange={(e: React.FormEvent<HTMLInputElement>) => {
+              setNewDescription(e.currentTarget.value);
+            }}
+            onBlur={() => exitEditMode()}
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === "Enter") {
+                exitEditMode();
+              }
+            }}
+            data-testid="description-input"
+          />
+        ) : (
+          <Description
+            done={task.done}
+            onClick={() => setEditMode(true)}
+            data-testid="description-text"
+          >
+            {task.description}
+          </Description>
+        )}
+      </DescriptionContainer>
+
+      <DeleteButton
+        onClick={() => {
+          onDelete(task);
+        }}
+        className="delete-button"
+        data-testid="delete-task"
+      >
+        &times;
+      </DeleteButton>
+    </TaskRow>
+  );
+};
+
 const DragHandle = styled.div`
   transition: all 0.2s;
   padding: 1rem;
@@ -153,83 +231,5 @@ const TaskRow = styled.div`
     }
   }
 `;
-
-const TaskListItem: React.FC<TaskListItemProps> = ({
-  task,
-  index,
-  onDelete,
-  onDoneToggle,
-  onDescriptionChange,
-  dragHandleProps
-}) => {
-  const [newDescription, setNewDescription] = useState(task.description);
-  const [isEditMode, setEditMode] = useState(false);
-
-  const exitEditMode = () => {
-    onDescriptionChange(newDescription, task);
-    setEditMode(false);
-  };
-
-  return (
-    <TaskRow>
-      {dragHandleProps && (
-        <DragHandle {...dragHandleProps} className="drag-handle">
-          <HandleIcon />
-        </DragHandle>
-      )}
-
-      <Checkbox htmlFor={`t-${task.id}`}>
-        <input
-          id={`t-${task.id}`}
-          type="checkbox"
-          checked={task.done}
-          onChange={() => {
-            onDoneToggle(task);
-          }}
-          data-testid="task-done-checkbox"
-        />
-        <span></span>
-      </Checkbox>
-
-      <DescriptionContainer>
-        {isEditMode ? (
-          <DescriptionInput
-            type="text"
-            autoFocus
-            value={newDescription}
-            onChange={(e: React.FormEvent<HTMLInputElement>) => {
-              setNewDescription(e.currentTarget.value);
-            }}
-            onBlur={() => exitEditMode()}
-            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-              if (e.key === "Enter") {
-                exitEditMode();
-              }
-            }}
-            data-testid="description-input"
-          />
-        ) : (
-          <Description
-            done={task.done}
-            onClick={() => setEditMode(true)}
-            data-testid="description-text"
-          >
-            {task.description}
-          </Description>
-        )}
-      </DescriptionContainer>
-
-      <DeleteButton
-        onClick={() => {
-          onDelete(task);
-        }}
-        className="delete-button"
-        data-testid="delete-task"
-      >
-        &times;
-      </DeleteButton>
-    </TaskRow>
-  );
-};
 
 export default TaskListItem;

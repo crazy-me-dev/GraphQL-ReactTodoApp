@@ -7,6 +7,16 @@ interface Props {
   isCentered?: boolean;
 }
 
+const Spinner: React.FC<Props> = () => {
+  return (
+    <Wrapper isCentered>
+      <SpinnerDot />
+      <SpinnerDot />
+      <SpinnerDot />
+    </Wrapper>
+  );
+};
+
 const bounce = keyframes`
   0%, 100% {
     opacity: 1;
@@ -45,15 +55,5 @@ const SpinnerDot = styled.div`
     animation: ${bounce} 1.2s -0.1s ease infinite;
   }
 `;
-
-const Spinner: React.FC<Props> = () => {
-  return (
-    <Wrapper isCentered>
-      <SpinnerDot />
-      <SpinnerDot />
-      <SpinnerDot />
-    </Wrapper>
-  );
-};
 
 export default Spinner;

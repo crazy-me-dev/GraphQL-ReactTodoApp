@@ -6,10 +6,6 @@ import styled from "../../config/styles";
 
 const languages = ["en", "fi"];
 
-const LanguageSelectButton = styled(Button)`
-  margin-right: 1rem;
-`;
-
 const LanguagePicker: React.FC = () => {
   const { t, i18n } = useTranslation();
 
@@ -27,5 +23,9 @@ const LanguagePicker: React.FC = () => {
     </>
   );
 };
+
+const LanguageSelectButton = styled(Button)`
+  margin-right: 1rem;
+`;
 
 export default LanguagePicker;

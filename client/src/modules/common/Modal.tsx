@@ -6,45 +6,6 @@ import FocusTrap from "focus-trap-react";
 import styled, { color } from "../../config/styles";
 import usePortal from "../../utils/usePortal";
 
-const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-`;
-
-const ModalBoxWrapper = styled.div`
-  text-align: center;
-  position: relative;
-  background: ${color("background")};
-  padding: 4rem;
-  max-width: 540px;
-  min-width: 400px;
-  width: 100%;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: transparent;
-  border: none;
-  font-size: 2rem;
-  line-height: 1;
-  &:hover,
-  &:focus {
-    outline: none;
-    color: ${color("primary")};
-  }
-`;
-
 interface Props {
   open: boolean;
   onClose: () => void;
@@ -106,5 +67,44 @@ const Modal: React.FC<Props> = ({ children, open, onClose }) => {
     target
   );
 };
+
+const Wrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+`;
+
+const ModalBoxWrapper = styled.div`
+  text-align: center;
+  position: relative;
+  background: ${color("background")};
+  padding: 4rem;
+  max-width: 540px;
+  min-width: 400px;
+  width: 100%;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  &:hover,
+  &:focus {
+    outline: none;
+    color: ${color("primary")};
+  }
+`;
 
 export default Modal;

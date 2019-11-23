@@ -5,6 +5,18 @@ import { ReactComponent as CheckSVG } from "../../../assets/check.svg";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
 
+const Checkbox = ({ children, ...rest }: Props) => {
+  return (
+    <Wrapper>
+      <CheckboxInput type="checkbox" {...rest} />
+      <CheckboxHelper>
+        <CheckIcon />
+      </CheckboxHelper>
+      {children && <CheckboxText>{children}</CheckboxText>}
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.label`
   position: relative;
   display: flex;
@@ -51,17 +63,5 @@ const CheckIcon = styled(CheckSVG)`
   transform: translate(-50%, -50%);
   fill: ${color("background")};
 `;
-
-const Checkbox = ({ children, ...rest }: Props) => {
-  return (
-    <Wrapper>
-      <CheckboxInput type="checkbox" {...rest} />
-      <CheckboxHelper>
-        <CheckIcon />
-      </CheckboxHelper>
-      {children && <CheckboxText>{children}</CheckboxText>}
-    </Wrapper>
-  );
-};
 
 export default Checkbox;
