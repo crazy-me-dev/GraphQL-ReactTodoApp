@@ -77,15 +77,18 @@ function renderWithProviders(
   authContextValue.user = user;
   return {
     ...render(
-      <ApolloProvider client={client}>
-        <AuthContext.Provider value={authContextValue}>
-          <ThemeProvider>
-            <SideMenuProvider>
-              <Router history={history}>{ui}</Router>
-            </SideMenuProvider>
-          </ThemeProvider>
-        </AuthContext.Provider>
-      </ApolloProvider>
+      <>
+        <ApolloProvider client={client}>
+          <AuthContext.Provider value={authContextValue}>
+            <ThemeProvider>
+              <SideMenuProvider>
+                <Router history={history}>{ui}</Router>
+              </SideMenuProvider>
+            </ThemeProvider>
+          </AuthContext.Provider>
+        </ApolloProvider>
+        <div id="modal-root"></div>
+      </>
     ),
     history
   };

@@ -56,15 +56,17 @@ describe("<DeleteProjectButton />", () => {
   test("should delete project when delete button is clicked", async () => {
     await act(async () => {
       let apolloClient: ApolloClient<{}> | undefined;
-      const { getByTestId } = await renderWithProviders(
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <ApolloConsumer>
-            {client => {
-              apolloClient = client;
-              return <DeleteProjectButton projectId="1" />;
-            }}
-          </ApolloConsumer>
-        </MockedProvider>
+      const { getByTestId, container } = await renderWithProviders(
+        <>
+          <MockedProvider mocks={mocks} addTypename={false}>
+            <ApolloConsumer>
+              {client => {
+                apolloClient = client;
+                return <DeleteProjectButton projectId="1" />;
+              }}
+            </ApolloConsumer>
+          </MockedProvider>
+        </>
       );
       await wait(0);
 
@@ -73,6 +75,7 @@ describe("<DeleteProjectButton />", () => {
       const resBefore = await apolloClient.query({ query: PROJECTS_QUERY });
 
       fireEvent.click(getByTestId("delete-project-1"));
+      fireEvent.click(getByTestId("confirm-submit"));
 
       const resAfter = await apolloClient.query({ query: PROJECTS_QUERY });
 
