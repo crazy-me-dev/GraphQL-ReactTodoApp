@@ -23,6 +23,11 @@ const Button = styled.button<Props>`
     color: white;
   }
 
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 0 0.2rem ${color("primaryShade")};
+  }
+
   ${props =>
     props.filled &&
     css`

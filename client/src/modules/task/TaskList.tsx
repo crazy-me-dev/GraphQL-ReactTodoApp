@@ -7,7 +7,8 @@ import {
   DropResult
 } from "react-beautiful-dnd";
 
-import { Button, Input } from "../common";
+import styled, { color } from "../../config/styles";
+import { Button, Input, SROnly } from "../common";
 import { Task } from "./task.model";
 import { Project } from "../project/project.model";
 import TaskListItem from "./TaskListItem";
@@ -106,21 +107,50 @@ const TaskList: React.FC<TaskListProps> = ({ project }) => {
 
       <br />
 
-      <form onSubmit={addNewTask}>
+      <AddTaskForm onSubmit={addNewTask}>
         <label>
-          <div>{t("task.newName")}</div>
-          <Input
+          <SROnly>
+            <div>{t("task.newName")}</div>
+          </SROnly>
+          <AddTaskInput
             type="text"
+            placeholder={t("task.placeholder")}
             value={newTaskName}
             onChange={e => setNewTaskName(e.target.value)}
           />
         </label>
-        <Button disabled={newTaskName === ""} type="submit">
+        <AddTaskButton filled type="submit">
           {t("task.newSubmit")}
-        </Button>
-      </form>
+        </AddTaskButton>
+      </AddTaskForm>
     </div>
   );
 };
+
+const AddTaskForm = styled.form`
+  margin-top: 2rem;
+  display: flex;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  label {
+    flex: 1;
+  }
+  input {
+    max-width: none;
+  }
+`;
+
+const AddTaskInput = styled(Input)`
+  height: 3rem;
+  padding: 1rem;
+  border-radius: 0.5rem 0 0 0.5rem;
+  border-color: ${color("grey700")};
+  border-right: none;
+`;
+
+const AddTaskButton = styled(Button)`
+  height: 3rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+`;
 
 export default TaskList;

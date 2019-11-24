@@ -7,6 +7,9 @@ const Input = styled.input`
   background-color: transparent;
   width: 100%;
   max-width: 225px;
+  &::placeholder {
+    color: ${color("grey400")};
+  }
 `;
 
 export default Input;

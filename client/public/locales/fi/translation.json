@@ -46,7 +46,8 @@
   },
   "task": {
     "newName": "Lisää uusi tehtävä",
-    "newSubmit": "Lisää tehtävä"
+    "newSubmit": "Lisää tehtävä",
+    "placeholder": "Osta maitoa..."
   },
   "settings": {
     "title": "Asetukset",
