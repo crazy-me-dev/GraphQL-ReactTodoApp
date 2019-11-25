@@ -32,6 +32,7 @@
     "logInLinkLabel": "kirjaudu"
   },
   "project": {
+    "listTitle": "Projektit",
     "newButton": "Lisää projekti",
     "newModal": {
       "title": "Luo uusi projekti",

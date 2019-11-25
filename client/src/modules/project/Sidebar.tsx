@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import styled, { mq, color } from "../../config/styles";
-import { Button, Modal } from "../common";
+import { Button, Modal, Title } from "../common";
 import { Project } from "./project.model";
 import CreateProjectForm from "./CreateProjectForm";
 import { useProjectsQuery } from "./project.requests";
@@ -66,6 +66,9 @@ const Sidebar: React.FC = () => {
         >
           &times;
         </CloseButton>
+
+        <ProjectListTitle>{t("project.listTitle")}</ProjectListTitle>
+
         <ProjectList>
           {data.projects.map((project: Project) => (
             <ProjectListItem
@@ -102,6 +105,8 @@ const Sidebar: React.FC = () => {
     </>
   );
 };
+
+const ProjectListTitle = styled(Title.H2)``;
 
 const ProjectList = styled.ul`
   list-style: none;

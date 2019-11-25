@@ -32,6 +32,7 @@
     "logInLinkLabel": "log in"
   },
   "project": {
+    "listTitle": "Projects",
     "newButton": "Add project",
     "newModal": {
       "title": "What's your project called?",
