@@ -7,7 +7,7 @@ import {
   DropResult
 } from "react-beautiful-dnd";
 
-import styled, { color } from "../../config/styles";
+import styled, { color, mq } from "../../config/styles";
 import { Button, Input, SROnly } from "../common";
 import { Task } from "./task.model";
 import { Project } from "../project/project.model";
@@ -128,6 +128,12 @@ const TaskList: React.FC<TaskListProps> = ({ project }) => {
 };
 
 const AddTaskForm = styled.form`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: ${color("background")};
+  padding: 0.5rem;
+
   margin-top: 2rem;
   display: flex;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
@@ -137,6 +143,10 @@ const AddTaskForm = styled.form`
   }
   input {
     max-width: none;
+  }
+  ${mq("medium")} {
+    position: static;
+    padding: 0;
   }
 `;
 
