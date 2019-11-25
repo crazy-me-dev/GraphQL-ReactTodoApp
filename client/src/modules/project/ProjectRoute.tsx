@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import styled from "../../config/styles";
 import { Project } from "./project.model";
-import { AppHeader, Container } from "../common";
+import { AppHeader, AppContainer } from "../common";
 import Sidebar from "./Sidebar";
 import TaskList from "../task/TaskList";
 import { useProjectsQuery } from "./project.requests";
@@ -21,7 +21,7 @@ const ProjectRoute: React.FC<ProjectProps> = props => {
   return (
     <>
       <AppHeader />
-      <Container>
+      <AppContainer>
         <div style={{ display: "flex" }}>
           <Sidebar />
           <div style={{ flex: 1 }}>
@@ -36,7 +36,7 @@ const ProjectRoute: React.FC<ProjectProps> = props => {
             )}
           </div>
         </div>
-      </Container>
+      </AppContainer>
     </>
   );
 };
