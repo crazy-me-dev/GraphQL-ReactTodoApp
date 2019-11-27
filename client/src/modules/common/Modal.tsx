@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { useSpring, animated } from "react-spring";
 import FocusTrap from "focus-trap-react";
 
-import styled, { color } from "../../config/styles";
+import styled, { color, mq } from "../../config/styles";
 import usePortal from "../../utils/usePortal";
 
 interface Props {
@@ -85,11 +85,21 @@ const ModalBoxWrapper = styled.div`
   text-align: center;
   position: relative;
   background: ${color("background")};
-  padding: 4rem;
-  max-width: 540px;
-  min-width: 400px;
-  width: 100%;
+  padding: 2rem;
+  min-width: 0;
+  height: 100vh;
+  width: 100vw;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+
+  ${mq("medium")} {
+    display: block;
+    padding: 4rem;
+    max-width: 540px;
+    min-width: 400px;
+    height: auto;
+  }
 `;
 
 const CloseButton = styled.button`
