@@ -120,6 +120,11 @@ const globalStyles = (theme: Theme) => css`
     border-top: 1px solid ${theme.colors.border};
     margin: 2rem 0;
   }
+
+  /* Fixes blurry SVGs */
+  svg {
+    transform: translateZ(0);
+  }
 `;
 
 const styled = EmotionStyled as CreateStyled<Theme>;

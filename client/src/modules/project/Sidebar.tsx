@@ -183,6 +183,7 @@ const Wrapper = styled.div<WrapperProps>`
     position: static;
     width: 220px;
     margin-right: 2rem;
+    z-index: 1;
   }
 `;
 

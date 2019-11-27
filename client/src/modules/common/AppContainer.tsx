@@ -12,7 +12,7 @@ const AppContainer: React.FC<AppContainerProps> = props => {
 };
 
 const Wrapper = styled(Container)`
-  margin-top: 1rem;
+  margin-top: 4rem;
   margin-bottom: 3rem;
 `;
 
