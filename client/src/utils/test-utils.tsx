@@ -5,10 +5,8 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import { render } from "@testing-library/react";
 
-import AuthContext, {
-  AuthContexOptions,
-  User
-} from "../modules/login/AuthContext";
+import AuthContext, { AuthContexOptions } from "../modules/login/AuthContext";
+import { User } from "../modules/login/user.model";
 import {
   SettingsPage,
   ProjectPage,
@@ -42,9 +40,10 @@ const App: React.FC = props => (
   </Switch>
 );
 
-const fakeUser = {
+const fakeUser: User = {
   id: "7357",
-  name: "John Doe"
+  name: "John Doe",
+  projects: []
 };
 
 const fakeTask = () => ({
