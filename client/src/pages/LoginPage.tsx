@@ -9,21 +9,21 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import AuthContext from "./AuthContext";
+import AuthContext from "../modules/login/AuthContext";
 import {
   useLoginWithGoogleMutation,
   useLoginWithCredentialsMutation,
   useLoginWithDemoCredentialsMutation
-} from "./login.requests";
-import { Spinner, Button, Logo, Text } from "../common";
-import { Form, FormItem, TextField } from "../common/form";
-import LoginBox from "./LoginBox";
+} from "../modules/login/login.requests";
+import { Spinner, Button, Logo, Text } from "../modules/common";
+import { Form, FormItem, TextField } from "../modules/common/form";
+import LoginBox from "../modules/login/LoginBox";
 
 const GOOGLE_AUTH_KEY = process.env.REACT_APP_GOOGLE_AUTH_KEY
   ? process.env.REACT_APP_GOOGLE_AUTH_KEY
   : "";
 
-const LoginRoute: React.FC = props => {
+const LoginPage: React.FC = props => {
   const loginWithGoogle = useLoginWithGoogleMutation();
   const loginWithCredentials = useLoginWithCredentialsMutation();
   const loginWithDemoCredentials = useLoginWithDemoCredentialsMutation();
@@ -140,4 +140,4 @@ const LoginRoute: React.FC = props => {
   );
 };
 
-export default LoginRoute;
+export default LoginPage;

@@ -1,13 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import styled from "../../config/styles";
-import { Project } from "./project.model";
-import { AppHeader, AppContainer } from "../common";
-import Sidebar from "./Sidebar";
-import TaskList from "../task/TaskList";
-import { useProjectsQuery } from "./project.requests";
-import DeleteProjectButton from "./DeleteProjectButton";
+import styled from "../config/styles";
+import { Project } from "../modules/project/project.model";
+import { AppHeader, AppContainer } from "../modules/common";
+import Sidebar from "../modules/project/Sidebar";
+import TaskList from "../modules/task/TaskList";
+import { useProjectsQuery } from "../modules/project/project.requests";
+import DeleteProjectButton from "../modules/project/DeleteProjectButton";
 interface ProjectProps {
   id?: string;
 }

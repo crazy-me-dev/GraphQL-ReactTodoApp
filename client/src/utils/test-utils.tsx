@@ -9,12 +9,14 @@ import AuthContext, {
   AuthContexOptions,
   User
 } from "../modules/login/AuthContext";
-import HomeRoute from "../modules/home/HomeRoute";
-import PageNotFoundRoute from "../modules/home/PageNotFoundRoute";
-import LoginRoute from "../modules/login/LoginRoute";
+import {
+  SettingsPage,
+  ProjectPage,
+  LoginPage,
+  HomePage,
+  PageNotFoundPage
+} from "../pages";
 import AuthRoute from "../modules/login/AuthRoute";
-import ProjectRoute from "../modules/project/ProjectRoute";
-import SettingsRoute from "../modules/settings/SettingsRoute";
 import { SideMenuProvider } from "../modules/project/SideMenuProvider";
 import { ThemeProvider } from "../modules/settings";
 import "../config/i18n";
@@ -22,20 +24,20 @@ import "../config/i18n";
 const App: React.FC = props => (
   <Switch>
     <Route exact path="/">
-      <HomeRoute />
+      <HomePage />
     </Route>
     <Route exact path="/login">
-      <LoginRoute />
+      <LoginPage />
     </Route>
     <AuthRoute path="/project/:id">
-      <ProjectRoute />
+      <ProjectPage />
     </AuthRoute>
     <AuthRoute path="/settings">
-      <SettingsRoute />
+      <SettingsPage />
     </AuthRoute>
     <Redirect from="/project" to="/" />
     <Route path="*">
-      <PageNotFoundRoute />
+      <PageNotFoundPage />
     </Route>
   </Switch>
 );

@@ -6,33 +6,38 @@ import {
   Switch
 } from "react-router-dom";
 
-import { SettingsRoute } from "../modules/settings";
-import { ProjectRoute } from "../modules/project";
-import { LoginRoute, AuthRoute, RegistrationRoute } from "../modules/login";
-import { PageNotFoundRoute, HomeRoute } from "../modules/home";
+import { AuthRoute } from "../modules/login";
+import {
+  PageNotFoundPage,
+  HomePage,
+  LoginPage,
+  RegistrationPage,
+  SettingsPage,
+  ProjectPage
+} from "../pages";
 
 const Routes = () => {
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
-          <HomeRoute />
+          <HomePage />
         </Route>
         <Route path="/login" exact>
-          <LoginRoute />
+          <LoginPage />
         </Route>
         <Route path="/registration" exact>
-          <RegistrationRoute />
+          <RegistrationPage />
         </Route>
         <AuthRoute path="/project/:id" exact>
-          <ProjectRoute />
+          <ProjectPage />
         </AuthRoute>
         <AuthRoute path="/settings" exact>
-          <SettingsRoute />
+          <SettingsPage />
         </AuthRoute>
         <Redirect from="/project" to="/" exact />
         <Route path="*">
-          <PageNotFoundRoute />
+          <PageNotFoundPage />
         </Route>
       </Switch>
     </Router>

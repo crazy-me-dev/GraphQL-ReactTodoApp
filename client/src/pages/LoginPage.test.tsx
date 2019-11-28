@@ -2,14 +2,14 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { Route } from "react-router-dom";
 
-import { renderWithProviders } from "../../utils/test-utils";
-import LoginRoute from "./LoginRoute";
+import { renderWithProviders } from "../utils/test-utils";
+import LoginPage from "./LoginPage";
 
-export default describe("<LoginRoute />", () => {
+export default describe("<LoginPage />", () => {
   test("should show Google login button when not authed", async () => {
     const { getByText, history } = await renderWithProviders(
       <Route path="/login">
-        <LoginRoute />
+        <LoginPage />
       </Route>,
       null,
       { route: "/login" }
@@ -22,7 +22,7 @@ export default describe("<LoginRoute />", () => {
   });
 
   test("should redirect already loggedin user to root url", async () => {
-    const { history } = await renderWithProviders(<LoginRoute />, {
+    const { history } = await renderWithProviders(<LoginPage />, {
       id: "7357",
       name: "John Doe"
     });

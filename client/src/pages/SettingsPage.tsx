@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import { ReactComponent as ChevronSVG } from "../../assets/chevron.svg";
-import styled, { color } from "../../config/styles";
-import { AppHeader, AppContainer, SROnly } from "../common";
-import ThemePicker from "./ThemePicker";
-import LanguagePicker from "./LanguagePicker";
-import DeleteAccountButton from "./DeleteAccountButton";
+import { ReactComponent as ChevronSVG } from "../assets/chevron.svg";
+import styled, { color } from "../config/styles";
+import { AppHeader, AppContainer, SROnly } from "../modules/common";
+import ThemePicker from "../modules/settings/ThemePicker";
+import LanguagePicker from "../modules/settings/LanguagePicker";
+import DeleteAccountButton from "../modules/settings/DeleteAccountButton";
 
 const SettingsRoute: React.FC = () => {
   const { t } = useTranslation();

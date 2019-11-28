@@ -2,7 +2,7 @@ import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ToastContainer } from "react-toastify";
 
-import Routes from "./routes";
+import Routes from "./config/routes";
 import { ThemeProvider } from "./modules/settings";
 import { AuthContext } from "./modules/login";
 import { useMeQuery } from "./modules/login/login.requests";

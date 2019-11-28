@@ -2,11 +2,11 @@ import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import AuthContext from "./AuthContext";
-import { Button, Spinner, Logo, Text } from "../common";
-import { Form, FormItem, TextField, Checkbox } from "../common/form";
-import { useRegisterNewUserMutation } from "./login.requests";
-import LoginBox from "./LoginBox";
+import AuthContext from "../modules/login/AuthContext";
+import { Button, Spinner, Logo, Text } from "../modules/common";
+import { Form, FormItem, TextField, Checkbox } from "../modules/common/form";
+import { useRegisterNewUserMutation } from "../modules/login/login.requests";
+import LoginBox from "../modules/login/LoginBox";
 
 const fieldsDefaultState = {
   email: "",
@@ -14,7 +14,7 @@ const fieldsDefaultState = {
   password: ""
 };
 
-const RegistrationRoute = () => {
+const RegistrationPage = () => {
   const registerNewUser = useRegisterNewUserMutation();
   const [fields, setFields] = useState(fieldsDefaultState);
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -117,4 +117,4 @@ const RegistrationRoute = () => {
   );
 };
 
-export default RegistrationRoute;
+export default RegistrationPage;
