@@ -33,7 +33,7 @@ const RegistrationPage = () => {
       setTermsAccepted(false);
       setHasLoader(true);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 

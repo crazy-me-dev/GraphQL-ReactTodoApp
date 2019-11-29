@@ -37,14 +37,13 @@ const LoginPage: React.FC = props => {
   const responseGoogle = (
     e: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
-    console.log(e);
     if ("getAuthResponse" in e) {
       try {
         const id_token = e.getAuthResponse().id_token;
         setHasLoader(true);
         loginWithGoogle(id_token);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     }
   };
