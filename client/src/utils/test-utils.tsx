@@ -15,8 +15,8 @@ import {
   PageNotFoundPage
 } from "../pages";
 import AuthRoute from "../modules/login/AuthRoute";
-import { SideMenuProvider } from "../modules/project/SideMenuProvider";
-import { ThemeProvider } from "../modules/settings";
+import { SideMenuProvider } from "./SideMenuProvider";
+import ThemeProvider from "../utils/ThemeProvider";
 import "../config/i18n";
 
 const App: React.FC = props => (

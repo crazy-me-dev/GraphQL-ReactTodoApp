@@ -3,11 +3,11 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { ToastContainer } from "react-toastify";
 
 import Routes from "./config/routes";
-import { ThemeProvider } from "./modules/settings";
+import ThemeProvider from "./utils/ThemeProvider";
 import { AuthContext } from "./modules/login";
 import { useMeQuery } from "./modules/login/login.requests";
 import { client } from "./config/apollo";
-import { SideMenuProvider } from "./modules/project/SideMenuProvider";
+import { SideMenuProvider } from "./utils/SideMenuProvider";
 import "./config/i18n";
 
 const App: React.FC = () => {

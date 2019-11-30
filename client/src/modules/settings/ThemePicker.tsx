@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Title } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import styled, { color } from "../../config/styles";
-import { useTheme, ThemeId } from "./ThemeProvider";
+import { useTheme, ThemeId } from "../../utils/ThemeProvider";
 
 const ThemePicker: React.FC = () => {
   const { currentTheme, setTheme, themes } = useTheme();

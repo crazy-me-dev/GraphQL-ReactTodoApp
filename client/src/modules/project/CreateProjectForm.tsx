@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { useCreateProjectMutation } from "./project.requests";
 import { Title, Button, Input } from "../common";
-import { useSideMenu } from "./SideMenuProvider";
+import { useSideMenu } from "../../utils/SideMenuProvider";
 import styled from "../../config/styles";
 
 interface Props {

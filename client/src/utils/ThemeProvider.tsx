@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext, useEffect } from "react";
 import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
 import { Global } from "@emotion/core";
 
-import { themes, globalStyles } from "../../config/styles";
+import { themes, globalStyles } from "../config/styles";
 
 export type ThemeId = keyof typeof themes;
 

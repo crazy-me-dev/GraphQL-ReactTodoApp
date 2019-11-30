@@ -7,7 +7,7 @@ import styled, { mq, color, Theme } from "../../config/styles";
 import { Container, SROnly } from "../common";
 import { ReactComponent as LogoSVG } from "../../assets/logo.svg";
 import { ReactComponent as ThreeDotsSVG } from "../../assets/three-dots.svg";
-import { useSideMenu } from "../project/SideMenuProvider";
+import { useSideMenu } from "../../utils/SideMenuProvider";
 import useLogOut from "../login/useLogOut";
 
 const AppHeader: React.FC = props => {

@@ -7,7 +7,7 @@ import { Modal, Title, Sidebar } from "../common";
 import { Project } from "./project.model";
 import CreateProjectForm from "./CreateProjectForm";
 import { useProjectsQuery } from "./project.requests";
-import { useSideMenu } from "./SideMenuProvider";
+import { useSideMenu } from "../../utils/SideMenuProvider";
 
 const ProjectSidebar: React.FC = () => {
   const { loading, error, data } = useProjectsQuery();

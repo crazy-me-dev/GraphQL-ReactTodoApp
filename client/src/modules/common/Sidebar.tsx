@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import styled, { color, mq } from "../../config/styles";
 import Button from "./Button";
-import { useSideMenu } from "../project/SideMenuProvider";
+import { useSideMenu } from "../../utils/SideMenuProvider";
 
 interface WrapperProps {
   open: boolean;
