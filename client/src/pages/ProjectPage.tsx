@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Project } from "../modules/project/project.model";
 import ProjectView from "../modules/project/ProjectView";
 import { AppHeader, AppContainer } from "../modules/common";
-import Sidebar from "../modules/project/Sidebar";
+import ProjectSidebar from "../modules/project/ProjectSidebar";
 import { useProjectsQuery } from "../modules/project/project.requests";
 
 interface ProjectProps {
@@ -21,7 +21,7 @@ const ProjectRoute: React.FC<ProjectProps> = props => {
     <>
       <AppHeader />
       <AppContainer flex>
-        <Sidebar />
+        <ProjectSidebar />
         <div style={{ flex: 1 }}>
           {project && <ProjectView project={project} />}
         </div>

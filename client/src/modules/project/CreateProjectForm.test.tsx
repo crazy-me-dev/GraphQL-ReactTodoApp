@@ -5,7 +5,7 @@ import wait from "waait";
 import "@testing-library/jest-dom/extend-expect";
 
 import CreateProjectForm from "./CreateProjectForm";
-import Sidebar from "./Sidebar";
+import ProjectSidebar from "./ProjectSidebar";
 import { renderWithProviders } from "../../utils/test-utils";
 import {
   PROJECTS_QUERY,
@@ -66,7 +66,7 @@ describe("<CreateProjectForm />", () => {
       const { getByTestId, container } = renderWithProviders(
         <MockedProvider mocks={mocks} addTypename={false}>
           <>
-            <Sidebar />
+            <ProjectSidebar />
             <CreateProjectForm />
           </>
         </MockedProvider>,

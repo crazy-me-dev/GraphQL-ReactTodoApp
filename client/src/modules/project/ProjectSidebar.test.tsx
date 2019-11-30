@@ -4,7 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { act } from "@testing-library/react";
 import { MockedProvider } from "@apollo/react-testing";
 
-import Sidebar from "./Sidebar";
+import ProjectSidebar from "./ProjectSidebar";
 import { renderWithProviders } from "../../utils/test-utils";
 import { PROJECTS_QUERY, CREATE_PROJECT } from "./project.requests";
 
@@ -55,12 +55,12 @@ const mocks = [
   }
 ];
 
-describe("<Sidebar />", () => {
+describe("<ProjectSidebar />", () => {
   test("should render project list", async () => {
     await act(async () => {
       const { getByTestId, queryByTestId } = renderWithProviders(
         <MockedProvider mocks={mocks} addTypename={false}>
-          <Sidebar />
+          <ProjectSidebar />
         </MockedProvider>,
         null
       );
