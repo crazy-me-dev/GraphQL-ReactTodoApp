@@ -52,7 +52,12 @@ const ProjectSidebar: React.FC = () => {
       </AddProjectButton>
 
       <Modal open={modalIsOpen} onClose={() => setModalOpen(false)}>
-        <CreateProjectForm onSubmit={() => setModalOpen(false)} />
+        <CreateProjectForm
+          onSubmit={() => {
+            setModalOpen(false);
+            setSideMenuOpen(false);
+          }}
+        />
       </Modal>
     </Sidebar>
   );

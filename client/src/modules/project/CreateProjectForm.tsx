@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 import { useCreateProjectMutation } from "./project.requests";
 import { Title, Button, Input } from "../common";
-import { useSideMenu } from "../../utils/SideMenuProvider";
 import styled from "../../config/styles";
 
 interface Props {
@@ -14,7 +13,6 @@ interface Props {
 const CreateProjectForm: React.FC<Props> = ({ onSubmit }) => {
   const [newProjectName, updateNewProjectName] = useState("");
   const createProjectMutation = useCreateProjectMutation();
-  const { setSideMenuOpen } = useSideMenu();
   const { t } = useTranslation();
 
   let history = useHistory();
@@ -25,7 +23,6 @@ const CreateProjectForm: React.FC<Props> = ({ onSubmit }) => {
       if (!result.data) return;
       const project = result.data.createProject;
       history.push(`/project/${project.id}`);
-      setSideMenuOpen(false);
     });
     updateNewProjectName("");
     onSubmit && onSubmit();
