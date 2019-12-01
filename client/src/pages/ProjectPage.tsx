@@ -1,11 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { Project } from "../modules/project/project.model";
-import ProjectView from "../modules/project/ProjectView";
-import { AppHeader, AppContainer } from "../modules/common";
-import ProjectSidebar from "../modules/project/ProjectSidebar";
-import { useProjectsQuery } from "../modules/project/project.requests";
+import { Project } from "../components/project/project.model";
+import ProjectView from "../components/project/ProjectView";
+import { AppHeader, AppContainer } from "../components/common";
+import ProjectSidebar from "../components/project/ProjectSidebar";
+import { useProjectsQuery } from "../components/project/project.requests";
 
 interface ProjectProps {
   id?: string;

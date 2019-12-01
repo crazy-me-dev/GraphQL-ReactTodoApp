@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 
-import { AuthContext } from "../modules/login";
+import { AuthContext } from "../components/login";
 
 const HomePage: React.FC = () => {
   const { user } = useContext(AuthContext);

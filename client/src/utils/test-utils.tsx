@@ -5,8 +5,10 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import { render } from "@testing-library/react";
 
-import AuthContext, { AuthContexOptions } from "../modules/login/AuthContext";
-import { User } from "../modules/login/user.model";
+import AuthContext, {
+  AuthContexOptions
+} from "../components/login/AuthContext";
+import { User } from "../components/login/user.model";
 import {
   SettingsPage,
   ProjectPage,
@@ -14,7 +16,7 @@ import {
   HomePage,
   PageNotFoundPage
 } from "../pages";
-import AuthRoute from "../modules/login/AuthRoute";
+import AuthRoute from "../components/login/AuthRoute";
 import { SideMenuProvider } from "./SideMenuProvider";
 import ThemeProvider from "../utils/ThemeProvider";
 import "../config/i18n";

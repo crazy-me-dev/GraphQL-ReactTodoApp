@@ -2,11 +2,11 @@ import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import AuthContext from "../modules/login/AuthContext";
-import { Button, Spinner, Logo, Text } from "../modules/common";
-import { Form, FormItem, TextField, Checkbox } from "../modules/common/form";
-import { useRegisterNewUserMutation } from "../modules/login/login.requests";
-import LoginBox from "../modules/login/LoginBox";
+import AuthContext from "../components/login/AuthContext";
+import { Button, Spinner, Logo, Text } from "../components/common";
+import { Form, FormItem, TextField, Checkbox } from "../components/common/form";
+import { useRegisterNewUserMutation } from "../components/login/login.requests";
+import LoginBox from "../components/login/LoginBox";
 
 const fieldsDefaultState = {
   email: "",

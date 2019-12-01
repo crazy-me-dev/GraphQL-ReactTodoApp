@@ -6,7 +6,7 @@ import {
   Switch
 } from "react-router-dom";
 
-import { AuthRoute } from "../modules/login";
+import { AuthRoute } from "../components/login";
 import {
   PageNotFoundPage,
   HomePage,

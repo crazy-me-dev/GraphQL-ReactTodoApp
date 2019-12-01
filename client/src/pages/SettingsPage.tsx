@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
 
 import { ReactComponent as ChevronSVG } from "../assets/chevron.svg";
 import styled, { color } from "../config/styles";
-import { AppHeader, AppContainer, SROnly } from "../modules/common";
-import ThemePicker from "../modules/settings/ThemePicker";
-import LanguagePicker from "../modules/settings/LanguagePicker";
-import DeleteAccountButton from "../modules/settings/DeleteAccountButton";
+import { AppHeader, AppContainer, SROnly } from "../components/common";
+import ThemePicker from "../components/settings/ThemePicker";
+import LanguagePicker from "../components/settings/LanguagePicker";
+import DeleteAccountButton from "../components/settings/DeleteAccountButton";
 
 const SettingsRoute: React.FC = () => {
   const { t } = useTranslation();

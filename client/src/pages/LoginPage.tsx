@@ -9,15 +9,15 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import AuthContext from "../modules/login/AuthContext";
+import AuthContext from "../components/login/AuthContext";
 import {
   useLoginWithGoogleMutation,
   useLoginWithCredentialsMutation,
   useLoginWithDemoCredentialsMutation
-} from "../modules/login/login.requests";
-import { Spinner, Button, Logo, Text } from "../modules/common";
-import { Form, FormItem, TextField } from "../modules/common/form";
-import LoginBox from "../modules/login/LoginBox";
+} from "../components/login/login.requests";
+import { Spinner, Button, Logo, Text } from "../components/common";
+import { Form, FormItem, TextField } from "../components/common/form";
+import LoginBox from "../components/login/LoginBox";
 
 const GOOGLE_AUTH_KEY = process.env.REACT_APP_GOOGLE_AUTH_KEY
   ? process.env.REACT_APP_GOOGLE_AUTH_KEY
