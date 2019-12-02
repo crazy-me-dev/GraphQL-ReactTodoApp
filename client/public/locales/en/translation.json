@@ -70,5 +70,9 @@
       "submit": "Delete account",
       "cancel": "Cancel"
     }
+  },
+  "notFound": {
+    "title": "404 - Page not found",
+    "button": "Go home"
   }
 }

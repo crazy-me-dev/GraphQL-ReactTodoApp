@@ -8,6 +8,6 @@ describe("<App />", () => {
       route: "/this-route-does-not-exist"
     });
 
-    expect(container.innerHTML).toMatch("404");
+    expect(container.innerHTML).toContain("404");
   });
 });

@@ -70,5 +70,9 @@
       "submit": "Poista tilini",
       "cancel": "Peruuta"
     }
+  },
+  "notFound": {
+    "title": "404 - Sivua ei löytynyt",
+    "button": "Palaa kotiin"
   }
 }
