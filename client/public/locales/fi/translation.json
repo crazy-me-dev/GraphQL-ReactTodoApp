@@ -12,6 +12,9 @@
     "menu": "valikko",
     "cancel": "Peru"
   },
+  "header": {
+    "logoText": "Palaa päänäkymään"
+  },
   "login": {
     "slogan": "Kirjaudu ja laita elämäsi järjestykseen!",
     "logIn": "Kirjaudu",

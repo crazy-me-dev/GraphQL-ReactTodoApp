@@ -70,72 +70,74 @@ const LoginPage: React.FC = props => {
   }
 
   return (
-    <LoginBox>
-      <Logo hasName centered />
+    <main>
+      <LoginBox>
+        <Logo hasName centered />
 
-      <Text centered>{t("login.slogan")}</Text>
+        <Text centered>{t("login.slogan")}</Text>
 
-      <br />
+        <br />
 
-      <Form onSubmit={handleLogin}>
-        <FormItem label={t("common.email")}>
-          <TextField value={email} onChange={e => setEmail(e.target.value)} />
-        </FormItem>
+        <Form onSubmit={handleLogin}>
+          <FormItem label={t("common.email")}>
+            <TextField value={email} onChange={e => setEmail(e.target.value)} />
+          </FormItem>
 
-        <FormItem label={t("common.password")}>
-          <TextField
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
+          <FormItem label={t("common.password")}>
+            <TextField
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </FormItem>
+
+          <FormItem>
+            <Button filled fullWidth disabled={!email || !password}>
+              {t("login.logIn")}
+            </Button>
+          </FormItem>
+        </Form>
+
+        <Text centered>{t("common.or")}</Text>
+
+        <FormItem>
+          <GoogleLogin
+            clientId={GOOGLE_AUTH_KEY}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            data-testid="google-login"
+            render={renderProps => (
+              <Button
+                fullWidth
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                {t("login.googleButton")}
+              </Button>
+            )}
           />
         </FormItem>
 
         <FormItem>
-          <Button filled fullWidth disabled={!email || !password}>
-            {t("login.logIn")}
+          <Button
+            fullWidth
+            onClick={() => {
+              loginWithDemoCredentials();
+            }}
+          >
+            {t("login.tryDemo")}
           </Button>
         </FormItem>
-      </Form>
 
-      <Text centered>{t("common.or")}</Text>
+        <hr />
 
-      <FormItem>
-        <GoogleLogin
-          clientId={GOOGLE_AUTH_KEY}
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={"single_host_origin"}
-          data-testid="google-login"
-          render={renderProps => (
-            <Button
-              fullWidth
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-            >
-              {t("login.googleButton")}
-            </Button>
-          )}
-        />
-      </FormItem>
-
-      <FormItem>
-        <Button
-          fullWidth
-          onClick={() => {
-            loginWithDemoCredentials();
-          }}
-        >
-          {t("login.tryDemo")}
-        </Button>
-      </FormItem>
-
-      <hr />
-
-      <Text centered>
-        {t("login.noAccount")}{" "}
-        <Link to="/registration">{t("login.signIn")}</Link>
-      </Text>
-    </LoginBox>
+        <Text centered>
+          {t("login.noAccount")}{" "}
+          <Link to="/registration">{t("login.signIn")}</Link>
+        </Text>
+      </LoginBox>
+    </main>
   );
 };
 

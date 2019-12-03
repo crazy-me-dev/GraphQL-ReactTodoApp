@@ -22,8 +22,8 @@ const defaultTheme: Theme = {
   id: "theme",
   name: "Default",
   colors: {
-    primary: "#FB3535",
-    primaryShade: "rgba(251, 53, 53, 0.4)",
+    primary: "#E1284B",
+    primaryShade: "rgba(225, 40, 75, 0.4)",
     border: "#eee",
     borderDark: "#ccc",
     background: "#fff",
@@ -39,8 +39,8 @@ const dark: Theme = {
   id: "dark",
   name: "Dark",
   colors: {
-    primary: "#FB3535",
-    primaryShade: "rgba(251, 53, 53, 0.4)",
+    primary: "#EF718A",
+    primaryShade: "rgba(239, 113, 138, 0.4)",
     border: "#303030",
     borderDark: "#303030",
     background: "#444",

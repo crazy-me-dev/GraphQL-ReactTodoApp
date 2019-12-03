@@ -25,6 +25,7 @@ const AppHeader: React.FC = props => {
               <>
                 <LogoLink to="/">
                   <Logo data-testid="logo" />
+                  <SROnly>{t("header.logo")}</SROnly>
                 </LogoLink>
                 <OpenSideMenu
                   onClick={() => {

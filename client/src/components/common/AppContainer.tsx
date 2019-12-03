@@ -10,9 +10,11 @@ interface AppContainerProps {
 
 const AppContainer: React.FC<AppContainerProps> = ({ children, ...rest }) => {
   return (
-    <Wrapper {...rest} data-testid="app-container">
-      {children}
-    </Wrapper>
+    <main>
+      <Wrapper {...rest} data-testid="app-container">
+        {children}
+      </Wrapper>
+    </main>
   );
 };
 

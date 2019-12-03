@@ -12,7 +12,7 @@ const Button = styled.button<Props>`
   letter-spacing: 0.04em;
   transition: all 0.2s;
   color: ${color("primary")};
-  background: transparent;
+  background: ${color("background")};
   border: 1px solid ${color("primary")};
   border-radius: 4px;
   padding: 0.5rem 1rem;
