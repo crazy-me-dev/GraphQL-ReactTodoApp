@@ -6,8 +6,6 @@ import GoogleLogin, {
 } from "react-google-login";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import AuthContext from "../components/login/AuthContext";
 import {
@@ -15,9 +13,10 @@ import {
   useLoginWithCredentialsMutation,
   useLoginWithDemoCredentialsMutation
 } from "../components/login/login.requests";
-import { Spinner, Button, Logo, Text } from "../components/common";
+import { Spinner, Button, Logo, Text, Error } from "../components/common";
 import { Form, FormItem, TextField } from "../components/common/form";
 import LoginBox from "../components/login/LoginBox";
+import parseGraphQLError from "../utils/parseGraphQLError";
 
 const GOOGLE_AUTH_KEY = process.env.REACT_APP_GOOGLE_AUTH_KEY
   ? process.env.REACT_APP_GOOGLE_AUTH_KEY
@@ -29,10 +28,10 @@ const LoginPage: React.FC = props => {
   const loginWithDemoCredentials = useLoginWithDemoCredentialsMutation();
   const { user, loading } = useContext(AuthContext);
   const [hasLoader, setHasLoader] = useState(false);
+  const [error, setError] = useState<string>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { t } = useTranslation();
-  const notify = (text: string) => toast.error(text);
 
   const responseGoogle = (
     e: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -43,7 +42,7 @@ const LoginPage: React.FC = props => {
         setHasLoader(true);
         loginWithGoogle(id_token);
       } catch (e) {
-        console.error(e);
+        setError(parseGraphQLError(e.message));
       }
     }
   };
@@ -55,7 +54,17 @@ const LoginPage: React.FC = props => {
       await loginWithCredentials({ email, password });
     } catch (e) {
       setHasLoader(false);
-      notify(t("login.error.credentials"));
+      setError(parseGraphQLError(e.message));
+    }
+  };
+
+  const handleDemoLogin = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    try {
+      await loginWithDemoCredentials();
+    } catch (e) {
+      setError(parseGraphQLError(e.message));
     }
   };
 
@@ -77,6 +86,13 @@ const LoginPage: React.FC = props => {
         <Text centered>{t("login.slogan")}</Text>
 
         <br />
+
+        {error && (
+          <>
+            <Error>{t(`error.${error}`)}</Error>
+            <br />
+          </>
+        )}
 
         <Form onSubmit={handleLogin}>
           <FormItem label={t("common.email")}>
@@ -120,12 +136,7 @@ const LoginPage: React.FC = props => {
         </FormItem>
 
         <FormItem>
-          <Button
-            fullWidth
-            onClick={() => {
-              loginWithDemoCredentials();
-            }}
-          >
+          <Button fullWidth onClick={handleDemoLogin}>
             {t("login.tryDemo")}
           </Button>
         </FormItem>

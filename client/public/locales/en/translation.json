@@ -12,6 +12,11 @@
     "menu": "menu",
     "cancel": "Cancel"
   },
+  "error": {
+    "Password should be at least 6 characters long!": "Password should be at least 6 characters long!",
+    "You have to accept the terms!": "You have to accept the terms!",
+    "Given credentials are incorrect!": "I'm sorry, but given credentials are incorrect."
+  },
   "header": {
     "logoText": "Return to main view"
   },

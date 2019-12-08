@@ -11,3 +11,4 @@ export { default as Text } from "./Text";
 export { default as Confirm } from "./Confirm";
 export { default as SROnly } from "./SROnly";
 export { default as Sidebar } from "./Sidebar";
+export { default as Error } from "./Error";

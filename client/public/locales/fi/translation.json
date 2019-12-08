@@ -12,6 +12,11 @@
     "menu": "valikko",
     "cancel": "Peru"
   },
+  "error": {
+    "Password should be at least 6 characters long!": "Salasanan tulee olla vähintään 6 merkkiä pitkä!",
+    "You have to accept the terms!": "Sinun täytyy hyväksyä ehdot!",
+    "Given credentials are incorrect!": "Joko sähköposti tai salasana ei ole oikeain."
+  },
   "header": {
     "logoText": "Palaa päänäkymään"
   },

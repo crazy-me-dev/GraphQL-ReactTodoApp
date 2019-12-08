@@ -3,10 +3,11 @@ import { Link, Redirect } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import AuthContext from "../components/login/AuthContext";
-import { Button, Spinner, Logo, Text } from "../components/common";
+import { Button, Spinner, Logo, Text, Error } from "../components/common";
 import { Form, FormItem, TextField, Checkbox } from "../components/common/form";
 import { useRegisterNewUserMutation } from "../components/login/login.requests";
 import LoginBox from "../components/login/LoginBox";
+import parseGraphQLError from "../utils/parseGraphQLError";
 
 const fieldsDefaultState = {
   email: "",
@@ -15,6 +16,7 @@ const fieldsDefaultState = {
 };
 
 const RegistrationPage = () => {
+  const [error, setError] = useState<string>();
   const registerNewUser = useRegisterNewUserMutation();
   const [fields, setFields] = useState(fieldsDefaultState);
   const [termsAccepted, setTermsAccepted] = useState(false);
@@ -33,7 +35,7 @@ const RegistrationPage = () => {
       setTermsAccepted(false);
       setHasLoader(true);
     } catch (e) {
-      console.error(e);
+      setError(parseGraphQLError(e.message));
     }
   };
 
@@ -61,6 +63,13 @@ const RegistrationPage = () => {
       <Text centered>{t("registration.title")}</Text>
 
       <br />
+
+      {error && (
+        <>
+          <Error>{t(`error.${error}`)}</Error>
+          <br />
+        </>
+      )}
 
       <Form onSubmit={handleFormSubmit}>
         <FormItem label={t("common.email")}>

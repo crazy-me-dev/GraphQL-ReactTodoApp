@@ -1,6 +1,5 @@
 import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { ToastContainer } from "react-toastify";
 
 import Routes from "./config/routes";
 import ThemeProvider from "./utils/ThemeProvider";
@@ -21,7 +20,6 @@ const App: React.FC = () => {
         <AuthContext.Provider value={{ user, loading, refetchUser: refetch }}>
           <ThemeProvider>
             <SideMenuProvider>
-              <ToastContainer></ToastContainer>
               <Routes />
             </SideMenuProvider>
           </ThemeProvider>
