@@ -15,7 +15,14 @@ class ErrorBoundary extends React.Component<{}, State> {
 
   render() {
     if (this.state.hasError) {
-      return <Wrapper>Unfortunately something went wrong. 😓</Wrapper>;
+      return (
+        <Wrapper>
+          Unfortunately something went wrong.{" "}
+          <span role="img" aria-label="sad and embarrassed face">
+            😓
+          </span>
+        </Wrapper>
+      );
     }
 
     return this.props.children;
