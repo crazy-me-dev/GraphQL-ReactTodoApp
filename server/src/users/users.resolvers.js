@@ -30,6 +30,10 @@ const Mutation = {
     const { email, password, name, termsAccepted } = args;
     let [user] = await ctx.db("user").where("email", email);
 
+    if (user) {
+      throw new Error("You have already registered!");
+    }
+
     if (!termsAccepted) {
       throw new Error("You have to accept the terms!");
     }
@@ -38,8 +42,12 @@ const Mutation = {
       throw new Error("Password should be at least 6 characters long!");
     }
 
-    if (user) {
-      throw new Error("You have already registered!");
+    if (email.length < 3 || !email.includes("@")) {
+      throw new Error("Email is not valid!");
+    }
+
+    if (name.length < 1) {
+      throw new Error("Name isn't provided!");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

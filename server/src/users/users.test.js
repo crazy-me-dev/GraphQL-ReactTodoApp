@@ -169,6 +169,24 @@ describe("User", () => {
         )
       );
     });
+
+    it("should throw if email isn't valid", async () => {
+      await expect(
+        client.mutate({
+          mutation: registerNewUserMutation,
+          variables: { ...userRegistrationData, email: "1234" }
+        })
+      ).rejects.toEqual(new Error("GraphQL error: Email is not valid!"));
+    });
+
+    it("should throw if name is empty", async () => {
+      await expect(
+        client.mutate({
+          mutation: registerNewUserMutation,
+          variables: { ...userRegistrationData, name: "" }
+        })
+      ).rejects.toEqual(new Error("GraphQL error: Name isn't provided!"));
+    });
   });
 
   describe("when deleting an account", () => {

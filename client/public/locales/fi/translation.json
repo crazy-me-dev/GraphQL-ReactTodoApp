@@ -14,6 +14,9 @@
   },
   "error": {
     "Password should be at least 6 characters long!": "Salasanan tulee olla vähintään 6 merkkiä pitkä!",
+    "Email is not valid!": "Sähköposti ei ole kelvollinen!",
+    "Name isn't provided!": "Nimi on pakollinen kenttä",
+    "You have already registered!": "Taidat olla jo rekisteröitynyt!",
     "You have to accept the terms!": "Sinun täytyy hyväksyä ehdot!",
     "Given credentials are incorrect!": "Joko sähköposti tai salasana ei ole oikeain."
   },
