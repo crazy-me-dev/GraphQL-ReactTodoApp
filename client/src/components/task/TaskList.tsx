@@ -1,19 +1,10 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult
-} from "react-beautiful-dnd";
+import React from "react";
 
-import styled, { color, mq } from "../../config/styles";
-import { Button, Input, SROnly } from "../common";
+import { DragDropList, DragDropListItem } from "../common";
 import { Task } from "./task.model";
 import { Project } from "../project/project.model";
 import TaskListItem from "./TaskListItem";
 import {
-  useCreateTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
   useReorderTasks
@@ -24,25 +15,9 @@ export interface TaskListProps {
 }
 
 const TaskList: React.FC<TaskListProps> = ({ project }) => {
-  const createTaskMutation = useCreateTaskMutation();
   const updateTaskMutation = useUpdateTaskMutation();
   const deleteTaskMutation = useDeleteTaskMutation();
   const reorderTasksMutation = useReorderTasks();
-
-  const [newTaskName, setNewTaskName] = useState("");
-  const { t } = useTranslation();
-
-  const addNewTask = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newTaskName === "") return;
-
-    createTaskMutation({
-      description: newTaskName,
-      done: false,
-      project: project.id
-    });
-    setNewTaskName("");
-  };
 
   const toggleTaskDone = (task: Task) => {
     updateTaskMutation(task.id, {
@@ -62,11 +37,7 @@ const TaskList: React.FC<TaskListProps> = ({ project }) => {
     });
   };
 
-  const reorderTasks = (result: DropResult) => {
-    if (!result.destination) return;
-    const from = result.source.index;
-    const to = result.destination.index;
-
+  const reorderTasks = (from: number, to: number) => {
     // move task to a correct position
     const rest = [...project.tasks];
     const movingTask = rest.splice(from, 1)[0];
@@ -78,89 +49,23 @@ const TaskList: React.FC<TaskListProps> = ({ project }) => {
   };
 
   return (
-    <div>
-      <DragDropContext onDragEnd={reorderTasks}>
-        <Droppable droppableId={"tasks"}>
+    <DragDropList onReorder={reorderTasks}>
+      {project.tasks.map((task, index) => (
+        <DragDropListItem key={task.id} itemId={task.id} index={index}>
           {provided => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {project.tasks.map((task, index) => (
-                <Draggable key={task.id} draggableId={task.id} index={index}>
-                  {provided => (
-                    <div {...provided.draggableProps} ref={provided.innerRef}>
-                      <TaskListItem
-                        index={index}
-                        task={task}
-                        onDelete={deleteTask}
-                        onDoneToggle={toggleTaskDone}
-                        onDescriptionChange={updateDescription}
-                        dragHandleProps={provided.dragHandleProps}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
+            <TaskListItem
+              index={index}
+              task={task}
+              onDelete={deleteTask}
+              onDoneToggle={toggleTaskDone}
+              onDescriptionChange={updateDescription}
+              dragHandleProps={provided.dragHandleProps}
+            />
           )}
-        </Droppable>
-      </DragDropContext>
-
-      <br />
-
-      <AddTaskForm onSubmit={addNewTask}>
-        <label>
-          <SROnly>
-            <div>{t("task.newName")}</div>
-          </SROnly>
-          <AddTaskInput
-            type="text"
-            placeholder={t("task.placeholder")}
-            value={newTaskName}
-            onChange={e => setNewTaskName(e.target.value)}
-          />
-        </label>
-        <AddTaskButton filled type="submit">
-          {t("task.newSubmit")}
-        </AddTaskButton>
-      </AddTaskForm>
-    </div>
+        </DragDropListItem>
+      ))}
+    </DragDropList>
   );
 };
-
-const AddTaskForm = styled.form`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background: ${color("background")};
-  padding: 0.5rem;
-
-  margin-top: 2rem;
-  display: flex;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
-  label {
-    flex: 1;
-  }
-  input {
-    max-width: none;
-  }
-  ${mq("medium")} {
-    position: static;
-    padding: 0;
-  }
-`;
-
-const AddTaskInput = styled(Input)`
-  height: 3rem;
-  padding: 1rem;
-  border-radius: 0.5rem 0 0 0.5rem;
-  border-color: ${color("grey700")};
-  border-right: none;
-`;
-
-const AddTaskButton = styled(Button)`
-  height: 3rem;
-  border-radius: 0 0.5rem 0.5rem 0;
-`;
 
 export default TaskList;

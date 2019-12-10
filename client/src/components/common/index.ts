@@ -12,3 +12,5 @@ export { default as Confirm } from "./Confirm";
 export { default as SROnly } from "./SROnly";
 export { default as Sidebar } from "./Sidebar";
 export { default as Error } from "./Error";
+export { default as DragDropList } from "./DragDropList";
+export { default as DragDropListItem } from "./DragDropListItem";
