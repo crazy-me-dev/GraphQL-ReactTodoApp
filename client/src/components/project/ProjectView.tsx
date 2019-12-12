@@ -5,6 +5,7 @@ import { Project } from "./project.model";
 import { Button, Input, SROnly } from "../common";
 import styled, { color, mq } from "../../config/styles";
 import TaskList from "../task/TaskList";
+import EmptyTaskList from "../task/EmptyTaskList";
 import DeleteProjectButton from "./DeleteProjectButton";
 import { useCreateTaskMutation } from "../task/task.requests";
 
@@ -36,7 +37,11 @@ const ProjectView: React.FC<ProjectProps> = ({ project }) => {
         <DeleteProjectButton projectId={project.id} />
       </ProjectHead>
 
-      <TaskList project={project} />
+      {project.tasks.length > 0 ? (
+        <TaskList project={project} />
+      ) : (
+        <EmptyTaskList />
+      )}
 
       <AddTaskForm onSubmit={addNewTask}>
         <label>

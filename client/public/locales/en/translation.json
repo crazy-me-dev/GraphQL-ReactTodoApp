@@ -59,7 +59,8 @@
   "task": {
     "newName": "Add a new task",
     "newSubmit": "Add task",
-    "placeholder": "Buy milk..."
+    "placeholder": "Buy milk...",
+    "startText": "Start by adding your first task"
   },
   "settings": {
     "title": "Settings",
