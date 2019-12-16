@@ -48,7 +48,8 @@
     "newModal": {
       "title": "Luo uusi projekti",
       "name": "Nimi",
-      "submit": "Lisää"
+      "submit": "Lisää",
+      "placeholder": "Kauppalista"
     },
     "delete": {
       "areYouSure": "Haluatko varmasti poistaa tämän projektin?",

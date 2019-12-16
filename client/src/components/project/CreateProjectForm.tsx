@@ -36,6 +36,7 @@ const CreateProjectForm: React.FC<Props> = ({ onSubmit }) => {
         data-testid="new-project-input"
         type="text"
         value={newProjectName}
+        placeholder={t("project.newModal.placeholder")}
         autoFocus
         onChange={e => updateNewProjectName(e.target.value)}
       />

@@ -28,7 +28,7 @@ const ModalBox: React.FC<Props> = ({ children, onClose }) => {
           >
             &times;
           </CloseButton>
-          {children}
+          <div>{children}</div>
         </ModalBoxWrapper>
       </FocusTrap>
     </animated.div>
@@ -92,6 +92,7 @@ const ModalBoxWrapper = styled.div`
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
+  justify-content: center;
 
   ${mq("medium")} {
     display: block;
