@@ -123,7 +123,7 @@ const Checkbox = styled.label`
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    border: 1px solid ${color("borderDark")};
+    border: 1px solid ${color("grey700")};
     margin-right: 0.5rem;
     &:hover {
       border-color: ${color("primary")};

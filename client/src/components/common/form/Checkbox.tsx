@@ -50,7 +50,7 @@ const CheckboxHelper = styled.span`
   display: inline-block;
   width: 1.5rem;
   height: 1.5rem;
-  border: 2px solid #ddd;
+  border: 2px solid ${color("borderDark")};
   border-radius: 4px;
 `;
 
