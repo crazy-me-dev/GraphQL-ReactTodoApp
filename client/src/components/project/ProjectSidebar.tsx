@@ -80,9 +80,16 @@ const ProjectNumber = styled.small`
 const ProjectListItem = styled.li`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.25rem;
   a {
+    padding: 0.5rem 1rem;
+    display: block;
+    width: calc(100% + 2rem);
     text-decoration: none;
+    margin: 0 -1rem;
+    &:hover {
+      background: ${color("border")};
+      color: ${color("primary")};
+    }
   }
 `;
 

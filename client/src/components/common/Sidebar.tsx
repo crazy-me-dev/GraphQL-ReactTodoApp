@@ -94,6 +94,7 @@ const Overlay = styled.div<{ visible: boolean }>`
 
 const Wrapper = styled.div<WrapperProps>`
   position: relative;
+  overflow: auto;
   transition: all ${props => (props.isTouching ? `0s` : `0.4s`)};
   padding: 4rem 1rem 1rem 1rem;
   background: ${color("background")};
